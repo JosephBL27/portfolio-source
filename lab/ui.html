@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>v4 UI lab</title>
+  <style>
+    html, body { margin: 0; background: #050506; color: #EDE6D6; }
+    #field { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
+    #loader { position: fixed; inset: 0; z-index: 400; background: #050506; }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#index">Skip to the project index</a>
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div id="loader"></div>
+  <main id="track"></main>
+  <div id="dbg" style="position:fixed;left:50%;bottom:6px;translate:-50% 0;z-index:999;font:10px/1 'IBM Plex Mono',monospace;color:#8a8478;pointer-events:none"></div>
+  <script type="module" src="./ui.ts"></script>
+</body>
+</html>

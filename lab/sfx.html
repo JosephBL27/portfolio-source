@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PNEUMA lab: sfx</title>
+  <style>
+    :root { --paper:#0E0F10; --ink:#ECEAE3; --dim:#9A978F; --rule:#2C2E31; --raised:#17191B; --acc:#D9A441; --bad:#FF6A4D; --ok:#7DD3A0; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--paper); color: var(--ink); }
+    body { font: 400 13px/1.5 'IBM Plex Mono', ui-monospace, monospace; padding: 24px; max-width: 1180px; }
+    h1 { font: 500 11px/1 inherit; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); margin: 0 0 18px; }
+    h2 { font: 500 11px/1 inherit; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); margin: 22px 0 8px; }
+    .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    button, select { font: inherit; color: var(--ink); background: var(--raised); border: 1px solid var(--rule); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+    button:hover { border-color: var(--dim); }
+    button:active { transform: scale(.97); }
+    button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+    button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+    button.primary { border-color: var(--acc); color: var(--acc); }
+    label { display: inline-flex; align-items: center; gap: 8px; color: var(--dim); }
+    input[type=range] { accent-color: var(--acc); width: 180px; }
+    output { min-width: 4ch; color: var(--ink); }
+    #meter { height: 8px; width: 260px; background: var(--raised); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+    #meter i { display: block; height: 100%; width: 0; background: var(--ok); transition: width .05s linear; }
+    table { border-collapse: collapse; width: 100%; margin-top: 8px; }
+    th, td { text-align: right; padding: 4px 10px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+    th:first-child, td:first-child { text-align: left; }
+    th { color: var(--dim); font-weight: 500; }
+    td.bad { color: var(--bad); } td.ok { color: var(--ok); }
+    pre { background: var(--raised); border: 1px solid var(--rule); padding: 10px; border-radius: 8px; max-height: 180px; overflow: auto; margin: 8px 0 0; color: var(--dim); }
+  </style>
+</head>
+<body>
+  <h1>PNEUMA lab / sfx: the central TV's sound family</h1>
+
+  <div class="row">
+    <button id="enable" class="primary">Enter with sound</button>
+    <button id="mute" aria-pressed="false">Sound on</button>
+    <button id="reduced" aria-pressed="false">Reduced motion</button>
+    <span id="meter" title="output peak"><i></i></span>
+    <output id="meterv">-inf dB</output>
+  </div>
+
+  <h2>Cues: the TV</h2><div class="row" id="g-tv"></div>
+  <h2>Cues: flight</h2><div class="row" id="g-flight"></div>
+  <h2>Cues: area arrival (WAYPOINTS[].sound)</h2><div class="row" id="g-area"></div>
+  <h2>Cues: morph shimmer per area (forward, then reverse)</h2><div class="row" id="g-morph"></div>
+  <h2>Cues: UI</h2><div class="row" id="g-ui"></div>
+
+  <h2>Flight state (feeds sfx.setFlight every frame)</h2>
+  <div class="row">
+    <label>area <select id="area"></select></label>
+    <label>speed <input id="speed" type="range" min="0" max="1" step="0.01" value="0" /><output id="speedv">0.00</output></label>
+    <label>mix <input id="mix" type="range" min="0" max="1" step="0.01" value="1" /><output id="mixv">1.00</output></label>
+    <label>wp <input id="wp" type="range" min="0" max="18" step="0.01" value="3" /><output id="wpv">3.00</output></label>
+    <button id="dir" aria-pressed="false">Reverse</button>
+    <button id="auto" aria-pressed="false">Auto-advance wp</button>
+  </div>
+  <div class="row" style="margin-top:10px">
+    <button id="demo" class="primary">Fly every waypoint (contract test)</button>
+    <button id="demo-stop">Stop</button>
+  </div>
+  <pre id="log"></pre>
+
+  <h2>Offline level check (OfflineAudioContext through the real master chain)</h2>
+  <div class="row"><button id="run" class="primary">Run level check</button><span id="runstat" style="color:var(--dim)"></span></div>
+  <div id="report"></div>
+  <script type="module" src="./sfx.ts"></script>
+</body>
+</html>

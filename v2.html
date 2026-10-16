@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en" data-theme="night">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Joseph Blumberg: systems that run themselves</title>
+  <meta name="description" content="Joseph Blumberg builds systems that run themselves. A working pneumatic post built from his real job schedule, with 21 projects one click away." />
+  <meta name="theme-color" content="#0E0F10" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 12'><rect x='.6' y='.6' width='28.8' height='10.8' rx='5.4' fill='%23FF6A4D'/></svg>" />
+  <script>
+    // set the theme before first paint (no flash)
+    try { var day = localStorage.getItem('pneuma-night') === '0'; document.documentElement.dataset.theme = day ? 'day' : 'night'; if (day) document.querySelector('meta[name=theme-color]').setAttribute('content', '#EEECE6') } catch (e) { document.documentElement.dataset.theme = 'night' }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#index">Skip to the work</a>
+
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <canvas id="gl-top" aria-hidden="true"></canvas>
+  <div id="labels" aria-hidden="true"></div>
+  <div id="card" class="card" role="tooltip" hidden></div>
+  <div id="trackers" aria-hidden="true"></div>
+  <div id="corners" aria-hidden="true">
+    <canvas class="ht ht-endcap" data-shape="endcap"></canvas>
+    <canvas class="ht ht-elbow" data-shape="elbow"></canvas>
+  </div>
+
+  <header class="bar">
+    <a class="bar-id mono" href="#hero"><span class="lamp lamp-run" aria-hidden="true"></span>Joseph Blumberg <span class="dim">· University of Chicago · Economics · Class of 2029</span></a>
+    <nav class="bar-nav mono" aria-label="Sections">
+      <a href="#work">Work</a><a href="#index">Index</a><a href="#network">System</a><a href="#contact">Contact</a>
+    </nav>
+    <div class="bar-toggles">
+      <button class="tog mono" id="t-pause"><span class="tl">Pause</span><span class="long"> the system</span></button>
+      <button class="tog mono" id="t-sound" aria-pressed="false">Sound off</button>
+      <button class="tog mono" id="t-night" aria-pressed="false">Night<span class="long"> shift</span></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. HERO -->
+    <section id="hero" class="hero" aria-labelledby="h1">
+      <div class="hero-inner">
+        <p class="kicker mono reveal">Pneumatic post · 44 stations · 71 tubes</p>
+        <h1 id="h1" class="name">
+          <span class="w w1">Joseph</span><span class="slot" aria-hidden="true"></span><span class="w w2">Blumberg.</span>
+        </h1>
+        <p class="claim reveal">I build systems that <em>run themselves.</em></p>
+        <ul class="proof mono reveal" id="proof"></ul>
+        <nav class="start reveal" aria-label="Start with">
+          <span class="mono dim">Start with</span>
+          <a href="#work" data-open="selforge">SELFORGE</a>
+          <a href="#work" data-open="love-island">Love Island Dynamics</a>
+          <a href="#work" data-open="odyssey">Odyssey</a>
+          <a href="#work" data-open="second-brain">Second Brain</a>
+        </nav>
+      </div>
+      <p class="live mono" aria-hidden="true"><span class="live-clock" id="live-clock">SUN 07:00</span><span class="live-story" id="live-story"></span></p>
+      <a class="cue mono" href="#work">Follow the capsule <span aria-hidden="true">↓</span></a>
+    </section>
+
+    <!-- 2. WORK: the set -->
+    <section id="work" class="work" aria-labelledby="h-work">
+      <div class="work-stage">
+        <canvas class="work-aura ht" data-shape="record" aria-hidden="true"></canvas>
+        <canvas id="tv" class="tv-canvas" aria-hidden="true"></canvas>
+        <div class="work-ui">
+          <p class="kicker mono work-kicker">02 · The set · Selected work</p>
+          <h2 id="h-work" class="sr">Selected work, on one set</h2>
+          <div class="work-now" aria-live="polite">
+            <p class="mono work-count"><span id="ch-n">01</span><span class="dim"> / <span id="ch-total">06</span></span></p>
+            <p class="work-title" id="ch-title">SELFORGE</p>
+            <p class="mono dim work-medium" id="ch-medium"></p>
+            <button class="cta-open" id="ch-open"><span>Open the work</span><span aria-hidden="true">↗</span></button>
+          </div>
+          <div class="work-ctrl mono">
+            <button class="ch-btn" id="ch-prev" aria-label="Previous channel">←</button>
+            <span class="dim">Turn the dial, scroll, or use the arrows</span>
+            <button class="ch-btn" id="ch-next" aria-label="Next channel">→</button>
+          </div>
+          <ol class="work-dots" id="ch-dots" aria-label="Channels"></ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. INDEX -->
+    <section id="index" class="index-section" aria-label="Index of works"></section>
+
+    <!-- 4. NETWORK -->
+    <section id="network" class="panel-section" aria-labelledby="h-network">
+      <div class="panel">
+        <p class="kicker mono">03 · The system</p>
+        <!-- [new copy, needs Joseph's approval] -->
+        <h2 id="h-network">Everything runs through one brain.</h2>
+        <p class="lede">This is my system as it runs: 44 stations and 71 tubes, drawn from my real job schedule. Each capsule is one run.</p>
+        <div class="clockrow">
+          <svg class="dial" id="dial" viewBox="0 0 168 168" role="slider" tabindex="0" aria-label="Simulated time of day" aria-valuemin="0" aria-valuemax="1439" aria-valuenow="0" aria-valuetext="SUN 07:00"></svg>
+          <div class="clockrow-text">
+            <p class="mono big-clock" id="big-clock">SUN 07:00</p>
+            <p class="mono dim small">Simulated week: one day every 40 seconds.<br />Drag the hand to scrub.</p>
+          </div>
+        </div>
+        <ol class="story" id="story"></ol>
+        <ul class="legend mono small">
+          <li><span class="cap cap-inbound"></span>Blue caps leave a source.</li>
+          <li><span class="cap cap-ink"></span>Black caps move between agents and the brain.</li>
+          <li><span class="cap cap-delivered"></span>Yellow caps deliver an output.</li>
+        </ul>
+        <p class="small dim">Times are real. Jobs that run every few minutes are thinned so the tubes stay readable.</p>
+        <details class="asList">
+          <summary class="mono">Read the system as a list</summary>
+          <div id="stationList"></div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 3. BRAIN -->
+    <section id="brain" class="panel-section panel-left" aria-labelledby="h-brain">
+      <div class="panel">
+        <p class="kicker mono">04 · The brain</p>
+        <h2 id="h-brain">478 notes, etched in glass.</h2>
+        <p class="lede">My vault's link graph on 4 October 2026: 478 notes and 1,887 links. Each layer is a folder. Turn it.</p>
+        <div class="folders" id="folders" role="group" aria-label="Vault folders"></div>
+        <p class="small dim mono">Vault graph export, 4 Oct 2026. Note titles withheld.</p>
+      </div>
+    </section>
+
+    <!-- 6. ABOUT -->
+    <section id="about" class="about" aria-labelledby="h-about">
+      <h2 id="h-about" class="about-h">05 · About</h2>
+      <div class="echo" data-echo>
+        <p class="statement">I study economics at the University of Chicago, class of 2029. Everything I build runs through one Obsidian brain: my agents read it first and commit what they learn back to it.</p>
+      </div>
+    </section>
+
+    <!-- 7. OFF THE BOARD -->
+    <section id="offboard" class="offboard-section" aria-label="Off the board"></section>
+
+    <!-- 6. CONTACT -->
+    <section id="contact" class="contact" aria-labelledby="h-contact">
+      <p class="kicker mono">06 · Write to me</p>
+      <h2 id="h-contact" class="contact-h">Send me a capsule.</h2>
+      <div class="stations-cta">
+        <a class="cta" href="mailto:josephblumberg325@gmail.com" data-send><span class="mono dim">Email</span><span>josephblumberg325@gmail.com</span></a>
+        <a class="cta" href="https://www.linkedin.com/in/joseph-blumberg1" target="_blank" rel="noopener" data-send><span class="mono dim">LinkedIn</span><span>joseph-blumberg1 ↗</span></a>
+        <button class="cta cta-copy" id="copy"><span class="mono dim">Clipboard</span><span>Copy address</span></button>
+      </div>
+      <p class="sr" aria-live="polite" id="live"></p>
+      <footer class="colophon small dim">
+        <p>Built procedurally with three.js, Motion and Anime.js. No 3D models, no stock images: every tube is a real connection in my system.</p>
+        <p>Galen taught that the brain sent pneuma out through the nerves. This site takes him at his word.</p>
+        <p class="mono">Network: nervous-system.json · Vault graph: 4 Oct 2026 · Project figures: projects.json</p>
+      </footer>
+      <div class="sendtube" aria-hidden="true"><span class="sendcap"></span></div>
+    </section>
+  </main>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

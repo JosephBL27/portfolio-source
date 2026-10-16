@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" data-theme="night">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="data:," />
+  <title>PNEUMA lab: works index</title>
+  <style>
+    html, body { margin: 0; }
+    .lab-bar { position: sticky; top: 0; z-index: 20; height: 48px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 0 var(--m, 48px); background: color-mix(in srgb, var(--paper) 86%, transparent); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule); font: 500 11px/1 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .lab-bar .t { display: flex; gap: 8px; }
+    .lab-bar button { font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--ink); background: none;
+      border: 1px solid var(--rule); border-radius: 999px; padding: 7px 12px; cursor: pointer; }
+    .lab-bar button[aria-pressed='true'] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .lab-gap { height: 100vh; display: grid; place-items: center; color: var(--graphite); font: 500 11px 'IBM Plex Mono', monospace; letter-spacing: .1em; text-transform: uppercase; }
+    .lab-gap[hidden] { display: none; }
+    .lab-log { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 30; padding: 9px 14px; border-radius: 999px;
+      background: var(--ink); color: var(--paper); font: 500 11px/1 'IBM Plex Mono', monospace; letter-spacing: .08em; opacity: 0; transition: opacity .3s; }
+    .lab-log.on { opacity: 1; }
+    .lab-tail { height: 60vh; }
+  </style>
+</head>
+<body>
+  <div class="lab-bar"><span>PNEUMA lab · works index</span>
+    <span class="t"><button id="pause" aria-pressed="false">Pause</button><button id="night" aria-pressed="true">Night</button></span></div>
+  <div class="lab-gap" id="gap" hidden>Scroll ↓</div>
+  <section id="index" class="index-section" aria-label="Index of works"></section>
+  <div class="lab-tail"></div>
+  <p class="lab-log" id="log" aria-live="polite"></p>
+  <script type="module" src="./works.ts"></script>
+</body>
+</html>

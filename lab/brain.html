@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" data-theme="day">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PNEUMA lab: the glass brain</title>
+</head>
+<body>
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <svg id="drafting" aria-hidden="true"></svg>
+  <main class="lab">
+    <header class="lab-head">
+      <p class="kicker">PNEUMA <span class="sep">/</span> Lab <span class="sep">/</span> The brain</p>
+      <h2 id="brain-h">478 notes, etched in glass.</h2>
+      <p class="lede">My vault's link graph on 4 October 2026: 478 notes and 1,887 links. Each layer is a folder. Turn it.</p>
+    </header>
+    <nav class="legend" aria-label="Folders"><ol id="folders"></ol></nav>
+    <div class="controls">
+      <button id="pulse" type="button"><i class="dot"></i>Pulse</button>
+      <button id="night" type="button" aria-pressed="false">Night shift</button>
+      <button id="reset" type="button">Front view</button>
+    </div>
+    <aside class="titleblock" aria-label="Source">
+      <div><span>Notes</span><b id="tb-notes"></b></div>
+      <div><span>Links</span><b id="tb-links"></b></div>
+      <div><span>Generated</span><b id="tb-gen"></b></div>
+      <div class="tb-wide"><span>Drag to turn</span><b>Scroll to dolly</b></div>
+    </aside>
+    <div id="tip" role="status" aria-live="polite"></div>
+  </main>
+  <script type="module" src="./brain.ts"></script>
+</body>
+</html>

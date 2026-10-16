@@ -1,0 +1,57 @@
+/* AppFolio lab: blue on ink. Scoped under .af (shared base: lib/model-base.css). Type 12px and up, controls 40px (44px on coarse pointers). */
+.af { --ml-acc: #4da3ff; --ml-acc2: #bcdcff; --ml-rgb: 77, 163, 255; --ml-neg: #ff9a7a; }
+.af-eq { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; margin-bottom: 16px; }
+.af-eq > b { align-self: center; font: 500 20px/1 var(--ml-mono); color: var(--ml-faint); }
+.af-term { display: grid; align-content: center; gap: 3px; min-height: 56px; padding: 8px 14px; border-radius: 12px; text-align: left; border: 1px solid var(--ml-line); background: rgba(var(--ml-rgb), 0.08); transition: background 0.2s, border-color 0.2s, transform 0.15s; touch-action: manipulation; }
+button.af-term { cursor: pointer; }
+button.af-term:hover { background: rgba(var(--ml-rgb), 0.2); border-color: var(--ml-acc); }
+button.af-term:active { transform: scale(0.97); }
+.af-term--r { background: rgba(var(--ml-rgb), 0.2); }
+.af-term i { font: 650 16px/1.1 var(--ml-sans); font-style: normal; color: #fff; }
+.af-term small { font: 500 12px/1.2 var(--ml-mono); color: var(--ml-acc2); }
+.af-tool { margin: -4px 0 16px; gap: 12px; }
+.af-play { min-width: 160px; }
+.af.is-playing .af-play { opacity: 0.6; }
+@container ml (max-width: 560px) { .af-play { width: 100%; } .af-eq > b { display: none; } .af-term { flex: 1 1 140px; } }
+.af-cols { align-items: stretch; }
+.af .ml-p + .ml-p { margin-top: 0; }
+.af-vas { margin-top: 16px; }
+.af-p { transition: border-color 0.3s, box-shadow 0.3s; }
+.af-p.is-hot, .af-vas.is-hot { border-color: var(--ml-acc); box-shadow: 0 0 0 3px rgba(var(--ml-rgb), 0.22); }
+.af-big { display: flex; align-items: baseline; gap: 10px; margin: 0 0 4px; }
+.af-cv { font: 650 clamp(34px, 6cqw, 52px)/1 var(--ml-sans); font-stretch: 108%; letter-spacing: -0.03em; color: #fff; font-variant-numeric: tabular-nums; }
+.af-cy { font-size: 12.5px; color: var(--ml-acc2); }
+.af-svg { display: block; width: 100%; height: auto; }
+.af-svg text { font: 500 11.5px/1 var(--ml-mono); fill: var(--ml-faint); }
+.af-grid { stroke: rgba(255, 255, 255, 0.09); stroke-width: 1; }
+.af-split { stroke: rgba(255, 255, 255, 0.28); stroke-width: 1; stroke-dasharray: 3 4; }
+.af-svg .af-fc { fill: var(--ml-dim); }
+.af-curve { fill: none; stroke: var(--ml-acc); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.af-curve--f { stroke: rgba(var(--ml-rgb), 0.55); stroke-dasharray: 5 6; }
+.af-tri { fill: #ff7a66; }
+.af-dot { fill: #fff; stroke: var(--ml-acc); stroke-width: 3; filter: drop-shadow(0 0 6px rgba(var(--ml-rgb), 0.8)); }
+.af-svg .af-pt { fill: #fff; font-weight: 600; font-size: 12px; }
+.af-stops { margin-top: 4px; }
+.af-fn { margin-top: 10px; }
+.af-bars { display: flex; gap: 22px; justify-content: center; align-items: flex-end; height: 214px; padding-top: 4px; }
+.af-bar { flex: 1 1 0; max-width: 130px; display: grid; grid-template-rows: 1fr auto auto; gap: 5px; justify-items: center; height: 100%; }
+.af-col { position: relative; width: 100%; height: 100%; display: flex; align-items: flex-end; border-bottom: 1px solid rgba(255, 255, 255, 0.25); }
+.af-b { display: block; width: 100%; border-radius: 8px 8px 0 0; background: linear-gradient(180deg, var(--ml-acc), rgba(var(--ml-rgb), 0.35)); }
+.af-b--0 { background: linear-gradient(180deg, rgba(var(--ml-rgb), 0.55), rgba(var(--ml-rgb), 0.18)); }
+.af-bar b { font: 650 clamp(17px, 3cqw, 22px)/1 var(--ml-sans); color: #fff; font-variant-numeric: tabular-nums; }
+.af-bar span { font-size: 12.5px; color: var(--ml-faint); }
+.af-cg { display: grid; gap: 8px; margin-top: 2px; }
+.af-row { display: grid; grid-template-columns: 8.4em minmax(0, 1fr) 3.4em; gap: 10px; align-items: center; font-size: 13px; color: var(--ml-dim); }
+.af-row b { text-align: right; color: #fff; font: 650 14px/1 var(--ml-sans); font-variant-numeric: tabular-nums; }
+.af-tr { height: 14px; border-radius: 7px; background: rgba(255, 255, 255, 0.07); overflow: hidden; }
+.af-g { display: block; height: 100%; border-radius: 7px; }
+.af-g--r { background: linear-gradient(90deg, rgba(var(--ml-rgb), 0.55), var(--ml-acc)); } .af-g--c { background: rgba(255, 255, 255, 0.55); }
+.af-vas { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px; align-items: center; }
+.af-ring { position: relative; width: 132px; height: 132px; }
+.af-ring svg { display: block; width: 100%; height: 100%; }
+.af-rt { fill: none; stroke: rgba(255, 255, 255, 0.1); stroke-width: 12; }
+.af-rf { fill: none; stroke: var(--ml-acc); stroke-width: 12; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(var(--ml-rgb), 0.5)); }
+.af-ring b { position: absolute; inset: 0; display: grid; place-items: center; font: 650 24px/1 var(--ml-sans); font-stretch: 108%; color: #fff; font-variant-numeric: tabular-nums; }
+.af-vt p { margin: 0 0 6px; } .af-vt b { color: #fff; font-weight: 650; font-variant-numeric: tabular-nums; }
+@container ml (max-width: 460px) { .af-vas { grid-template-columns: minmax(0, 1fr); justify-items: start; } .af-row { grid-template-columns: 7.4em minmax(0, 1fr) 3.4em; } .af-bars { height: 180px; gap: 14px; } }
+@media (pointer: coarse) { .af .ml-chip, .af .ml-btn { min-height: 44px; } }

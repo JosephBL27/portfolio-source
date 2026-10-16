@@ -1,0 +1,49 @@
+/* Unit 10A: the autoplay tour's caption and progress strip. Imported by src/v3/ui/ui.ts. */
+.tour {
+  --tr-a: var(--ink);
+  position: fixed; z-index: calc(var(--z-hud) + 2); left: 50%; bottom: var(--tour-bot, 18px);
+  /* docked bottom-centre: clears the camera readout (left) and the counter (right) */
+  width: min(520px, calc(100vw - 2 * var(--pad) - 360px), 26vw); min-width: 340px; translate: -50% 0; pointer-events: none;
+  display: grid; gap: 12px; padding: 13px 16px 12px; border: 1px solid var(--hair-2); border-radius: 10px;
+  background: color-mix(in srgb, var(--ground) 82%, transparent); backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  opacity: 0; transform: translateY(14px); transition: opacity .4s var(--ease-out), transform .5s var(--ease-out);
+}
+.tour[hidden] { display: none; }
+.tour.on { opacity: 1; transform: none; }
+.tr-say { margin: 0; font: 400 clamp(17px, 1.45vw, 20px)/1.38 var(--serif-i); color: var(--ink); text-wrap: balance; }
+.tr-say:empty { display: none; }
+.tr-st { margin: 0; color: var(--dim); font-size: 10.5px; letter-spacing: .06em; white-space: nowrap; }
+.tr-w { display: inline-block; white-space: pre; will-change: transform, opacity; }
+.tr-row { display: flex; align-items: center; gap: 12px; pointer-events: auto; }
+.tr-bar { position: relative; flex: 1; height: 3px; border-radius: 2px; background: var(--hair-2); overflow: hidden; }
+.tr-fill { position: absolute; inset: 0; transform-origin: 0 50%; transform: scaleX(0); background: var(--tr-a); transition: transform .25s linear; }
+.tr-ticks { position: absolute; inset: 0; display: flex; }
+.tr-ticks i { flex: 1; box-shadow: inset -2px 0 0 var(--ground); }
+.tr-b { display: inline-flex; align-items: center; gap: 7px; flex: none; min-height: 30px; padding: 6px 10px; border: 1px solid var(--hair); border-radius: 999px; color: var(--ink); transition: border-color .2s, background .2s, color .2s; }
+.tr-b:hover, .tr-b:focus-visible { border-color: var(--ink); background: var(--ink); color: var(--ground); }
+.tr-b kbd { font: 500 10px/1 var(--mono); letter-spacing: 0; padding: 2px 4px; border: 1px solid currentColor; border-radius: 3px; opacity: .6; }
+.tour.paused .tr-fill { opacity: .5; }
+html.rm .tour, html.rm .tr-fill { transition: none; }
+html.rm .tr-say:empty { display: none; }
+.tr-st { margin: 0; color: var(--dim); font-size: 10.5px; letter-spacing: .06em; white-space: nowrap; }
+.tr-w { will-change: auto; }
+/* the panel's resting height above the viewport floor: desktop 18px; on a phone the HUD owns the bottom 72px, so it sits above that band */
+/* (on :root so the fade-out keeps its place) */
+:root { --tour-bot: max(18px, env(safe-area-inset-bottom)); }
+@media (max-width: 760px) {
+  :root { --tour-bot: calc(84px + env(safe-area-inset-bottom)); }
+  .tour { width: calc(100vw - 24px); min-width: 0; padding: 12px 14px 10px; gap: 9px; }
+  .tr-say { font-size: 17px; }
+  .tr-row { flex-wrap: wrap; gap: 8px; }
+  .tr-bar { order: -1; flex-basis: 100%; }
+  .tr-b { min-height: 44px; } .tr-b kbd { display: none; }
+  .tr-st { font-size: 10px; }
+  /* the card's title and figure sit in the same bottom band on a phone: lift them clear of the panel while it speaks */
+  html.touring .ov .info { translate: 0 calc(-1 * (var(--tour-h, 160px) + 8px)); transition: translate .4s var(--ease-out); }
+}
+/* while the tour speaks, the cards keep their title and figure; the paragraphs, chips and buttons wait for the visitor */
+html.touring .ov .info :is(.body, .lede, .what, .acts, .also, .stops, .proj .body, .pcard .body, .edu-detail) { display: none; }
+/* the hall's own "choose a window" pill asks the visitor to act; the tour hides it while it drives */
+html.touring #hall-hint { visibility: hidden; }
+/* the crate of songs sits low; lift it above the strip while the tour is on */
+html.touring .crate { bottom: calc(var(--tour-bot) + var(--tour-h, 130px) + 12px); }

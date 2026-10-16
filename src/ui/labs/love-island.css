@@ -1,0 +1,21 @@
+/* Love Island lab: the standalone demo in a frame. Rose on deep black, the portfolio's research accent. Scoped under .lid. */
+.lid { --lid-rose: #ff6a8d; --lid-line: rgba(255, 106, 141, 0.28); --lid-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace; position: relative; width: 100%; color: #f1ede2; }
+.lid-frame { position: relative; width: 100%; height: clamp(560px, 84vh, 880px); border: 1px solid var(--lid-line); border-radius: 18px; overflow: hidden; background: #050506; box-shadow: 0 40px 90px -40px #000, inset 0 1px 0 rgba(255, 255, 255, 0.08); }
+.lid-if { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: #050506; color-scheme: dark; opacity: 0; transition: opacity 0.5s ease; }
+.lid.is-ready .lid-if, .lid.is-reduced .lid-if { opacity: 1; }
+.lid.is-reduced .lid-if { transition: none; }
+.lid-load { position: absolute; inset: 0; display: grid; place-items: center; font: 500 11.5px/1 var(--lid-mono); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(241, 237, 226, 0.5); pointer-events: none; transition: opacity 0.4s ease; }
+.lid.is-ready .lid-load { opacity: 0; }
+.lid-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 14px 2px 0; }
+.lid-tag { font: 500 11px/1 var(--lid-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lid-rose); border: 1px dashed var(--lid-line); padding: 5px 8px; border-radius: 4px; }
+.lid-note { flex: 1 1 280px; font-size: 13px; line-height: 1.45; color: rgba(241, 237, 226, 0.66); }
+.lid-open { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--lid-line); color: #f1ede2; text-decoration: none; font: 600 13px/1 'Archivo Variable', 'Archivo', system-ui, sans-serif; transition: background 0.2s, border-color 0.2s; }
+.lid-open:hover { background: rgba(255, 106, 141, 0.16); border-color: rgba(255, 106, 141, 0.6); }
+.lid-skip { position: absolute; left: 12px; top: 12px; z-index: 3; padding: 10px 14px; border-radius: 8px; background: #f1ede2; color: #050506; font: 600 13px/1 system-ui, sans-serif; text-decoration: none; }
+.lid-skip:not(:focus) { clip-path: inset(50%); width: 1px; height: 1px; padding: 0; overflow: hidden; white-space: nowrap; }   /* hidden until a keyboard user reaches it (the 2D lab now sits above, so an off-top offset would land on it) */
+.lid :focus-visible { outline: 2px solid #ffc2d1; outline-offset: 2px; }
+@media (max-width: 700px) { .lid-frame { height: clamp(560px, 88svh, 760px); border-radius: 14px; } }
+
+/* the original 2D lab sits above the full villa */
+.lid-2d { margin-bottom: clamp(28px, 4vw, 48px); }
+.lid-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: 0 0 12px; }

@@ -1,0 +1,861 @@
+{
+ "selforge": [
+  {
+   "slug": "demo",
+   "lg": "media/selforge/demo.mp4",
+   "sm": "media/selforge/demo-poster.webp",
+   "width": 886,
+   "height": 1926,
+   "orientation": "portrait",
+   "kind": "video",
+   "alt": "A screen recording of SELFORGE on an iPhone: the Missions screen with two armed alarms, a habit tapped forward, the Stats screen, the Trophy Case with a gold badge tilting, Ember getting a high-five, and a full-screen celebration for a platinum trophy.",
+   "caption": "One run through the app: alarms, habits, stats, the Trophy Case, Ember, a trophy earned"
+  },
+  {
+   "slug": "trophy-case",
+   "lg": "media/selforge/trophy-case-lg.webp",
+   "sm": "media/selforge/trophy-case-sm.webp",
+   "width": 1100,
+   "height": 2390,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "SELFORGE Trophy Case screen: a hero shelf with a glowing platinum shield badge, 'Monthly Monster, Platinum, your proudest trophy', above a Pushups shelf of hexagonal badges: bronze First Fifty, silver Century Club and The Grind 250, gold Half-K Hero and Comma Club, and locked grey badges for Iron Bank, Ten Thousand Hands and The 25K Wall. Ember the flame mascot is docked bottom left.",
+   "caption": "Trophy Case: the platinum Monthly Monster on top, pushup medals below"
+  },
+  {
+   "slug": "trophy-earned",
+   "lg": "media/selforge/trophy-earned-lg.webp",
+   "sm": "media/selforge/trophy-earned-sm.webp",
+   "width": 1100,
+   "height": 2390,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "Full-screen trophy celebration on a dark blue glow: 'PLATINUM' above a shining pale-blue shield with a flame, the title 'Monthly Monster', '30-day wake streak', the line 'Thirty consecutive dawns. This is who you are now.' and an orange 'Keep Going' button.",
+   "caption": "The moment a trophy lands: Monthly Monster, a 30-day wake streak"
+  },
+  {
+   "slug": "trophy-detail",
+   "lg": "media/selforge/trophy-detail-lg.webp",
+   "sm": "media/selforge/trophy-detail-sm.webp",
+   "width": 1100,
+   "height": 2390,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "Trophy detail sheet over the dimmed Trophy Case: a large gold hexagonal badge with a lifter icon, 'GOLD', 'Comma Club', '1,000 lifetime reps. That's a number with a comma.', a green check reading '1,000 lifetime pushups on this device' and the hint 'drag the badge to tilt it'.",
+   "caption": "Comma Club, gold: 1,000 lifetime pushups, with a badge you can tilt"
+  },
+  {
+   "slug": "stats-live",
+   "lg": "media/selforge/stats-live-lg.webp",
+   "sm": "media/selforge/stats-live-sm.webp",
+   "width": 1100,
+   "height": 2390,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "SELFORGE Stats screen with demo history: a 52-day streak ('Violet Flame') and best of 52, 2,057 pushups ('Comma Club, Gold'), 3,237 squats, 126 wake-ups, a Trophy Case row reading '15 of 65 unlocked' with three badges, and the top of an October 2026 calendar.",
+   "caption": "The Stats screen: streaks, pushup and squat totals, trophies unlocked"
+  },
+  {
+   "slug": "store-missions",
+   "lg": "media/selforge/store-missions-lg.webp",
+   "sm": "media/selforge/store-missions-sm.webp",
+   "width": 1100,
+   "height": 2390,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "SELFORGE Missions screen from the App Store set: a 'Today's adaptive set' card reading 10 pushups, 'Learning your pace and task time, 0/3 verified sets', floor 6, ceiling 14, and a 7:00 AM weekday alarm 'Morning Momentum' set to 10 pushups then 20 squats, with Ember docked above the tab bar.",
+   "caption": "Missions: today's adaptive set and a 7:00 alarm that chains pushups and squats"
+  },
+  {
+   "slug": "store-habits",
+   "lg": "media/selforge/store-habits-lg.webp",
+   "sm": "media/selforge/store-habits-sm.webp",
+   "width": 1100,
+   "height": 2390,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "SELFORGE Habits screen from the App Store set: a 'Your rhythm, today' card with Ember, a 1-day login streak, 0 of 2 goals met and 0 shields, a widget tip, and the habits 'Drink water' at 2 of 8 and 'No late snacks'.",
+   "caption": "Habits: one-tap logging, daily goals and streak shields"
+  },
+  {
+   "slug": "store-crew",
+   "lg": "media/selforge/store-crew-lg.webp",
+   "sm": "media/selforge/store-crew-sm.webp",
+   "width": 1100,
+   "height": 2390,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "SELFORGE Crew screen from the App Store set: a large waving flame mascot over 'Wake up better, together', the preset nickname 'Bright Ember', three sharing toggles for wake streaks, trophies and workout stats, all off, and a 'Private by default' note.",
+   "caption": "Crew: invite-only accountability with friends"
+  },
+  {
+   "slug": "store-settings",
+   "lg": "media/selforge/store-settings-lg.webp",
+   "sm": "media/selforge/store-settings-sm.webp",
+   "width": 1100,
+   "height": 2390,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "SELFORGE Settings screen from the App Store set: Training rows for Your Goal 10 to 14, Pushup Tracking 130 / 130 degrees, Squat Goal 20 to 35, Squat Tracking 100 / 155 degrees and Habit Settings, then Alarm rows for sound, missions, recurring missions, notifications and appearance.",
+   "caption": "Settings: pushup and squat goals and the joint angles the rep counter uses"
+  },
+  {
+   "slug": "rep-counter-v1",
+   "lg": "media/selforge/rep-counter-v1-lg.webp",
+   "sm": "media/selforge/rep-counter-v1-sm.webp",
+   "width": 900,
+   "height": 1957,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "Early rep-counting screen on a dark red background with a large '0 / 3' counter and the message 'Can't see you. Prop the phone against something, get down, and make sure your arms and shoulders are in frame, side-on works best.'",
+   "caption": "The day-two rep counter, July 3 2026, asking me to get my arms in frame"
+  },
+  {
+   "slug": "icon-night",
+   "lg": "media/ember/icon-night-lg.webp",
+   "sm": "media/ember/icon-night-sm.webp",
+   "width": 512,
+   "height": 512,
+   "orientation": "square",
+   "kind": "icon",
+   "alt": "Night app icon: the orange flame mascot wears a dark sleep mask and holds a purple alarm clock, with three z's drifting up on a deep violet background.",
+   "caption": "Night icon, rendered from the same SwiftUI code as the in-app mascot"
+  },
+  {
+   "slug": "icon-daytime",
+   "lg": "media/ember/icon-daytime-lg.webp",
+   "sm": "media/ember/icon-daytime-sm.webp",
+   "width": 512,
+   "height": 512,
+   "orientation": "square",
+   "kind": "icon",
+   "alt": "Daytime app icon: the orange flame mascot with a blue sweatband, a sweat drop and an open mouth, arms spread, on an orange gradient.",
+   "caption": "Daytime sweatband icon, also the default SELFORGE app icon"
+  },
+  {
+   "slug": "icon-sunrise",
+   "lg": "media/ember/icon-sunrise-lg.webp",
+   "sm": "media/ember/icon-sunrise-sm.webp",
+   "width": 512,
+   "height": 512,
+   "orientation": "square",
+   "kind": "icon",
+   "alt": "Sunrise app icon: the orange flame mascot with a surprised face and raised arms, a small yellow sun at the tip of its flame, on a peach gradient.",
+   "caption": "Sunrise icon, shown in the hours after the user's wake time"
+  },
+  {
+   "slug": "icon-streak",
+   "lg": "media/ember/icon-streak-lg.webp",
+   "sm": "media/ember/icon-streak-sm.webp",
+   "width": 512,
+   "height": 512,
+   "orientation": "square",
+   "kind": "icon",
+   "alt": "Streak app icon: the orange flame mascot with raised arms and three small sparkles above its flame, on a red-orange gradient.",
+   "caption": "Streak icon variant, rendered from the in-app mascot code"
+  },
+  {
+   "slug": "icon-classic",
+   "lg": "media/ember/icon-classic-lg.webp",
+   "sm": "media/ember/icon-classic-sm.webp",
+   "width": 512,
+   "height": 512,
+   "orientation": "square",
+   "kind": "icon",
+   "alt": "Classic app icon: the orange flame mascot smiling, with one arm raised and one arm low, on an orange gradient.",
+   "caption": "Classic icon variant, rendered from the in-app mascot code"
+  }
+ ],
+ "recruiting-os": [
+  {
+   "slug": "jobs-deadline-grid",
+   "lg": "media/recruiting-os/jobs-deadline-grid-lg.webp",
+   "sm": "media/recruiting-os/jobs-deadline-grid-sm.webp",
+   "width": 1440,
+   "height": 590,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "Recruiting OS Jobs screen with a dark sidebar of eight screens, the headline '11 programs close before October 16. Evercore's Networking is first, closing today.', and a week-by-week grid counting program deadlines over the next 120 days across Quant, IB, HF, PE, AM and Other lanes.",
+   "caption": "Jobs screen: a 120-day grid of program deadlines by week and lane"
+  },
+  {
+   "slug": "jobs-program-table",
+   "lg": "media/recruiting-os/jobs-program-table-lg.webp",
+   "sm": "media/recruiting-os/jobs-program-table-sm.webp",
+   "width": 1176,
+   "height": 1000,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "A sorted table of 17 internship programs from firms such as Point72, T. Rowe Price, Evercore, Goldman Sachs, Blackstone and Hudson River Trading, each with a lane tag, a status pill like 'Closing soon' or 'Open', eligibility marked Eligible or Unclear, a close date and days left.",
+   "caption": "Programs sorted by days left, with lane, status, eligibility and close date"
+  },
+  {
+   "slug": "firm-deadline-timeline",
+   "lg": "media/recruiting-os/firm-deadline-timeline-lg.webp",
+   "sm": "media/recruiting-os/firm-deadline-timeline-sm.webp",
+   "width": 1208,
+   "height": 240,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "A 'Programs and deadlines' timeline from October to March showing three Evercore IB programs: a solid bar for an official date, dashed boxes for estimated windows labeled 'unclear', a today marker at 01-Oct-2026, and a legend for official, estimated, stale and closed dates.",
+   "caption": "Firm timeline: each program's dates marked official or estimated, with today"
+  },
+  {
+   "slug": "jobs-mobile",
+   "lg": "media/recruiting-os/jobs-mobile-lg.webp",
+   "sm": "media/recruiting-os/jobs-mobile-sm.webp",
+   "width": 780,
+   "height": 1688,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "The Recruiting OS Jobs screen on a phone, with the headline 'Ten programs close before October 12', an 'Open first deadline' button, a compact week-by-week deadline grid by lane and a dark bottom tab bar from Today to Settings.",
+   "caption": "The Jobs screen on a phone, 27 Sep 2026: next deadlines and the lane grid"
+  }
+ ],
+ "chomchom": [
+  {
+   "slug": "story-details",
+   "lg": "media/chomchom/story-details-lg.webp",
+   "sm": "media/chomchom/story-details-sm.webp",
+   "width": 900,
+   "height": 1956,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "Two phones on a purple and mint background show ChomChom's Story Details screen, with the dog character, the story theme \"New Experiences\", the topic \"Learning to bike\", and multiple-choice feeling questions with answers selected, under the headline \"Nurture Emotional Intelligence\".",
+   "caption": "Story Details: feelings questions for a story about learning to bike"
+  },
+  {
+   "slug": "mindfulness-challenge",
+   "lg": "media/chomchom/mindfulness-challenge-lg.webp",
+   "sm": "media/chomchom/mindfulness-challenge-sm.webp",
+   "width": 800,
+   "height": 555,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "A tablet shows the \"Welcome To Mindfulness Challenge\" screen, listing level 1 \"Cloud Color\" for 5 points and level 2 \"Shaking Away Disappointments\" for 15 points, with the ChomChom dog on a glowing platform in a purple space scene.",
+   "caption": "The Mindfulness Challenge levels, as featured by The Learning Counsel"
+  },
+  {
+   "slug": "activity-map",
+   "lg": "media/chomchom/activity-map-lg.webp",
+   "sm": "media/chomchom/activity-map-sm.webp",
+   "width": 1167,
+   "height": 565,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "The ChomChom home screen is a cartoon road map that links Daily Checkin, Mindfulness Challenge, Story, Games and Journaling stops on a green field, with a small car on the road and a \"Fun With\" button in the corner.",
+   "caption": "Home screen: a road map linking check-in, mindfulness, stories, games and journaling"
+  },
+  {
+   "slug": "character-select",
+   "lg": "media/chomchom/character-select-lg.webp",
+   "sm": "media/chomchom/character-select-sm.webp",
+   "width": 1040,
+   "height": 445,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "A screen titled \"Who Will Be Part Of Your Adventure Today?\" shows five cartoon story characters in a mountain meadow: Cousin Lilly, Miss Liza, Coach Sunny, Mrs Zee and Mr Jerry, each with a role label.",
+   "caption": "Picking the story characters for the day's adventure"
+  },
+  {
+   "slug": "finalist-2025",
+   "lg": "media/codie/finalist-2025-lg.webp",
+   "sm": "media/codie/finalist-2025-sm.webp",
+   "width": 512,
+   "height": 280,
+   "orientation": "landscape",
+   "kind": "badge",
+   "alt": "The official 2025 CODiE Finalist badge: orange lettering reading \"2025 CODiE FINALIST\" between pairs of yellow diagonal slashes, on a transparent background.",
+   "caption": "The 2025 CODiE Awards Finalist badge, awarded to ChomChom Tech in two categories"
+  }
+ ],
+ "odyssey": [
+  {
+   "slug": "live-the-bow",
+   "lg": "media/odyssey/live-the-bow-lg.webp",
+   "sm": "media/odyssey/live-the-bow-sm.webp",
+   "width": 2000,
+   "height": 1250,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "Odyssey instrument turned to Book XXI: a gold-ringed wheel of Roman-numeral books with red episode and green theme rings around a sun face, beside a cream folio titled The Bow with its summary and a constellation plate.",
+   "caption": "Turned to Book XXI, The Bow: the rings redraw and its folio opens"
+  },
+  {
+   "slug": "live-andra-moi",
+   "lg": "media/odyssey/live-andra-moi-lg.webp",
+   "sm": "media/odyssey/live-andra-moi-sm.webp",
+   "width": 2000,
+   "height": 1250,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "Dark navy whole-poem view under concentric gold arcs: the opening line Andra moi ennepe, Mousa set large in cream and gold, a one-paragraph gloss, and a strip of the poem's six movements with their day ranges.",
+   "caption": "The whole-poem view opens on the first line, Ándra moi énnepe, Moûsa"
+  },
+  {
+   "slug": "live-phone",
+   "lg": "media/odyssey/live-phone-lg.webp",
+   "sm": "media/odyssey/live-phone-sm.webp",
+   "width": 780,
+   "height": 1688,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "Phone view of the Odyssey instrument: the full four-ring wheel at the top with Book I under the pointer, and below it the cream folio headed Book I, A House Without Its Master.",
+   "caption": "On a phone the wheel sits above the folio for Book I"
+  },
+  {
+   "slug": "instrument",
+   "lg": "media/odyssey/instrument-lg.webp",
+   "sm": "media/odyssey/instrument-sm.webp",
+   "width": 1440,
+   "height": 900,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "A dark navy reading interface with a large four-ring wheel of Roman-numeral books and red and green episode bands around a sun medallion, beside a cream reading sheet titled Book I, A House Without Its Master.",
+   "caption": "The wheel: movement, book, episode and theme rings, with Book I's reading sheet open"
+  }
+ ],
+ "metamorphoses": [
+  {
+   "slug": "compass-loop",
+   "lg": "media/metamorphoses/compass-loop.mp4",
+   "sm": "media/metamorphoses/compass-loop-poster.webp",
+   "width": 1080,
+   "height": 1080,
+   "orientation": "square",
+   "kind": "video",
+   "alt": "The wheel turning through all fifteen books, about 0.6 seconds per book: each step brings the next Roman numeral under the Now Reading pointer while that book's episodes and themes fade into the red and green rings in sequence, and the loop closes back on Book I.",
+   "caption": "One full turn of the compass, all fifteen books"
+  },
+  {
+   "slug": "compass-folio",
+   "lg": "media/metamorphoses/compass-folio-lg.webp",
+   "sm": "media/metamorphoses/compass-folio-sm.webp",
+   "width": 1800,
+   "height": 1125,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "An episode folio opened from the wheel: Orpheus & Eurydice, narrative sequence 1 of 10 in Book X, set in Thrace and on the road through the Underworld, with a public-domain woodcut plate and a numbered account of what happens, while the turned wheel stays visible at left.",
+   "caption": "Any episode on the wheel opens its own illustrated folio; plate is a public-domain 1501 woodcut"
+  },
+  {
+   "slug": "compass-book-x",
+   "lg": "media/metamorphoses/compass-book-x-lg.webp",
+   "sm": "media/metamorphoses/compass-book-x-sm.webp",
+   "width": 1800,
+   "height": 1125,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "The wheel turned to Book X, The Orphic Book: its ten episodes, from Orpheus & Eurydice and Pygmalion to Death of Adonis, fill the red ring, its four themes fill the green ring, and the sheet on the right summarizes the book beside a 1501 Venice woodcut plate.",
+   "caption": "Turned to Book X: the rings redraw with that book's episodes and themes"
+  },
+  {
+   "slug": "compass-midturn",
+   "lg": "media/metamorphoses/compass-midturn-lg.webp",
+   "sm": "media/metamorphoses/compass-midturn-sm.webp",
+   "width": 1800,
+   "height": 1125,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "The wheel caught mid-drag, turned 12 degrees between Book I and Book II, so the gold Book I segment has slid halfway past the Now Reading pointer while Book I's episodes and themes still fill the red and green rings.",
+   "caption": "Mid-turn: dragging the wheel, halfway from Book I to Book II"
+  },
+  {
+   "slug": "compass-rest",
+   "lg": "media/metamorphoses/compass-rest-lg.webp",
+   "sm": "media/metamorphoses/compass-rest-sm.webp",
+   "width": 1800,
+   "height": 1125,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "The Metamorphoses instrument at rest on Book I: a navy four-ring wheel of eras, Roman-numeral books, red episode segments and green theme segments around an engraved sun, with the gold Book I segment under the fixed Now Reading pointer, the headline Fifteen books. One turning world. at left, and the cream Book I sheet, Origins & Desire, on the right above the fifteen-book rail.",
+   "caption": "The compass at rest on Book I, from the live site"
+  },
+  {
+   "slug": "compass-sea-chart",
+   "lg": "media/metamorphoses/compass-sea-chart-lg.webp",
+   "sm": "media/metamorphoses/compass-sea-chart-sm.webp",
+   "width": 1800,
+   "height": 1125,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "The sea chart of the poem's geography with Journeys switched on: a parchment-and-navy map of the Mediterranean and Black Sea with dashed red routes running between places such as Rome, Troy, Crete and Phoenicia, a symbol key, a scale bar in kilometres and Roman miles, and a gazetteer of 141 places on the right.",
+   "caption": "The sea chart, Journeys view: every place the poem names, at its real longitude and latitude"
+  },
+  {
+   "slug": "instrument-mobile",
+   "lg": "media/metamorphoses/instrument-mobile-lg.webp",
+   "sm": "media/metamorphoses/instrument-mobile-sm.webp",
+   "width": 390,
+   "height": 844,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "The phone layout of the Metamorphoses aid, with the four-ring wheel at the top, the Book I Origins and Desire sheet and woodcut plate below, and a bottom tab bar.",
+   "caption": "The compass on a phone, with Book I's folio and plate below it"
+  }
+ ],
+ "liaozhai": [
+  {
+   "slug": "live-painted-skin",
+   "lg": "media/liaozhai/live-painted-skin-lg.webp",
+   "sm": "media/liaozhai/live-painted-skin-sm.webp",
+   "width": 2000,
+   "height": 1250,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "Liaozhai register view on register 03: a dark teal concentric wheel with figure and motif medallions around a centre reading 03 Painted Skin, a red-and-white fox illustration, and a cream dossier titled Painted Skin with figures, pressure, motif, locus and trace-next links.",
+   "caption": "Register 03, Painted Skin: the tale's figures and motifs ring its dossier"
+  },
+  {
+   "slug": "live-relations",
+   "lg": "media/liaozhai/live-relations-lg.webp",
+   "sm": "media/liaozhai/live-relations-sm.webp",
+   "width": 2000,
+   "height": 1251,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "The relation register: cream slips on a dark grid joined by labelled curves, linking the tale Painted Skin to figures (Wang, Wang's wife, the painted-skin demon, the Taoist priest), motifs, institutions and three related tales.",
+   "caption": "The relation register traces Painted Skin to figures, motifs and tales"
+  },
+  {
+   "slug": "live-phone",
+   "lg": "media/liaozhai/live-phone-lg.webp",
+   "sm": "media/liaozhai/live-phone-sm.webp",
+   "width": 780,
+   "height": 1688,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "Phone view of Liaozhai: the register wheel peeks out behind a cream dossier sheet for 03 Painted Skin with its printmark strip, figures, pressure and motif, above a rail of register slips.",
+   "caption": "On a phone the Painted Skin dossier slides up over the register wheel"
+  },
+  {
+   "slug": "register",
+   "lg": "media/liaozhai/register-lg.webp",
+   "sm": "media/liaozhai/register-sm.webp",
+   "width": 1536,
+   "height": 1024,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "A dark teal docket-style interface with a concentric wheel of fifteen tale registers on the left, a cut-paper red fox crossing it, and a cream dossier for tale 01, Yingning, with figures, motif and locus fields, beside side navigation and reading-state counts.",
+   "caption": "Register view: the dial of 15 reading paths, with tale 01, Yingning, open in the dossier"
+  }
+ ],
+ "wwii": [
+  {
+   "slug": "page-1-title",
+   "lg": "media/wwii/page-1-title-lg.webp",
+   "sm": "media/wwii/page-1-title-sm.webp",
+   "width": 1700,
+   "height": 2200,
+   "orientation": "portrait",
+   "kind": "page",
+   "alt": "Title page of the paper Unequal Mobilization: Military Loss, Federal War Investment, and the Geography of Postwar Development, by Joseph Blumberg, August 30, 2026, with the abstract.",
+   "caption": "Title page and abstract of Unequal Mobilization"
+  },
+  {
+   "slug": "page-22-imbalance-map",
+   "lg": "media/wwii/page-22-imbalance-map-lg.webp",
+   "sm": "media/wwii/page-22-imbalance-map-sm.webp",
+   "width": 1700,
+   "height": 2200,
+   "orientation": "portrait",
+   "kind": "page",
+   "alt": "Paper page 22 with Figure 2: a US county map shaded red where wartime loss exceeded federal war investment and blue where investment exceeded loss, with its notes and the following text.",
+   "caption": "Page 22: Figure 2, the county map of loss against war investment"
+  },
+  {
+   "slug": "four-geographies",
+   "lg": "media/wwii/four-geographies-lg.webp",
+   "sm": "media/wwii/four-geographies-sm.webp",
+   "width": 1600,
+   "height": 1001,
+   "orientation": "landscape",
+   "kind": "figure",
+   "alt": "Four US county maps side by side: Army and Air Force deaths per 1,000 residents in red, and per-resident war supply contracts, publicly financed war plant, and military installations in blue.",
+   "caption": "Army and Air Force deaths per 1,000 residents beside three kinds of war investment"
+  },
+  {
+   "slug": "imbalance-map",
+   "lg": "media/wwii/imbalance-map-lg.webp",
+   "sm": "media/wwii/imbalance-map-sm.webp",
+   "width": 1600,
+   "height": 949,
+   "orientation": "landscape",
+   "kind": "figure",
+   "alt": "US county map shaded red where wartime loss exceeded federal war investment and blue where investment exceeded loss, on a scale from about minus 3 to plus 3 standard deviations.",
+   "caption": "Counties where wartime loss outran federal investment (red) and the reverse (blue)"
+  }
+ ],
+ "appfolio": [
+  {
+   "slug": "page-1-title",
+   "lg": "media/appfolio/page-1-title-lg.webp",
+   "sm": "media/appfolio/page-1-title-sm.webp",
+   "width": 2000,
+   "height": 1125,
+   "orientation": "landscape",
+   "kind": "page",
+   "alt": "Cover slide of the stock pitch: the Michigan Interactive Investment bull-and-bear logo above Appfolio Pitch (APPF): The Second Act, Joseph Blumberg, framed by thumbnails of the deck's charts.",
+   "caption": "The pitch cover: AppFolio (APPF), The Second Act"
+  },
+  {
+   "slug": "page-2-revenue-per-customer",
+   "lg": "media/appfolio/page-2-revenue-per-customer-lg.webp",
+   "sm": "media/appfolio/page-2-revenue-per-customer-sm.webp",
+   "width": 2000,
+   "height": 1125,
+   "orientation": "landscape",
+   "kind": "page",
+   "alt": "Slide 2 line chart titled Revenue per Customer (RPC) Has Risen Sharply, climbing from $10,520 in 2016 to $38,210 in 2024, sourced to AppFolio 10-K filings.",
+   "caption": "Revenue per customer rose from $10,520 in 2016 to $38,210 in 2024"
+  },
+  {
+   "slug": "cagr-rpc-vs-customers",
+   "lg": "media/appfolio/cagr-rpc-vs-customers-lg.webp",
+   "sm": "media/appfolio/cagr-rpc-vs-customers-sm.webp",
+   "width": 1600,
+   "height": 804,
+   "orientation": "landscape",
+   "kind": "chart",
+   "alt": "Bar chart: AppFolio revenue per customer grew 17.5% a year over 2016 to 2024 and 18.0% over 2020 to 2024, while customer count grew 9.5% and 7.2% a year.",
+   "caption": "Revenue per customer grew 17.5% a year over 2016-2024, against 9.5% for customer count"
+  },
+  {
+   "slug": "customers-logistic-fit",
+   "lg": "media/appfolio/customers-logistic-fit-lg.webp",
+   "sm": "media/appfolio/customers-logistic-fit-sm.webp",
+   "width": 1600,
+   "height": 804,
+   "orientation": "landscape",
+   "kind": "chart",
+   "alt": "Line chart: AppFolio customers rise from 8,218 in 2015 to 20,784 in 2024, and a fitted logistic curve flattens through red forecast triangles to 24,204 in 2030.",
+   "caption": "Customers rose from 8,218 to 20,784, and a logistic fit reaches 24,204 by 2030"
+  }
+ ],
+ "carta": [
+  {
+   "slug": "live-portolan",
+   "lg": "media/carta/live-portolan-lg.webp",
+   "sm": "media/carta/live-portolan-sm.webp",
+   "width": 2000,
+   "height": 1621,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "Carta del Cervello in parchment: a ring of ten vault territories as arcs sized by note count and washed by staleness, red and grey rhumb lines crossing between them, named ports such as Identity and Work, and the line 485 notes, 2,334 links, 44% cross a border.",
+   "caption": "The portolan: ten territories as arcs, their links drawn as rhumb lines"
+  },
+  {
+   "slug": "live-rhumb-dark",
+   "lg": "media/carta/live-rhumb-dark-lg.webp",
+   "sm": "media/carta/live-rhumb-dark-sm.webp",
+   "width": 1720,
+   "height": 1120,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "Close crop of the dark-theme portolan: gold and grey territory arcs around a compass rose, with red rhumb lines fanning from Meta to Projects, Resources and Daily, and port labels for Identity, Work, Career and Education.",
+   "caption": "Close on the dark chart: the busiest ports and the lanes between them"
+  },
+  {
+   "slug": "live-portolan-dark",
+   "lg": "media/carta/live-portolan-dark-lg.webp",
+   "sm": "media/carta/live-portolan-dark-sm.webp",
+   "width": 2000,
+   "height": 1428,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "The full portolan chart in dark mode: every territory labelled with its note count, median days since last commit and orphan count around the ring of rhumb lines.",
+   "caption": "The whole chart in dark mode, each territory labelled with notes and silt"
+  },
+  {
+   "slug": "live-phone",
+   "lg": "media/carta/live-phone-lg.webp",
+   "sm": "media/carta/live-phone-sm.webp",
+   "width": 780,
+   "height": 1688,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "Phone view of Carta del Cervello: the portolan chart scaled to the column width above its explanatory sentence and the four-colour key.",
+   "caption": "On a phone the chart scales down above its key"
+  }
+ ],
+ "hand-compass": [
+  {
+   "slug": "live-best-move",
+   "lg": "media/hand-compass/live-best-move-lg.webp",
+   "sm": "media/hand-compass/live-best-move-sm.webp",
+   "width": 2000,
+   "height": 1250,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "Hand Compass after an answer: the green Hold'em table with a Q-8-4 flop dims behind a result sheet marked SOLVED and BEST MOVE, headed A pair and a draw give you options, with the lesson and the EV-loss scale marker at Best Move.",
+   "caption": "A solved flop spot graded Best Move, with the lesson for calling top pair"
+  },
+  {
+   "slug": "live-mistake",
+   "lg": "media/hand-compass/live-mistake-lg.webp",
+   "sm": "media/hand-compass/live-mistake-sm.webp",
+   "width": 1440,
+   "height": 1040,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "Result sheet marked SOLVED and MISTAKE for a raise to 5.5 BB, with the lesson text and a green-to-red EV-loss scale whose marker sits at Mistake.",
+   "caption": "A raise to 5.5 BB lands at Mistake on the EV-loss scale"
+  },
+  {
+   "slug": "live-phone",
+   "lg": "media/hand-compass/live-phone-lg.webp",
+   "sm": "media/hand-compass/live-phone-sm.webp",
+   "width": 780,
+   "height": 1688,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "Phone result sheet marked SOLVED and BEST MOVE rising over the table, with the lesson for top pair plus a flush draw, the EV-loss scale at Best Move, and buttons to continue, explore, replay or deal the next spot.",
+   "caption": "On a phone the grade sheet rises over the table with the same lesson"
+  },
+  {
+   "slug": "live-phone-table",
+   "lg": "media/hand-compass/live-phone-table-lg.webp",
+   "sm": "media/hand-compass/live-phone-table-sm.webp",
+   "width": 780,
+   "height": 1688,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "Phone view of the Hold'em table before an answer: eight seats around green felt, a Q-8-4 flop and 7.3 BB pot, the hero's Q-T of spades in the big blind, and six action buttons below.",
+   "caption": "The phone table before an answer: Q-8-4 flop, six legal actions"
+  },
+  {
+   "slug": "table-desktop",
+   "lg": "media/hand-compass/table-desktop-lg.webp",
+   "sm": "media/hand-compass/table-desktop-sm.webp",
+   "width": 1440,
+   "height": 900,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "Hand Compass desktop view of an eight-seat Hold'em table on a Q-8-4 flop, the hero holding Q-T in the big blind, a side HUD showing pot, SPR and 19.78% equity to call, and six legal action buttons with the answer hidden.",
+   "caption": "Eight-seat drill table on a Q-8-4 flop; the answer stays hidden until I commit"
+  }
+ ],
+ "table-model": [
+  {
+   "slug": "placard-mock-table",
+   "lg": "media/table-model/placard-mock-table-lg.webp",
+   "sm": "media/table-model/placard-mock-table-sm.webp",
+   "width": 1280,
+   "height": 800,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "A mock PokerNow table with fixture players and the extension's corner placard recommending a bet of 11 with 93% equity, noting the opponent folds 36% of the time.",
+   "caption": "The placard on a test table: bet 11 with 93% equity; this opponent folds 36%"
+  },
+  {
+   "slug": "side-panel",
+   "lg": "media/table-model/side-panel-lg.webp",
+   "sm": "media/table-model/side-panel-sm.webp",
+   "width": 400,
+   "height": 1205,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "Extension side panel showing the recommended bet, the expected value in big blinds of every option, the one opponent's VPIP/PFR read, a manual spot checker.",
+   "caption": "Side panel: the EV of every option in big blinds, plus the opponent's VPIP/PFR read"
+  }
+ ],
+ "zeta": [
+  {
+   "slug": "live-progression",
+   "lg": "media/zeta/live-progression-lg.webp",
+   "sm": "media/zeta/live-progression-sm.webp",
+   "width": 2000,
+   "height": 1380,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "ZETA Stats / Progression panel: KPI tiles (personal best 71, best multiplication-only 59, fastest median 1.39s, latest 66), a dot-line chart of run score rising across 83 standard benchmark runs, and a note reading First 30, latest 66, 120.0% improvement.",
+   "caption": "Benchmark score climbs from 30 to 66 across 83 standard runs"
+  },
+  {
+   "slug": "live-family-trace",
+   "lg": "media/zeta/live-family-trace-lg.webp",
+   "sm": "media/zeta/live-family-trace-sm.webp",
+   "width": 2000,
+   "height": 736,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "Line chart of the median answer time for x12 multiplication problems across 44 source runs from 14 to 30 September 2026, falling from about 6.8 seconds to under 2 seconds, with personal-best points in teal.",
+   "caption": "Median answer time on ×12 problems over 44 runs: 6.8s down to under 2s"
+  },
+  {
+   "slug": "live-phone",
+   "lg": "media/zeta/live-phone-lg.webp",
+   "sm": "media/zeta/live-phone-sm.webp",
+   "width": 780,
+   "height": 1688,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "Phone view of the ZETA dashboard: the latest-score tile, the benchmark baseline note, the run-score progression chart, and the 120.0% improvement line.",
+   "caption": "On a phone the progression chart and its 120% headline stack up"
+  }
+ ],
+ "second-brain": [
+  {
+   "slug": "graph-1",
+   "lg": "media/brain/graph-1-lg.webp",
+   "sm": "media/brain/graph-1-sm.webp",
+   "width": 1800,
+   "height": 1435,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "Obsidian in dark mode with the Graph view tab open: several hundred dots joined by grey lines form one dense central web with satellite clusters, each dot coloured by folder (green projects, yellow areas, teal resources, purple meta, blue daily notes, red people, grey archives). A Filters panel on the right lists the colour groups by folder path; the file list on the left is blurred.",
+   "caption": "Obsidian's graph view of the brain, each note colored by its PARA folder"
+  },
+  {
+   "slug": "graph-2",
+   "lg": "media/brain/graph-2-lg.webp",
+   "sm": "media/brain/graph-2-sm.webp",
+   "width": 1270,
+   "height": 1450,
+   "orientation": "portrait",
+   "kind": "screenshot",
+   "alt": "Close crop of the Obsidian graph canvas with no labels: large hub dots radiate spokes to clusters of smaller dots; a blue daily-notes fan on the left, a yellow areas cluster upper left, purple meta and teal resources notes woven through the centre, red people notes on the right.",
+   "caption": "Close up: hub notes pull projects, daily logs, people and resources into one web"
+  },
+  {
+   "slug": "graph-render",
+   "lg": "media/brain/graph-render-lg.webp",
+   "sm": "media/brain/graph-render-sm.webp",
+   "width": 1800,
+   "height": 1350,
+   "orientation": "landscape",
+   "kind": "figure",
+   "alt": "A force-directed drawing of the vault's link graph on a dark background in Obsidian's style: 478 dots sized by number of links and coloured by folder, joined by 1,887 grey lines into one large connected web with a few small satellite clusters and a scatter of unlinked notes at the edge.",
+   "caption": "The link graph redrawn from the vault's own files: one dot per note, colored by folder"
+  }
+ ],
+ "secretary": [
+  {
+   "slug": "calendar-week",
+   "lg": "media/secretary/calendar-week-lg.webp",
+   "sm": "media/secretary/calendar-week-sm.webp",
+   "width": 1800,
+   "height": 1353,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "Google Calendar week view for October 4 to 10, 2026, packed with color-coded classes, club events and deadlines that are all blurred, except four of the tentative holds Secretary created: 'Maybe: Pari Passu competition working session' on Monday at 3 PM and again on Saturday at 5 PM, 'Maybe: Maroon Capital challenge problem deadline' on Tuesday at 11 PM, and a Sunday 4 PM 'Maybe:' hold whose topic is blurred.",
+   "caption": "Secretary's 'Maybe:' holds on my calendar, week of Oct 4"
+  },
+  {
+   "slug": "calendar-hold",
+   "lg": "media/secretary/calendar-hold-lg.webp",
+   "sm": "media/secretary/calendar-hold-sm.webp",
+   "width": 1800,
+   "height": 1622,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "Close-up of a Google Calendar event card for 'Maybe: Pari Passu competition working session', Saturday, October 10, 5:00 to 6:00pm. The description begins 'Confirmed by Joseph in Messages/iMessage on 2026-10-03', followed by a blurred summary of the message. The readable lines say the timing is inferred, that no duration or location was stated, that the one-hour block is Secretary's calendar-visibility minimum, and give a source locator with the phone number blurred.",
+   "caption": "Each hold carries its source message and why it was scheduled"
+  },
+  {
+   "slug": "register",
+   "lg": "media/secretary/register-lg.webp",
+   "sm": "media/secretary/register-sm.webp",
+   "width": 1800,
+   "height": 854,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "Google Sheets view of the 'Secretary Running Task and Event Register', Running Register tab, rows 513 to 527. Each row has an ID, a priority circle, a source (Messages/iMessage, UChicago Outlook or Gmail), a date window, a topic such as 'Add Autumn Quarter class deadline' or 'Point72 case working session', a status such as 'Needs action', and a calendar disposition such as 'created Calendar Maybe'. Names, private topics, one entire row and the Brief Fact column are blurred.",
+   "caption": "The register Secretary writes every run: 15 of its 526 rows"
+  },
+  {
+   "slug": "brain-daily-note",
+   "lg": "media/secretary/brain-daily-note-lg.webp",
+   "sm": "media/secretary/brain-daily-note-sm.webp",
+   "width": 1800,
+   "height": 1561,
+   "orientation": "landscape",
+   "kind": "screenshot",
+   "alt": "Obsidian with the Sep 28, 2026 daily note open. Under 'Changes Codex made today', Secretary's intake entry reports a College Advising appointment and an add-class deadline found in UChicago Outlook, the matching calendar holds and register rows it created, and what Gmail, Messages and WhatsApp returned. Below it are two follow-up checkboxes for the appointment and the deadline. A person's name and an unrelated entry are blurred.",
+   "caption": "The same runs land in the day's note"
+  }
+ ],
+ "love-island": [
+  {
+   "slug": "page-1-title",
+   "lg": "media/love-island/page-1-title-lg.webp",
+   "sm": "media/love-island/page-1-title-sm.webp",
+   "width": 1700,
+   "height": 2200,
+   "orientation": "portrait",
+   "kind": "page",
+   "alt": "Title page of Romantic Dynamics Under Public Selection: A Dynamical Systems Model of Love Island, by Joseph Blumberg, August 25, 2026, with the abstract and the opening of the introduction.",
+   "caption": "Title page and abstract of the Love Island dynamical-systems paper"
+  },
+  {
+   "slug": "page-4-core-equations",
+   "lg": "media/love-island/page-4-core-equations-lg.webp",
+   "sm": "media/love-island/page-4-core-equations-sm.webp",
+   "width": 1700,
+   "height": 2200,
+   "orientation": "portrait",
+   "kind": "page",
+   "alt": "Paper page 4, section 2.2 Love Dynamics: Core Equations, defining each couple's love levels and the coupled nonlinear differential equations with forgetting, reactivity, appeal and synergy terms.",
+   "caption": "Page 4: the coupled love equations the model is built on"
+  }
+ ],
+ "cloudflare": [
+  {
+   "slug": "page-22-sensitivity",
+   "lg": "media/cloudflare/page-22-sensitivity-lg.webp",
+   "sm": "media/cloudflare/page-22-sensitivity-sm.webp",
+   "width": 2000,
+   "height": 1125,
+   "orientation": "landscape",
+   "kind": "page",
+   "alt": "Slide 22, Sensitivity Analysis: a red-to-green grid of implied Cloudflare share prices across WACC from 9.8% to 11.8% and exit UFCF multiples from 20x to 40x, ranging from $147.45 to $301.44.",
+   "caption": "WACC against exit multiple: implied share price from $147 to $301"
+  },
+  {
+   "slug": "page-1-title",
+   "lg": "media/cloudflare/page-1-title-lg.webp",
+   "sm": "media/cloudflare/page-1-title-sm.webp",
+   "width": 1500,
+   "height": 844,
+   "orientation": "landscape",
+   "kind": "page",
+   "alt": "The Cloudflare pitch deck cover: the Cloudflare logo, February 18, 2026, ticker NET, current price $191.58 and a probability-weighted implied upside of 26.6%.",
+   "caption": "Cover slide: NET at $191.58 with 26.6% probability-weighted upside"
+  }
+ ],
+ "thrift": [
+  {
+   "slug": "design-conditions",
+   "lg": "media/thrift/design-conditions.svg",
+   "sm": "media/thrift/design-conditions.svg",
+   "width": 1600,
+   "height": 1000,
+   "orientation": "landscape",
+   "kind": "diagram",
+   "alt": "A drawn design sheet titled Two conditions, assigned by chance: adult pairs who arrive together are assigned, within each store, date and time block, either to browse together as they planned or to search apart until they meet again at the exit.",
+   "caption": "The design: two assigned conditions, browse together or search apart"
+  },
+  {
+   "slug": "design-verification",
+   "lg": "media/thrift/design-verification.svg",
+   "sm": "media/thrift/design-verification.svg",
+   "width": 1600,
+   "height": 1000,
+   "orientation": "landscape",
+   "kind": "diagram",
+   "alt": "A drawn design sheet titled A purchase counts once it is checked: the outcome is whether each shopper buys anything, and sources are checked in a fixed order, receipt first, then bag inspection, then a matched self-report.",
+   "caption": "How a purchase is checked: receipt, then bag inspection, then matched self-report"
+  },
+  {
+   "slug": "design-outcomes",
+   "lg": "media/thrift/design-outcomes.svg",
+   "sm": "media/thrift/design-outcomes.svg",
+   "width": 1600,
+   "height": 1000,
+   "orientation": "landscape",
+   "kind": "diagram",
+   "alt": "A drawn design sheet titled Three families of outcomes, named in advance: validation and confidence, search productivity and breadth, and coordination cost. They help read the purchase result and do not split it into causes.",
+   "caption": "Three families of intermediate outcomes, named before the analysis"
+  }
+ ]
+}

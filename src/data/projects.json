@@ -1,0 +1,2151 @@
+[
+ {
+  "id": "selforge",
+  "name": "SELFORGE",
+  "kind": "app",
+  "type": "iPhone app",
+  "year": "2026",
+  "flagship": true,
+  "status": "running",
+  "statusLabel": "In daily use on TestFlight",
+  "period": "Jul 2026 - now",
+  "role": "Designer, builder and device tester",
+  "line": "An iPhone alarm that keeps ringing until the camera has counted my pushups.",
+  "keyFigure": {
+   "value": "66,636",
+   "label": "lines of Swift"
+  },
+  "summary": "SELFORGE is an iPhone alarm I can't swipe off: the siren runs until every mission on the alarm is done, whether that is pushups or squats counted by the camera, a QR code I have to walk to, or real outdoor daylight. It also tracks habits on home-screen widgets, and its Brick Mode blocks distracting apps until I've done my reps. Its mascot, Ember, is a flame drawn entirely in code.",
+  "why": "A normal alarm can be silenced half asleep with one swipe. I wanted an alarm clock that \"doesn't go off until it recognizes that I do a certain amount of pushups,\" with the count set per alarm.",
+  "mechanism": "Apple's Vision framework reads the elbow angle from each camera frame, and a One Euro filter smooths out the jitter. A small state machine counts a rep only after a full up, down, up cycle, with each phase held for two frames. Reading joints at very low confidence made counting worse, not more forgiving: Vision starts guessing where hidden joints are, and a wrong angle can reset the cycle while a missing one only pauses it.",
+  "pipeline": [
+   {
+    "step": "Alarm fires",
+    "detail": "AlarmKit on iOS 26; timed notifications as the fallback on iOS 17-25"
+   },
+   {
+    "step": "Read the pose",
+    "detail": "Vision body-pose request on each front-camera frame"
+   },
+   {
+    "step": "Smooth the angle",
+    "detail": "One Euro filter; visible arms weighted by confidence"
+   },
+   {
+    "step": "Count the rep",
+    "detail": "Up, down, up cycle; 2 frames per phase, 0.18 s minimum phase"
+   },
+   {
+    "step": "Siren stops",
+    "detail": "Only when every mission is done; a 60 s hold is the logged escape"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "168",
+    "label": "commits on main"
+   },
+   {
+    "value": "66,636",
+    "label": "lines of Swift, excluding vendored code"
+   },
+   {
+    "value": "832",
+    "label": "test functions"
+   },
+   {
+    "value": "829 / 0",
+    "label": "unit tests passed / failed, last full run 2026-09-23"
+   },
+   {
+    "value": "4",
+    "label": "mission types: pushups, squats, a QR scan, outdoor daylight"
+   },
+   {
+    "value": "5",
+    "label": "app extensions (widgets, Screen Time, notifications)"
+   }
+  ],
+  "stack": [
+   "Swift",
+   "SwiftUI",
+   "Vision",
+   "AVFoundation",
+   "AlarmKit",
+   "SwiftData",
+   "WidgetKit",
+   "FamilyControls / ManagedSettings / DeviceActivity",
+   "Supabase (Postgres, RLS)",
+   "XCTest"
+  ],
+  "links": [
+   {
+    "label": "SELFORGE support page",
+    "url": "https://pushup-alarm-support-josephs-projects-f00d6796.vercel.app/",
+    "kind": "live"
+   }
+  ],
+  "credits": "Some alarm sounds from Mixkit. QuickPose SDK (Apache-2.0) in the QA build. Vendored open-source Swift packages: Pow, Vortex, Solar, AnimateText, Shimmer.",
+  "repoKey": "selforge",
+  "brain": "Every build, device check and release decision goes into a 2,494-line SELFORGE note in the vault, and each new work session picks up from it."
+ },
+ {
+  "id": "recruiting-os",
+  "name": "Recruiting OS",
+  "kind": "app",
+  "type": "Web app",
+  "year": "2026",
+  "flagship": true,
+  "status": "running",
+  "statusLabel": "Runs all day",
+  "period": "Sep 2026 - now",
+  "role": "Designer and builder",
+  "line": "Tracks 447 recruiting programs and their deadlines, keeps my CRM and drafts outreach into my Drafts folder.",
+  "keyFigure": {
+   "value": "447",
+   "label": "recruiting programs tracked"
+  },
+  "summary": "Recruiting OS is a web app on my Mac that tracks 447 finance and quant recruiting programs, most of them summer internships, and marks whether I'm eligible for each. Every deadline carries its source and a confidence label, and deadlines and prep blocks sync to five Google calendars. It also keeps a CRM of people at those firms and writes personalized outreach drafts into my Gmail or Outlook Drafts folder.",
+  "why": "Job trackers know postings and CRMs know contacts, but none links a contact to the application window at that person's firm. I wanted one place that shows what closes next and who I can write to there.",
+  "mechanism": "Every claim about me in a draft has to point to evidence in my vault notes. A planner picks only those claims, a writer turns them into a short email, and a verifier holds any draft that fails its checks for grounding, repetition or length, with the reason named. Each deadline keeps its source and a label: official, estimated or secondary.",
+  "pipeline": [
+   {
+    "step": "Poll feeds",
+    "detail": "About 70 career-site and ATS feeds, every 15 min from 07:00 to 23:00"
+   },
+   {
+    "step": "Deadline book",
+    "detail": "Each date labeled official, estimated or secondary, with its source"
+   },
+   {
+    "step": "Plan the draft",
+    "detail": "Use only claims about me that carry a vault evidence reference"
+   },
+   {
+    "step": "Write and verify",
+    "detail": "Draft from the plan; a failed check holds it with a named reason"
+   },
+   {
+    "step": "Land in Drafts",
+    "detail": "Gmail or Outlook Drafts, each with a suggested Tue-Thu send time"
+   },
+   {
+    "step": "Sync calendar",
+    "detail": "Deadlines and prep blocks pushed to 5 Google calendars"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "447 / 725",
+    "label": "programs / deadline rows, from 71 feeds"
+   },
+   {
+    "value": "214",
+    "label": "programs where I'm marked eligible"
+   },
+   {
+    "value": "277",
+    "label": "events synced to 5 Google calendars (2026-09-30)"
+   },
+   {
+    "value": "17,703",
+    "label": "background job runs logged (2026-10-04)"
+   },
+   {
+    "value": "3,387",
+    "label": "tests passing in 348 files"
+   },
+   {
+    "value": "521",
+    "label": "commits, 2026-09-24 to 2026-10-01"
+   }
+  ],
+  "stack": [
+   "TypeScript",
+   "Node 24",
+   "Hono",
+   "SQLite + Drizzle",
+   "React 19",
+   "Vite",
+   "TanStack Router / Query",
+   "Tailwind CSS 4",
+   "Vitest",
+   "Playwright",
+   "Gmail API (drafts only)",
+   "Google Calendar API",
+   "Claude CLI",
+   "macOS launchd"
+  ],
+  "links": [],
+  "credits": "Job-board feed adapters vendored from career-ops-hq/career-ops (MIT). Prose check vendored from avoid-ai-writing (MIT).",
+  "repoKey": "recruiting-os",
+  "schedule": [
+   {
+    "job": "recruiting.drafts",
+    "when": "daily 21:30"
+   },
+   {
+    "job": "recruiting.plan",
+    "when": "daily 06:30"
+   },
+   {
+    "job": "recruiting.calendar",
+    "when": "every 5m"
+   },
+   {
+    "job": "recruiting.backup",
+    "when": "daily 02:30"
+   }
+  ],
+  "brain": "Every claim about me that a draft may use cites a vault note, and the app imports the applications ledger my other job-search automations keep in the vault."
+ },
+ {
+  "id": "second-brain",
+  "name": "Second Brain",
+  "kind": "agent",
+  "type": "Knowledge system",
+  "year": "2026",
+  "flagship": true,
+  "status": "running",
+  "statusLabel": "Every agent boots from it",
+  "period": "May 2026 - now",
+  "role": "Designer and operator",
+  "line": "The Obsidian vault my agents read before working and write back to after, so every project shares one memory.",
+  "keyFigure": {
+   "value": "478",
+   "label": "notes in one shared memory"
+  },
+  "summary": "My Obsidian vault is the nervous system for everything I build. Claude, Codex and Antigravity each boot from the same five files, find what they need through one index and its wikilinks, and log what they changed in that day's note. Scheduled jobs write into it too: a git snapshot every five minutes, a health audit at 05:00, and on Sundays a fresh chart of the vault followed by a repair pass. The Secretary and the file organizer read it and commit their results back, and the watchdog checks its pulse every hour, so each project works from what the others already know.",
+  "why": "AI agents forget everything between sessions, and three of them on one Mac will collide or work from stale context. I wanted one memory that every agent loads before it starts and writes to when it finishes.",
+  "mechanism": "The agents coordinate through the vault rather than through messages, the way ants coordinate through trails. Before a multi-file edit an agent writes a line under In-flight in the day's note, then moves it to its own change log when it finishes, and the next agent reads that before touching anything. A 566-line audit checks links, orphans and frontmatter every morning with a real YAML parser, and the Sunday repair agent fixes what it found and re-runs the audit to confirm each fix.",
+  "pipeline": [
+   {
+    "step": "Boot",
+    "detail": "Claude, Codex and Antigravity read the same five boot files first"
+   },
+   {
+    "step": "Retrieve",
+    "detail": "Index first (trusted for 7 days), then wikilinks, then live search"
+   },
+   {
+    "step": "Write back",
+    "detail": "Agents log changes in the day's note; git snapshot every 5 minutes"
+   },
+   {
+    "step": "Audit",
+    "detail": "566-line script checks links, orphans and YAML daily at 05:00"
+   },
+   {
+    "step": "Repair",
+    "detail": "Sunday agent fixes what the audit found, then re-runs the audit"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "478",
+    "label": "notes in the vault on 4 Oct 2026, the same snapshot the graph draws"
+   },
+   {
+    "value": "1,887",
+    "label": "linked note pairs, from 3,560 wikilinks"
+   },
+   {
+    "value": "1,038 (883 automatic)",
+    "label": "git commits from 25 May to 4 Oct 2026"
+   },
+   {
+    "value": "3",
+    "label": "agents that boot from it and write back: Claude, Codex, Antigravity"
+   },
+   {
+    "value": "6",
+    "label": "scheduled jobs that write into it, from every 5 minutes to weekly"
+   },
+   {
+    "value": "90",
+    "label": "daily notes carrying change logs the agents wrote"
+   }
+  ],
+  "stack": [
+   "Obsidian",
+   "Markdown + YAML",
+   "git",
+   "macOS launchd",
+   "zsh",
+   "Ruby (YAML parsing)",
+   "Python 3",
+   "Claude Code (headless agent, hooks)",
+   "OpenAI Codex",
+   "Google Antigravity",
+   "Model Context Protocol"
+  ],
+  "links": [
+   {
+    "label": "Open the live vault chart",
+    "url": "demos/carta/index.html",
+    "kind": "live"
+   },
+   {
+    "label": "Agent skills (code)",
+    "url": "https://github.com/JosephBL27/agent-skills",
+    "kind": "code"
+   },
+   {
+    "label": "Job watchdog (code)",
+    "url": "https://github.com/JosephBL27/job-watchdog",
+    "kind": "code"
+   },
+   {
+    "label": "Chart corpus (code)",
+    "url": "https://github.com/JosephBL27/chart-corpus",
+    "kind": "code"
+   }
+  ],
+  "credits": "Runs on Obsidian and the community Obsidian Local REST API plugin.",
+  "repoKey": "second-brain",
+  "schedule": [
+   {
+    "job": "vault.snapshot",
+    "when": "every 5m"
+   },
+   {
+    "job": "vault.audit",
+    "when": "daily 05:00"
+   },
+   {
+    "job": "vault.repair",
+    "when": "weekly SUN 09:00"
+   }
+  ],
+  "brain": "This is the brain itself: three agents boot from it, six scheduled jobs write into it, and every project on this board is recorded in it."
+ },
+ {
+  "id": "skills",
+  "name": "Agent operating layer",
+  "kind": "agent",
+  "type": "Agent skills",
+  "year": "2026",
+  "flagship": true,
+  "status": "running",
+  "statusLabel": "Runs in every session",
+  "period": "Jul 2026 - now",
+  "role": "Designer and builder",
+  "line": "Skills I wrote that split a prompt into tested units and send each to the right skill.",
+  "keyFigure": {
+   "value": "228 of 653",
+   "label": "my prompts call a skill I wrote"
+  },
+  "summary": "These are the skills I wrote to sit between my prompt and everything installed on my machine. orchestrate splits a request into work units, gives each unit a test and the one skill built for it from a routing table of 148 skills and commands, and calls a unit done only when its test passes. When nothing installed fits, pathfind searches for an existing tool before anything gets built from scratch, and axe-edge is the research rule underneath both.",
+  "why": "With that many skills installed, the usual failure is an agent doing the work from memory while the right skill sits unused. The second failure is calling a task done because a tool ran, when no check passed.",
+  "mechanism": "Every unit of work needs one deliverable and one test it can fail; if the agent can't state the test, it splits the unit again. Routing tries a 15-skill core list, then one of 7 catalogs, then pathfind, and the agent has to say out loud when nothing fits. pathfind makes each probe report what it searched and found nothing for, because a search that lists only hits looks the same as a search that never looked.",
+  "pipeline": [
+   {
+    "step": "Decompose",
+    "detail": "Split the prompt into units, each with one deliverable and one test"
+   },
+   {
+    "step": "Route",
+    "detail": "One skill per unit: core list, then 7 catalogs, then pathfind"
+   },
+   {
+    "step": "Discover",
+    "detail": "pathfind probes skills, MCP servers, packages and docs"
+   },
+   {
+    "step": "Delegate",
+    "detail": "Each subagent gets only its own unit's slice of the work"
+   },
+   {
+    "step": "Verify",
+    "detail": "A unit is done when its test passes, not when a tool ran"
+   },
+   {
+    "step": "Report",
+    "detail": "List every skill used, then 3 to 5 ranked next steps"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "228 of 653 (34.9%)",
+    "label": "prompts invoking orchestrate, axe-edge, axe or pathfind"
+   },
+   {
+    "value": "62 / 68 / 8",
+    "label": "Claude Code's own use counter: orchestrate / axe-edge / pathfind"
+   },
+   {
+    "value": "41 / 22",
+    "label": "Codex skill loads: orchestrate (26 sessions) / axe-edge (18 sessions)"
+   },
+   {
+    "value": "1,316 / 57,347",
+    "label": "subagents / tool calls across the 21 sessions where /orchestrate ran"
+   },
+   {
+    "value": "148",
+    "label": "skills and commands in orchestrate's routing table"
+   },
+   {
+    "value": "15 / 7",
+    "label": "core skills checked first / catalogs checked next"
+   }
+  ],
+  "stack": [
+   "Claude Code skills (SKILL.md)",
+   "Codex skills",
+   "Markdown",
+   "Subagents",
+   "Claude Code Workflow tool"
+  ],
+  "links": [
+   {
+    "label": "Source code",
+    "url": "https://github.com/JosephBL27/agent-skills",
+    "kind": "code"
+   }
+  ],
+  "credits": "Most of the 148 skills and commands in orchestrate's routing table are third-party, for example gstack by Garry Tan.",
+  "usageKey": "skills",
+  "brain": "orchestrate keeps the brain commands (resume, compress, preserve) one call away, and pathfind writes each tool decision, including the ones it turned down, into the vault so the next session starts from it."
+ },
+ {
+  "id": "secretary",
+  "name": "Secretary",
+  "kind": "agent",
+  "type": "Scheduled agent",
+  "year": "2026",
+  "flagship": false,
+  "status": "running",
+  "statusLabel": "Runs four times a day",
+  "period": "May 2026 - now",
+  "role": "Designer and operator",
+  "line": "Reads my four inboxes four times a day and turns what needs action into one list and calendar holds.",
+  "keyFigure": {
+   "value": "499",
+   "label": "intake runs since May 2026"
+  },
+  "summary": "Four times a day, the Secretary reads my Gmail, university Outlook, iMessage and WhatsApp. Anything that needs action becomes a row in one prioritized Google Sheet and, if it has a date, a tentative 'Maybe:' event on my Google Calendar. Each run starts by reading the brain for context and ends by recording anything durable back in the vault.",
+  "why": "Deadlines and requests reach me through four apps, and some slipped through. I wanted one ranked list and a calendar that already holds the time.",
+  "mechanism": "In my Messages database the plain-text field was empty for about 99% of texts, because the words sit in an encoded blob. A 413-line Python reader decodes that blob straight from the local database, which took recovery from 1 of 200 messages to 199 of 200. Every item lands in one of four priority tiers and is matched against existing rows and events on a stable key, so a request that shows up in two apps becomes one row and one hold.",
+  "pipeline": [
+   {
+    "step": "Read",
+    "detail": "Gmail, Outlook, iMessage and WhatsApp, plus the brain's notes"
+   },
+   {
+    "step": "Decode",
+    "detail": "Python reader pulls message text from local SQLite stores"
+   },
+   {
+    "step": "Triage",
+    "detail": "4 priority tiers; duplicates matched on a stable key"
+   },
+   {
+    "step": "Write",
+    "detail": "One batch write to a 20-column register"
+   },
+   {
+    "step": "Hold",
+    "detail": "Tentative 'Maybe:' events, checked against existing ones first"
+   },
+   {
+    "step": "Report",
+    "detail": "Per-source counts in the run log; durable changes into the vault"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "499",
+    "label": "intake runs, 5 May to 3 Oct 2026"
+   },
+   {
+    "value": "1 of 200 to 199 of 200",
+    "label": "text messages recovered after decoding the encoded field"
+   },
+   {
+    "value": "4",
+    "label": "sources every run scans and reports, even at zero"
+   },
+   {
+    "value": "4",
+    "label": "priority tiers, from Black / Critical to Green / Low"
+   },
+   {
+    "value": "20 columns",
+    "label": "register schema, plus a run log and a calendar sync tab"
+   },
+   {
+    "value": "about 16K to 3.2K",
+    "label": "prompt size in characters, after moving its spec to a 271-line file"
+   }
+  ],
+  "stack": [
+   "OpenAI Codex CLI automations",
+   "Google Workspace MCP (Sheets, Calendar, Gmail)",
+   "Python 3 + SQLite",
+   "Chrome extension driver",
+   "macOS launchd"
+  ],
+  "links": [],
+  "credits": "Gmail, Sheets and Calendar access runs through the open-source google-workspace-mcp package (MIT).",
+  "span": {
+   "start": "2026-05",
+   "end": "now"
+  },
+  "updated": "2026-10-03",
+  "schedule": [
+   {
+    "job": "secretary.intake",
+    "when": "times 07:00,12:00,15:00,20:00"
+   }
+  ],
+  "brain": "Each run reads the Secretary project note, the latest daily note and the relevant project notes first, then writes its durable changes back into that project note's change log."
+ },
+ {
+  "id": "zeta",
+  "name": "ZETA",
+  "kind": "app",
+  "type": "Chrome extension",
+  "year": "2026",
+  "flagship": false,
+  "status": "running",
+  "statusLabel": "328 runs logged by 2 Oct",
+  "period": "Sep 2026 - now",
+  "role": "Designer and builder",
+  "line": "Times every question of the Zetamac mental-math drill and picks what I practice next.",
+  "keyFigure": {
+   "value": "80",
+   "label": "best strict score, from 30"
+  },
+  "summary": "ZETA is a Chrome extension and a dashboard for Zetamac, the 120-second arithmetic drill used in trading-interview prep. The extension records how long I take on every problem, and the dashboard decides what I should drill next. As of the v189 build on 2 October it held 328 runs and 15,293 timed questions.",
+  "why": "Zetamac only reports a final score, which doesn't say why a run was slow. I wanted to see which problem types cost me time, and to change my practice only when the evidence was strong.",
+  "mechanism": "The extension watches the problem text and the answer box, timestamps each keystroke, and files every problem under one of 26 families such as x12 or division by 8. A family counts as weak only after 15 observations across 2 runs show it at least 1.2 times slower than its operation's median. Training focus changes only at a scheduled review after three mixed runs, so one noisy run can't redirect practice.",
+  "pipeline": [
+   {
+    "step": "Watch the page",
+    "detail": "MutationObserver on the problem; keydown listener on the answer box"
+   },
+   {
+    "step": "Time each item",
+    "detail": "Total time, think time to first digit, typing time, backspaces"
+   },
+   {
+    "step": "Classify",
+    "detail": "26 families (x2 to x12, /2 to /12, carry, borrow) plus magnitude"
+   },
+   {
+    "step": "Export the run",
+    "detail": "zetamac-trial-log-v1 JSON by clipboard or download"
+   },
+   {
+    "step": "Gate the evidence",
+    "detail": "Weak only at 15+ observations, 2+ runs, 1.20x the median"
+   },
+   {
+    "step": "Study Spot",
+    "detail": "After 3 mixed runs, the dashboard sets the next focus"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "328",
+    "label": "runs logged, as of build v189 (2 Oct 2026)"
+   },
+   {
+    "value": "15,293",
+    "label": "individually timed questions, as of build v189"
+   },
+   {
+    "value": "30 to 80",
+    "label": "first logged run to best strict-benchmark run (the 80 is self-reported, 7 Oct 2026)"
+   },
+   {
+    "value": "2,419 to 1,487.5 ms",
+    "label": "median time per question, first vs latest training day"
+   },
+   {
+    "value": "26",
+    "label": "problem families tracked"
+   },
+   {
+    "value": "28",
+    "label": "scheduled reviews (Study Spots) that set my next focus"
+   }
+  ],
+  "stack": [
+   "Chrome extension (Manifest V3, content script only)",
+   "JavaScript",
+   "Single-file HTML dashboard",
+   "Inline SVG charts",
+   "Python"
+  ],
+  "links": [
+   {
+    "label": "Source code",
+    "url": "https://github.com/JosephBL27/zeta",
+    "kind": "code"
+   },
+   {
+    "label": "Zetamac, the drill it times",
+    "url": "https://arithmetic.zetamac.com/",
+    "kind": "live"
+   }
+  ],
+  "credits": "Built around Zetamac (arithmetic.zetamac.com), a third-party arithmetic drill.",
+  "span": {
+   "start": "2026-09",
+   "end": "now"
+  },
+  "updated": "2026-10-07",
+  "brain": "A review job every three days reads ZETA's database alongside my calendar and task list and records where my training stands in the vault.",
+  "demo": {
+   "label": "Open the dashboard",
+   "url": "demos/zeta/"
+  }
+ },
+ {
+  "id": "watchdog",
+  "name": "Job Watchdog",
+  "kind": "agent",
+  "type": "Scheduled monitor",
+  "year": "2026",
+  "flagship": false,
+  "status": "running",
+  "statusLabel": "Checks every hour",
+  "period": "Sep 2026 - now",
+  "role": "Designer and builder",
+  "line": "An hourly check that every scheduled job on my Mac made the thing it was supposed to make.",
+  "keyFigure": {
+   "value": "24",
+   "label": "checks run every hour"
+  },
+  "summary": "Every hour, a Ruby script checks each scheduled job on my Mac by looking for the thing that job was supposed to make: a dated note, a commit, a log line, a fresh timestamp. Problems arrive as a macOS notification and as one line at the top of each new Claude session. A separate hook runs a real YAML parser over the frontmatter of every note Claude writes to the vault.",
+  "why": "A scheduled job can finish, produce nothing, and leave only a log line nobody reads. I wanted to hear about it the same day.",
+  "mechanism": "The rule is to check the output, never the exit code. A check names an artifact and how old it may get, using one of 10 check types; if the script can't read the artifact, the job is marked NOT CHECKED rather than ok, and a paused job that starts running again goes to the top of the list. The watcher also watches itself: if it crashes or fails to rewrite its status file within 120 seconds, a wrapper sends its own alert.",
+  "pipeline": [
+   {
+    "step": "Declare",
+    "detail": "24 JSON checks; most name an artifact and a maximum age"
+   },
+   {
+    "step": "Sweep",
+    "detail": "Ruby runner, standard library only, hourly under launchd"
+   },
+   {
+    "step": "Classify",
+    "detail": "ok, stale, missing, paused, or NOT CHECKED when unreadable"
+   },
+   {
+    "step": "Explain",
+    "detail": "For a stale Codex job, read its run records to find the cause"
+   },
+   {
+    "step": "Alert",
+    "detail": "One notification per job per day; one line in each new session"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "24",
+    "label": "checks: 20 on job outputs, 2 on credential age, 2 on paused jobs"
+   },
+   {
+    "value": "1,093",
+    "label": "lines of Ruby, standard library only"
+   },
+   {
+    "value": "10",
+    "label": "check types"
+   },
+   {
+    "value": "120 s",
+    "label": "time the watcher gets to rewrite its own status file before it alerts"
+   },
+   {
+    "value": "24.6 ms",
+    "label": "median cost of the session banner hook (was 43.7 ms)"
+   }
+  ],
+  "stack": [
+   "Ruby 2.6 standard library",
+   "JSON",
+   "macOS launchd",
+   "zsh",
+   "sqlite3 (read-only)",
+   "Claude Code hooks",
+   "Codex hooks"
+  ],
+  "links": [
+   {
+    "label": "Source code",
+    "url": "https://github.com/JosephBL27/job-watchdog",
+    "kind": "code"
+   }
+  ],
+  "span": {
+   "start": "2026-09",
+   "end": "now"
+  },
+  "updated": "2026-10-04",
+  "schedule": [
+   {
+    "job": "watchdog.sweep",
+    "when": "every 60m"
+   }
+  ],
+  "brain": "Several checks watch the brain's own pulse (the 05:00 health note, the five-minute git snapshot and the Sunday chart), so the brain's jobs are checked every hour like everything else."
+ },
+ {
+  "id": "axe-os",
+  "name": "AXE_OS",
+  "kind": "agent",
+  "type": "Agent rulebook",
+  "year": "2026",
+  "flagship": false,
+  "status": "running",
+  "statusLabel": "v1.4.0, 39 policies",
+  "period": "Jul 2026 - now",
+  "role": "Designer and author",
+  "line": "Rules for my agents written as checked CUE code, each paired with a note explaining why.",
+  "keyFigure": {
+   "value": "39",
+   "label": "policies, each tied to code"
+  },
+  "summary": "AXE_OS turns one habit into rules my agents follow: before building anything non-trivial, look for what already exists. The rules that can be checked live in 13 CUE files, a typed configuration language, and the reasons behind them live in 39 linked Markdown notes. For ordinary non-trivial work my agents load a compact edition called EDGE, a single 7,340-byte instruction file, and the full system comes in for the hardest builds.",
+  "why": "Agents start coding with whatever they already know and retry a failing command the same way again. Prompt files drift, too: a project note can quietly contradict a global rule, and nothing notices.",
+  "mechanism": "Each rule exists twice: as a CUE constraint a validator can check, and as a Markdown note that explains it. A script fails if the code cites a policy note that does not exist, or if a note exists that no code cites. Because CUE merges constraints instead of letting the last file win, a project override can narrow a global rule but can never loosen it.",
+  "pipeline": [
+   {
+    "step": "Classify",
+    "detail": "Rate task depth R0 to R4; the full system takes R3 and R4"
+   },
+   {
+    "step": "Discover",
+    "detail": "Check connectors, MCP servers, packages and repos before building"
+   },
+   {
+    "step": "Gate",
+    "detail": "Each new tool gets a source, license, pinned version and rollback"
+   },
+   {
+    "step": "Retry rule",
+    "detail": "Two identical same-method failures force a new tool or method"
+   },
+   {
+    "step": "Validate",
+    "detail": "cue vet and a link check keep rules and reasons in sync"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "39",
+    "label": "policy notes (AXE-01 to AXE-39), all linked to runtime code"
+   },
+   {
+    "value": "13 files, 2,119 lines",
+    "label": "CUE source"
+   },
+   {
+    "value": "exit 0",
+    "label": "cue vet -c ./... with CUE 0.17.0"
+   },
+   {
+    "value": "7,340 bytes",
+    "label": "EDGE's standing instruction, the file agents load for non-trivial work"
+   },
+   {
+    "value": "120 of 885",
+    "label": "Codex sessions whose tool calls touched EDGE files"
+   },
+   {
+    "value": "11",
+    "label": "/axe full-system runs, Claude Code's own counter"
+   }
+  ],
+  "stack": [
+   "CUE 0.17.0",
+   "Markdown (Obsidian)",
+   "Python 3",
+   "bash / zsh",
+   "Claude Code commands and subagents",
+   "Codex skills and agents"
+  ],
+  "links": [],
+  "span": {
+   "start": "2026-07",
+   "end": "now"
+  },
+  "updated": "2026-09-30",
+  "brain": "It lives inside the vault, so its 39 policy notes sit in the same linked graph the agents boot from, and each research finding it produces is written back to the relevant vault note."
+ },
+ {
+  "id": "finder-organizer",
+  "name": "Finder Organizer",
+  "kind": "agent",
+  "type": "Scheduled automation",
+  "year": "2026",
+  "flagship": false,
+  "status": "running",
+  "statusLabel": "Sundays 11:00",
+  "period": "Jun 2026 - now",
+  "role": "Designer and operator",
+  "line": "An AI proposes where each loose file goes; a script decides, logs it, and can undo it.",
+  "keyFigure": {
+   "value": "225",
+   "label": "files relocated so far"
+  },
+  "summary": "Every Sunday, a job tidies my Downloads and Desktop folders. An AI model reads each loose file's name, a short preview and where it was downloaded from, then proposes a folder. A separate Python script checks that proposal, logs the move, makes it, and can reverse a whole run.",
+  "why": "Loose files pile up faster than I file them, and many of my scripts expect their files at fixed paths.",
+  "mechanism": "The model only proposes, as JSON in a fixed schema, and the script applies its own checks whatever the model said. A file moves only if it is unchanged since the scan, old enough, not referenced by another script or note, headed for a known folder, and proposed with at least 0.75 confidence (0.90 for school, career and project folders). Each move is written to a log before it happens, so undo can replay the log backwards.",
+  "pipeline": [
+   {
+    "step": "Scan",
+    "detail": "Fingerprint files by size and date; opening them stalls iCloud"
+   },
+   {
+    "step": "Classify",
+    "detail": "The model returns schema-checked JSON, one proposal per file"
+   },
+   {
+    "step": "Gate",
+    "detail": "Script checks age, pins, references, allowlist and confidence"
+   },
+   {
+    "step": "Apply",
+    "detail": "Log each move to a dated manifest, then move or set aside"
+   },
+   {
+    "step": "Audit",
+    "detail": "Write the run report into the vault; undo replays the manifest"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "225",
+    "label": "files relocated (175 moved, 50 quarantined)"
+   },
+   {
+    "value": "0.75 / 0.90",
+    "label": "minimum confidence: general / school, career and project folders"
+   },
+   {
+    "value": "621",
+    "label": "lines in the Python script that checks and logs every move"
+   }
+  ],
+  "stack": [
+   "Python 3",
+   "zsh",
+   "OpenAI Codex CLI (read-only sandbox)",
+   "JSON Schema",
+   "macOS launchd",
+   "Spotlight metadata"
+  ],
+  "links": [
+   {
+    "label": "Source code",
+    "url": "https://github.com/JosephBL27/finder-organizer",
+    "kind": "code"
+   }
+  ],
+  "span": {
+   "start": "2026-06",
+   "end": "now"
+  },
+  "updated": "2026-09-28",
+  "schedule": [
+   {
+    "job": "files.sort",
+    "when": "weekly SUN 11:00"
+   }
+  ],
+  "brain": "It reads my folder layout from the vault's Computer Map note, checks the brain's setup notes for references before moving a file, and writes each run's audit into the vault plus a line in that day's note."
+ },
+ {
+  "id": "carta",
+  "name": "Carta del Cervello",
+  "kind": "agent",
+  "type": "Generated chart",
+  "year": "2026",
+  "flagship": false,
+  "status": "running",
+  "statusLabel": "Redrawn Sundays 08:45",
+  "period": "Aug 2026 - now",
+  "role": "Designer and builder",
+  "line": "My vault drawn as a medieval sea chart: regions sized by notes, shaded by staleness.",
+  "keyFigure": {
+   "value": "485",
+   "label": "notes charted across 10 regions"
+  },
+  "summary": "chart-corpus is a skill I made that draws a set of linked notes in the style of a medieval portolan sea chart. Each top-level vault folder becomes a stretch of coast sized by its note count and colored by how long since it was touched, lines across the sea count links between folders, and the most-linked notes are named as ports. Every Sunday at 08:45 a job redraws it into one self-contained HTML file inside the vault. The 4 October chart holds 485 notes and 2,334 links, and 44% of those links cross from one folder into another.",
+  "why": "A dashboard of counts doesn't show which parts of a knowledge base are going stale or cut off. I wanted an instrument I would actually look at.",
+  "mechanism": "The hard part was measuring age honestly. File dates were useless because they were all rewritten when the vault moved off iCloud, and frontmatter dates cover only about 85% of notes, so the script reads each note's age from git history and states every staleness figure as a minimum. Links come from Obsidian's own resolved link graph, because searching text for brackets misses aliases and invents links.",
+  "pipeline": [
+   {
+    "step": "Fetch",
+    "detail": "Pull the resolved link graph from Obsidian's local API, 12 threads"
+   },
+   {
+    "step": "Date",
+    "detail": "Read each note's age from git history, reported as a floor"
+   },
+   {
+    "step": "Aggregate",
+    "detail": "Notes per folder, links between folders, most-linked notes"
+   },
+   {
+    "step": "Draw",
+    "detail": "Fill a hand-built SVG template with light and dark themes"
+   },
+   {
+    "step": "Publish",
+    "detail": "Write one self-contained HTML file back into the vault"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "485",
+    "label": "notes in 10 territories on the 4 Oct chart: 9 top-level folders plus the root"
+   },
+   {
+    "value": "37 / 6",
+    "label": "cross-folder link lanes / named ports"
+   },
+   {
+    "value": "218 + 256",
+    "label": "lines: stdlib Python generator + SVG template"
+   },
+   {
+    "value": "17,717 bytes",
+    "label": "the hosted chart as one HTML file, no external dependencies"
+   }
+  ],
+  "stack": [
+   "Python 3 standard library",
+   "Inline SVG",
+   "Vanilla JavaScript",
+   "CSS custom properties (light/dark)",
+   "Obsidian Local REST API",
+   "git",
+   "macOS launchd"
+  ],
+  "links": [
+   {
+    "label": "Source code",
+    "url": "https://github.com/JosephBL27/chart-corpus",
+    "kind": "code"
+   }
+  ],
+  "credits": "Reads the vault through the community Obsidian Local REST API plugin.",
+  "span": {
+   "start": "2026-08",
+   "end": "now"
+  },
+  "updated": "2026-10-04",
+  "schedule": [
+   {
+    "job": "chart.redraw",
+    "when": "weekly SUN 08:45"
+   }
+  ],
+  "brain": "It reads the brain's resolved link graph through Obsidian's local API and each note's age from the vault's git history, writes the chart back into the vault, and the Sunday repair agent reads it fifteen minutes later.",
+  "demo": {
+   "label": "Open the chart",
+   "url": "demos/carta/index.html"
+  }
+ },
+ {
+  "id": "table-model",
+  "name": "Table Model",
+  "kind": "app",
+  "type": "Chrome extension",
+  "year": "2026",
+  "flagship": false,
+  "status": "building",
+  "statusLabel": "Installed locally in Chrome",
+  "period": "Sep 2026 - now",
+  "role": "Designer and builder",
+  "line": "Reads every hand as it's dealt, models each opponent and prices every option by expected value.",
+  "keyFigure": {
+   "value": "2.0 ms",
+   "label": "median time per decision"
+  },
+  "summary": "Table Model is a Chrome extension that reads a PokerNow table hand by hand. It builds a profile of each opponent from the hands they have played, estimates what they are likely holding, and shows the highest-EV action and size on a small placard. A side panel shows the EV of every option. It never clicks or bets for me, and I built it for a home game whose players agreed that tools were allowed.",
+  "why": "The off-the-shelf poker engines I timed took 45 to 172 seconds per flop spot, far too slow for a live hand, and free tools stop at raw stats. I wanted a fast estimate that adjusts to how specific people play, and a way to test whether its numbers held up on real hands.",
+  "mechanism": "Each opponent's stats, such as how often they choose to enter a pot, are pulled toward table-wide averages until their own sample is large enough to trust. Their likely hands are set from position and betting line, then narrowed after every action, and each option is scored by its equity against those hands combined with the chance they fold. The newest version learns fold rates from my own hand archive and is graded on hands it did not train on. I looked at those test hands more than once while designing it, so only new sessions are a clean test.",
+  "pipeline": [
+   {
+    "step": "Read the table",
+    "detail": "Cards, stacks, bets and pot as shown at the table"
+   },
+   {
+    "step": "Profile players",
+    "detail": "VPIP, PFR, 3-bet, fold to c-bet, shrunk toward population priors"
+   },
+   {
+    "step": "Estimate ranges",
+    "detail": "Set from position and betting line, narrowed street by street"
+   },
+   {
+    "step": "Price options",
+    "detail": "Equity against ranges, combined with a learned fold model"
+   },
+   {
+    "step": "Show placard",
+    "detail": "One action and size, with its equity and a one-line reason"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "219",
+    "label": "commits across 62 branches, 2026-09-11 to 2026-09-30"
+   },
+   {
+    "value": "346 of 346",
+    "label": "unit tests passing on the 30 Sep candidate, plus 18 of 18 browser checks"
+   },
+   {
+    "value": "2.0 / 10.3 ms",
+    "label": "decision time, p50 / p95 (v2)"
+   },
+   {
+    "value": "0 in 20,041",
+    "label": "illegal actions in simulated decisions (v2)"
+   },
+   {
+    "value": "243 of 243",
+    "label": "archived hands with every chip accounted for"
+   },
+   {
+    "value": "-0.026",
+    "label": "Brier change vs v3.6.3, postflop hands it did not train on (lower is better)"
+   },
+   {
+    "value": "about a third",
+    "label": "of the simulated win rate came from scripted bots that called too much; I declared every earlier simulator figure void"
+   }
+  ],
+  "stack": [
+   "JavaScript (ES modules, no build step)",
+   "Chrome Extension Manifest V3",
+   "Side Panel API",
+   "IndexedDB",
+   "node:test",
+   "Playwright"
+  ],
+  "links": [],
+  "credits": "Heads-up preflop blueprints: amaster97/poker_solver (MIT), nine stack depths, pinned at f78f1b2. Table-reading selectors adapted from hellomate2/gto-poker-overlay (MIT).",
+  "span": {
+   "start": "2026-09",
+   "end": "now"
+  },
+  "updated": "2026-10-07",
+  "brain": "Its vault note logs every version, measurement and library I evaluated, and that note pointed it to Hand Compass, whose rules engine its simulator reuses."
+ },
+ {
+  "id": "wwii",
+  "name": "Unequal Mobilization",
+  "kind": "research",
+  "type": "Working paper",
+  "year": "2026",
+  "flagship": true,
+  "status": "building",
+  "statusLabel": "55-page working paper",
+  "period": "Aug 2026 - now",
+  "role": "Researcher and author",
+  "line": "Across 3,073 U.S. counties, WWII investment followed prewar industry, not the places that lost the most men.",
+  "keyFigure": {
+   "value": "0.69",
+   "label": "tracked industry, not war deaths"
+  },
+  "summary": "Unequal Mobilization asks whether the American counties that gave the most men in World War II received the most federal war investment. They did not. Per resident, contract dollars correlate with a county's 1940 manufacturing share at 0.69 and with its fatal burden at −0.03, and war plants and military bases follow the same pattern. The investment that did arrive built different towns: through 1970 a war plant raised county manufacturing employment by 39 log points, while a military base raised total employment by 41 log points and lowered measured homeownership by seven and a half points.",
+  "why": "Research has mapped where American WWII deaths fell and, separately, what war spending did to local economies. I put both in one county panel to test whether the places that gave the men got the money.",
+  "mechanism": "Deaths and three kinds of investment sit on one per-resident scale for the same counties, which shows three separate allocations: they overlap with each other at only 0.22 to 0.59, against 0.87 for deaths and population. At 3,073 counties the result is tight enough to rule out any link to wartime loss above 0.09 in either direction, and matched comparisons follow plant and base counties to 1970. A 35-stage Python pipeline writes the results tables and maps, and its last stage checks the paper's numbers against those outputs: 362 checks, 0 mismatches.",
+  "pipeline": [
+   {
+    "step": "Raw records",
+    "detail": "190,693 contracts, a 1945 plant report, 8.29M enlistment records"
+   },
+   {
+    "step": "County panel",
+    "detail": "Geocode to 3,073 counties on 1940 lines, merge independent cities"
+   },
+   {
+    "step": "Estimate",
+    "detail": "Allocation correlations, matched plant and base designs, IV, bounds"
+   },
+   {
+    "step": "Typeset",
+    "detail": "Scripts write the results tables and both maps for the LaTeX paper"
+   },
+   {
+    "step": "Audit",
+    "detail": "362 checks of the paper's numbers against outputs; a mismatch fails"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "3,073",
+    "label": "counties on 1940 boundaries"
+   },
+   {
+    "value": "190,693",
+    "label": "war supply contract records"
+   },
+   {
+    "value": "8,293,187",
+    "label": "Army enlistment records"
+   },
+   {
+    "value": "39 log points",
+    "label": "rise in county manufacturing employment from a war plant, by 1970"
+   },
+   {
+    "value": "41 vs 22",
+    "label": "log-point rise in total employment, military base vs war plant"
+   },
+   {
+    "value": "362 checks, 0 mismatched",
+    "label": "audit of the paper's numbers against pipeline outputs"
+   }
+  ],
+  "stack": [
+   "Python 3.13",
+   "pandas",
+   "statsmodels",
+   "SciPy",
+   "Parquet",
+   "matplotlib",
+   "LaTeX (latexmk)",
+   "git"
+  ],
+  "links": [
+   {
+    "label": "Full paper, 55 pages (PDF)",
+    "url": "docs/unequal-mobilization-wwii-paper.pdf",
+    "kind": "paper"
+   },
+   {
+    "label": "Data pipeline and audit (code)",
+    "url": "https://github.com/JosephBL27/unequal-mobilization",
+    "kind": "code"
+   }
+  ],
+  "credits": "Data: Brunet and Koustas's digitization of the Civilian Production Administration contract listing; Garin and Rothbaum's digitization of the 1945 War Production Board facilities report; ICPSR 38927 (casualty and enlistment records); ICPSR 2896, the Haines census series (county outcomes).",
+  "repoKey": "war-research",
+  "brain": "The project note and validation logs live in the vault, and ten Research Methods notes there each turn a mistake an audit missed into the check that catches it.",
+  "demo": {
+   "label": "Read the paper",
+   "url": "docs/unequal-mobilization-wwii-paper.pdf"
+  }
+ },
+ {
+  "id": "thrift",
+  "name": "Shopping Together or Searching Separately?",
+  "kind": "research",
+  "type": "Study design",
+  "year": "2024",
+  "flagship": false,
+  "status": "building",
+  "statusLabel": "Manuscript in progress",
+  "period": "May 2024 - now",
+  "role": "Project coordinator and statistician",
+  "line": "Do shoppers buy more when they browse a thrift store with a friend than when they search apart? A pair-level field-experiment design.",
+  "keyFigure": {
+   "value": "2",
+   "label": "conditions: browse together, or search apart"
+  },
+  "summary": "This manuscript asks whether shopping with someone changes what you buy. People who shop together differ from people who shop alone, so comparing them mixes up the companion with whatever brought them in together. The design randomizes instead: adult pairs who arrive at a thrift store together are assigned, within each store, date and time block, either to browse together as they planned or to search separately until they meet again at the exit. The outcome is whether each shopper buys anything. This page describes the question and design only. The manuscript is a draft, and its reported estimates are not presented here as findings because the data behind them have not been verified.",
+  "why": "Thrift stores make the question sharp. Most items are one of a kind, fit and condition are hard to judge, and putting something back can mean losing it, so many choices are neither a clear buy nor a clear pass. If a second opinion changes behavior anywhere, it should be there.",
+  "mechanism": "Each shopper's purchase is checked against the receipt first, then a bag inspection or a closely matched self-report. The main model compares the two assigned conditions with block fixed effects and pair-clustered standard errors, and is checked with randomization inference. A secondary estimate adjusts for how closely pairs followed their assignment. Three families of intermediate outcomes, validation and confidence, search productivity and breadth, and coordination cost, are named in advance to help read the purchase result, not to split it into causes. The design compares two bundled conditions among natural companions and makes no claim about welfare.",
+  "pipeline": [
+   {
+    "step": "Screen",
+    "detail": "Enumerators approach adult pairs who arrive together; both must be active shoppers and consent"
+   },
+   {
+    "step": "Baseline",
+    "detail": "Both shoppers complete a brief survey before assignment"
+   },
+   {
+    "step": "Assign",
+    "detail": "Pre-loaded on tablets, 1:1 within store, date and time blocks"
+   },
+   {
+    "step": "Observe",
+    "detail": "Structured sheets log regrouping, waiting and fitting-room visits"
+   },
+   {
+    "step": "Verify",
+    "detail": "Purchases checked by receipt, then bag inspection or matched self-report"
+   },
+   {
+    "step": "Estimate",
+    "detail": "Block fixed effects, pair-clustered errors, randomization inference"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "2",
+    "label": "assigned conditions: browse together, or search apart"
+   },
+   {
+    "value": "3",
+    "label": "families of intermediate outcomes, named before the analysis"
+   },
+   {
+    "value": "3",
+    "label": "purchase sources, checked in a fixed order: receipt, bag inspection, matched self-report"
+   },
+   {
+    "value": "22 pages",
+    "label": "draft manuscript"
+   },
+   {
+    "value": "8",
+    "label": "appendix tables, from baseline balance to fixed-effects sensitivity"
+   }
+  ],
+  "lineage": [
+   {
+    "year": "2023",
+    "step": "The question is first written down as an outline: surveys of shoppers and store owners, and a model built on Thaler's acquisition and transaction utility."
+   },
+   {
+    "year": "May 2024",
+    "step": "A written proposal goes to a professor for advice, who suggests narrowing it to a few big questions."
+   },
+   {
+    "year": "Oct 2024",
+    "step": "The methodology is written, with a questionnaire for shoppers and another for store owners."
+   },
+   {
+    "year": "Dec 2024",
+    "step": "A first full draft asks whether the pull of thrifting is the product or the experience, and how the size of a group relates to time, spending and enjoyment."
+   },
+   {
+    "year": "2026",
+    "step": "The study is redesigned as a randomized experiment on pairs who arrive together: the manuscript described on this page."
+   }
+  ],
+  "stack": [
+   "Randomized field experiment",
+   "Survey instruments",
+   "Linear probability models",
+   "Randomization inference",
+   "Two-stage least squares",
+   "LaTeX"
+  ],
+  "links": [],
+  "credits": "Described from the 22-page draft manuscript, titled Shopping Together or Searching Separately? Experimental Evidence from Natural Shopping Dyads in Thrift Retail. Its reported estimates are not presented as findings.",
+  "span": {
+   "start": "2024-05",
+   "end": "now"
+  },
+  "updated": "2026-05-25",
+  "brain": "The manuscript sits in the vault's research library, next to a note that records which claims about it are safe to make and which are not."
+ },
+ {
+  "id": "love-island",
+  "name": "Love Island Dynamics",
+  "kind": "research",
+  "type": "Research paper",
+  "year": "2025",
+  "flagship": true,
+  "status": "building",
+  "statusLabel": "Paper, revised Aug 2026",
+  "period": "Jan 2025 - now",
+  "role": "Researcher and author",
+  "line": "Love Island couples modeled as coupled differential equations, with the public vote built in.",
+  "keyFigure": {
+   "value": "about $4,000",
+   "label": "earned trading on Kalshi"
+  },
+  "summary": "Romantic Dynamics Under Public Selection is a 14-page paper that models each Love Island couple as a pair of coupled differential equations and writes the audience vote into the same system. The two combine into a winner index. It ranks the finalist couples by public support on day 53 plus their mutual affection near the finale. Since late July 2025 I have traded Love Island winner markets on Kalshi on my own calls, using the model's reasoning, and earned about $4,000.",
+  "why": "The show removes jobs, money and logistics, which leaves something close to a lab for dating under a public vote. I wanted to know why some couples settle and others fall apart, and how the audience decides who stays.",
+  "mechanism": "Each couple is two equations: how fast each person's feelings fade on their own, how strongly each responds to the other, and a term that lets affection feed on itself. With that term off, a couple settles when fading outweighs responding; once it is strong enough, the steady state turns unstable and small swings grow instead of dying out. A separate public-support function scores what voters can see, such as time in the villa and how long a couple has lasted, across three stages of a 53-day season.",
+  "pipeline": [
+   {
+    "step": "Couple dynamics",
+    "detail": "Two coupled ODEs per couple: forgetting, reactivity, appeal, synergy"
+   },
+   {
+    "step": "Stability",
+    "detail": "Jacobian trace and determinant show when a couple settles"
+   },
+   {
+    "step": "Early volatility",
+    "detail": "A damped oscillator adds early swings that fade over the season"
+   },
+   {
+    "step": "Public vote",
+    "detail": "A support function over five visible covariates, in three stages"
+   },
+   {
+    "step": "Winner index",
+    "detail": "Day-53 support plus late mutual affection and noise; top index wins"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "about $4,000",
+    "label": "earned on Love Island winner markets on Kalshi since late July 2025"
+   },
+   {
+    "value": "14 pages",
+    "label": "current version, Aug 25, 2026"
+   },
+   {
+    "value": "2",
+    "label": "formal stability propositions"
+   },
+   {
+    "value": "53 days, 3 stages",
+    "label": "season model"
+   },
+   {
+    "value": "5",
+    "label": "observable covariates in the vote model"
+   },
+   {
+    "value": "3",
+    "label": "psychology theories behind the vote function"
+   }
+  ],
+  "stack": [
+   "LaTeX",
+   "Nonlinear ODEs",
+   "Jacobian stability analysis",
+   "Comparative statics"
+  ],
+  "links": [
+   {
+    "label": "Open the full demo",
+    "url": "demos/love-island/index.html",
+    "kind": "demo"
+   },
+   {
+    "label": "Full paper, 14 pages (PDF)",
+    "url": "docs/romantic-dynamics-love-island-paper.pdf",
+    "kind": "paper"
+   }
+  ],
+  "credits": "Builds on the Rinaldi and Strogatz family of love-dynamics models.",
+  "span": {
+   "start": "2025-01",
+   "end": "2026-08"
+  },
+  "updated": "2026-08-25",
+  "brain": "The paper is filed in the vault's research library, and the daily internship agent cites it in eleven of the application packets it writes there.",
+  "demo": {
+   "label": "Read the paper",
+   "url": "docs/romantic-dynamics-love-island-paper.pdf"
+  }
+ },
+ {
+  "id": "hand-compass",
+  "name": "Hand Compass",
+  "kind": "app",
+  "type": "Poker trainer",
+  "year": "2026",
+  "flagship": false,
+  "status": "shipped",
+  "statusLabel": "Live on this site",
+  "period": "Aug 2026 - Sep 2026",
+  "role": "Designer and builder",
+  "line": "A Hold'em drill table that grades my decisions against solved strategy and labels where each grade comes from.",
+  "keyFigure": {
+   "value": "960",
+   "label": "replayed practice spots"
+  },
+  "summary": "Hand Compass is a poker trainer. It deals a spot or a full hand for 4 to 8 players, hides the answer until I commit, then grades my choice from Best Move to Blunder with the pot-odds math and a short lesson. When the open-source postflop-solver covers the spot, the grade comes from its solved strategy; everywhere else the result is labeled HEURISTIC, so solved answers and rules of thumb never look alike. The copy on this site runs without the solver, so its grades are labeled HEURISTIC or EXACT MATH.",
+  "why": "Many poker trainers present rules of thumb as if they were solved strategy. I wanted a drill where every legal action comes from a rules engine, and where solved output, exact math and heuristics are labeled differently.",
+  "mechanism": "A TypeScript rules engine generates every legal action and settles side pots and split pots with exact chip accounting. A small Rust service on my machine wraps b-inary's postflop-solver and returns a strategy only once a perfect counter-strategy would gain less than 0.5% of the pot against it. Solves are cached against the exact request, so a restart serves them again without recomputing, and preflop, multiway or oversized spots go to a labeled heuristic instead of an invented number.",
+  "pipeline": [
+   {
+    "step": "Deal",
+    "detail": "Spot circuit of 960 replayed nodes, or full hands at 4 to 8 seats"
+   },
+   {
+    "step": "Legal actions",
+    "detail": "TypeScript rules engine; exact chip conservation and side pots"
+   },
+   {
+    "step": "Commit",
+    "detail": "I choose before the reference answer is shown"
+   },
+   {
+    "step": "Look up or solve",
+    "detail": "Exact cache first, else the Rust sidecar runs postflop-solver"
+   },
+   {
+    "step": "Grade",
+    "detail": "Best Move to Blunder, tagged SOLVED, HEURISTIC or EXACT MATH"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "960",
+    "label": "legally replayed decision spots in the practice circuit"
+   },
+   {
+    "value": "192 passed",
+    "label": "unit tests, 2026-09-08 run"
+   },
+   {
+    "value": "100 of 100",
+    "label": "full hands completed in the breadth run, 0 blocked"
+   },
+   {
+    "value": "0.4423%",
+    "label": "of pot exploitability on a verified flop solve (target 0.5%)"
+   },
+   {
+    "value": "6 of 6",
+    "label": "solves served from cache after a restart"
+   },
+   {
+    "value": "11,918 + 1,225",
+    "label": "lines of TypeScript app code + Rust adapter"
+   }
+  ],
+  "stack": [
+   "TypeScript",
+   "React",
+   "Vite",
+   "Vitest",
+   "fast-check",
+   "Rust",
+   "IndexedDB",
+   "Playwright"
+  ],
+  "links": [
+   {
+    "label": "Source code",
+    "url": "https://github.com/JosephBL27/hand-compass",
+    "kind": "code"
+   },
+   {
+    "label": "postflop-solver, the open solver it calls",
+    "url": "https://github.com/b-inary/postflop-solver",
+    "kind": "code"
+   }
+  ],
+  "credits": "Solver engine: b-inary/postflop-solver (AGPL-3.0), pinned at commit 9d1509f.",
+  "span": {
+   "start": "2026-08",
+   "end": "2026-09"
+  },
+  "updated": "2026-09-22",
+  "brain": "Each build session wrote its verified results to the project's vault note and a session log, and Table Model found and reused this rules engine through that note.",
+  "demo": {
+   "label": "Play a spot",
+   "url": "demos/hand-compass/"
+  }
+ },
+ {
+  "id": "odyssey",
+  "name": "Odyssey: A Living Reckoning",
+  "kind": "instrument",
+  "type": "Reading instrument",
+  "year": "2026",
+  "flagship": true,
+  "status": "shipped",
+  "statusLabel": "Live on this site",
+  "period": "Aug 2026",
+  "role": "Designer and builder",
+  "line": "A turning wheel for reading Homer's Odyssey, built to sit beside the print text.",
+  "keyFigure": {
+   "value": "185",
+   "label": "episodes, 4 registers each"
+  },
+  "summary": "Odyssey: A Living Reckoning is a reading instrument for Homer's poem, built on the four-ring wheel I first made for Ovid. Turning the wheel opens a reading sheet for any of the 185 episodes. Other workspaces hold the forty-day count, descent charts for 17 houses, records for 297 figures and a 118-entry lexicon. Reading progress and margin notes save in the browser and export as JSON.",
+  "why": "The Odyssey tells its story out of order: about forty days of present action hold ten years of wandering, told in one night by the only witness. Read book by book, it is easy to lose track of who someone is and whose account you are hearing.",
+  "mechanism": "One file, SPINE.json, lists the 24 books and 185 episode titles, every other data file uses those titles as keys, and a check script flags any title that drifts or any cast name with no figure record. Ovid organizes his poem by transformation and Homer by return, so the slot that named each metamorphosis on the Ovid wheel became the turn: Nobody → Odysseus, Stranger → guest. Each figure gets an engraved seal generated from its name, so the same name always draws the same seal.",
+  "pipeline": [
+   {
+    "step": "SPINE.json",
+    "detail": "24 books and 185 episode titles, the keys for every other file"
+   },
+   {
+    "step": "Data files",
+    "detail": "51 files: books, episodes, figures, readings and the sky ring"
+   },
+   {
+    "step": "npm run check",
+    "detail": "Flags a drifted title or a cast name with no figure record"
+   },
+   {
+    "step": "Pure geometry",
+    "detail": "radial.js computes the wheel; a DAG layout ranks descent charts"
+   },
+   {
+    "step": "Browser",
+    "detail": "HTML, inline SVG and GSAP; progress and notes save in the browser"
+   },
+   {
+    "step": "Playwright",
+    "detail": "12 visual baselines across 5 viewports"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "185",
+    "label": "Episodes, each with 4 registers"
+   },
+   {
+    "value": "297",
+    "label": "Figure records"
+   },
+   {
+    "value": "798",
+    "label": "Per-episode figure notes"
+   },
+   {
+    "value": "1,438",
+    "label": "Plain narrative beats"
+   },
+   {
+    "value": "4 of 24",
+    "label": "Sky claims marked Homer's own"
+   },
+   {
+    "value": "1",
+    "label": "Runtime dependency (GSAP)"
+   }
+  ],
+  "stack": [
+   "Vanilla JavaScript",
+   "Vite 7.3.6",
+   "GSAP 3.15.0",
+   "Inline SVG",
+   "Playwright"
+  ],
+  "links": [
+   {
+    "label": "Source code",
+    "url": "https://github.com/JosephBL27/odyssey-living-reckoning",
+    "kind": "code"
+   }
+  ],
+  "credits": "Animation by GSAP (GreenSock). Typefaces Bodoni Moda, Manrope and Archivo Narrow via Google Fonts.",
+  "span": {
+   "start": "2026-08",
+   "end": "2026-08"
+  },
+  "updated": "2026-08-25",
+  "demo": {
+   "label": "Open the instrument",
+   "url": "demos/odyssey/"
+  },
+  "brain": "Its descent charts run the same layout module as the Metamorphoses stemma, whose method the vault keeps as a reusable technique note."
+ },
+ {
+  "id": "metamorphoses",
+  "name": "Metamorphoses: A Living Chronology",
+  "kind": "instrument",
+  "type": "Reading instrument",
+  "year": "2026",
+  "flagship": false,
+  "status": "shipped",
+  "statusLabel": "Live on Vercel",
+  "period": "Jul - Aug 2026",
+  "role": "Designer and builder",
+  "line": "A four-ring compass for Ovid's 15 books: turn it to any book, then open any of its episodes.",
+  "keyFigure": {
+   "value": "120",
+   "label": "episodes on one turning compass"
+  },
+  "summary": "The centerpiece is a compass of four rings: Ovid's six mythic eras, his 15 books, the episodes of the book you are reading and its theme lenses, around an engraved sun inscribed Omnia mutantur, nihil interit. Drag it, scroll it or use the arrow keys, and the inner rings refill with the new book's episodes and themes. Click an episode and its folio slides open beside the wheel with the scene, a numbered account of what happens and a woodcut plate. Around the compass sit descent charts for 15 houses, a transformation network and a sea chart of 141 places, and the Odyssey and Liaozhai instruments copy its design.",
+  "why": "Ovid runs myth into myth for 15 books, and the cast lists of the 120 episodes use 393 distinct names. A reader needs to see who someone is and what they turn into without leaving the page.",
+  "mechanism": "Every ring on the compass is computed from the data by one pure geometry module, with curved labels so episode titles read in full and a star band that plots one constellation per book from star coordinates. The descent charts treat family as a graph: a figure's generation is the longest chain of parents above it, and spouses share a row, so Harmonia sits beside Cadmus instead of below him. A test fails if a row mixes generations or a figure is drawn twice.",
+  "pipeline": [
+   {
+    "step": "Data modules",
+    "detail": "120 episodes, 384 figures and 141 places as plain JS files"
+   },
+   {
+    "step": "Check scripts",
+    "detail": "Report unresolved cast names; fail on a missing beat list"
+   },
+   {
+    "step": "Coastline build",
+    "detail": "Natural Earth land projected once at author time and committed"
+   },
+   {
+    "step": "Browser",
+    "detail": "SVG compass from pure geometry, GSAP folios, D3 relationship graph"
+   },
+   {
+    "step": "Vercel",
+    "detail": "Static build served at metamorphoses-chronology.vercel.app"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "4 rings",
+    "label": "Era, book, episode and theme on one compass"
+   },
+   {
+    "value": "120",
+    "label": "Episodes with full dossiers"
+   },
+   {
+    "value": "384",
+    "label": "Figure records"
+   },
+   {
+    "value": "15",
+    "label": "Houses with descent charts"
+   },
+   {
+    "value": "141",
+    "label": "Places in the sea chart"
+   },
+   {
+    "value": "24",
+    "label": "Public-domain engravings"
+   }
+  ],
+  "stack": [
+   "Vanilla JavaScript",
+   "Vite 7.3.6",
+   "GSAP 3.15.0",
+   "D3 (drag, force, selection, zoom) 3.0.0",
+   "d3-geo at build time",
+   "Playwright",
+   "Vercel"
+  ],
+  "links": [
+   {
+    "label": "Source code",
+    "url": "https://github.com/JosephBL27/metamorphoses-living-chronology",
+    "kind": "code"
+   }
+  ],
+  "credits": "24 public-domain engravings, including 17 folios from The Met Open Access collection. Coastline from Natural Earth via world-atlas. GSAP for motion and D3 for the relationship graph.",
+  "repoKey": "metamorphoses",
+  "demo": {
+   "label": "Turn the compass",
+   "url": "https://metamorphoses-chronology.vercel.app/"
+  },
+  "brain": "The descent-chart method it worked out is committed to the vault as a reusable technique note, and the Odyssey's stemma runs the same layout module."
+ },
+ {
+  "id": "liaozhai",
+  "name": "Liaozhai: The Unofficial Register",
+  "kind": "instrument",
+  "type": "Reading instrument",
+  "year": "2026",
+  "flagship": false,
+  "status": "shipped",
+  "statusLabel": "Live on this site",
+  "period": "Aug 2026",
+  "role": "Designer and builder",
+  "line": "Pu Songling's Strange Tales sorted into 15 reading paths on a concentric dial.",
+  "keyFigure": {
+   "value": "30",
+   "label": "tales on 15 reading paths"
+  },
+  "summary": "Liaozhai: The Unofficial Register is a reading instrument for Pu Songling's Strange Tales from a Chinese Studio, read in English translation. It groups 30 representative tales into 15 reading paths on a draggable concentric dial, with a live dossier for each tale, a tale ledger, a relationship graph and a chart of recurring story places. Reading state is tracked per tale, and the whole thing ships as a single HTML file that opens offline.",
+  "why": "The collection has hundreds of tales and no single plot. A reader needs paths through it and quick context on recurring figures, on institutions like the civil-service exam, and on motifs like fox spirits.",
+  "mechanism": "It carries the Metamorphoses design onto React 19 and TypeScript, with the dial geometry kept in pure functions. The catalog is typed, and a Vitest test asserts exact record counts and that every reading path holds exactly two tales, so a bad data edit fails the test run. The relationship graph and the story chart load only when opened.",
+  "pipeline": [
+   {
+    "step": "Typed catalog",
+    "detail": "15 registers, 30 tales, 88 figures, 26 motifs, 18 places in TS"
+   },
+   {
+    "step": "Vitest",
+    "detail": "Asserts exact counts and exactly two tales per register"
+   },
+   {
+    "step": "React + SVG",
+    "detail": "Pure TS radial geometry; GSAP turns the dial to the chosen slot"
+   },
+   {
+    "step": "Lazy workspaces",
+    "detail": "React Flow graph and story chart load only when opened"
+   },
+   {
+    "step": "Playwright + axe",
+    "detail": "23 tests: 5 viewports, reduced motion, WCAG A/AA scans"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "15 / 30",
+    "label": "Reading paths / tales"
+   },
+   {
+    "value": "88",
+    "label": "Figure slips"
+   },
+   {
+    "value": "27",
+    "label": "Lexicon glosses"
+   },
+   {
+    "value": "23",
+    "label": "Playwright tests, 3 with axe"
+   },
+   {
+    "value": "6,298",
+    "label": "Lines of TypeScript, 52 files"
+   },
+   {
+    "value": "11,363,503 bytes",
+    "label": "Single-file offline build"
+   }
+  ],
+  "stack": [
+   "React 19.2.8",
+   "TypeScript 7.0.2",
+   "Vite 8.2.0",
+   "Tailwind CSS 4",
+   "GSAP 3.15.0",
+   "React Flow 12.11.2",
+   "d3-scale 4.0.2",
+   "Vitest 4.1.10",
+   "Playwright + axe-core"
+  ],
+  "links": [
+   {
+    "label": "Source code",
+    "url": "https://github.com/JosephBL27/liaozhai-unofficial-register",
+    "kind": "code"
+   }
+  ],
+  "credits": "Relationship graph by React Flow. Type: Literata, Noto Serif SC and Barlow Condensed via Fontsource.",
+  "repoKey": "liaozhai",
+  "brain": "Its visual language now draws the brain itself: the chart-corpus tool that maps the vault as a portolan chart borrows its look from this instrument.",
+  "demo": {
+   "label": "Open the register",
+   "url": "demos/liaozhai/"
+  }
+ },
+ {
+  "id": "chomchom",
+  "name": "ChomChom",
+  "kind": "app",
+  "type": "Learning-games startup",
+  "year": "2024 to 2025",
+  "flagship": false,
+  "status": "ended",
+  "statusLabel": "2025 CODiE Awards Finalist",
+  "period": "Apr 2024 - May 2025",
+  "role": "Product Architect",
+  "line": "Learning and mindfulness games for young kids. I designed the startup's lesson pipeline.",
+  "keyFigure": {
+   "value": "Finalist",
+   "label": "2025 CODiE Awards, 2 categories"
+  },
+  "summary": "ChomChom is a startup that makes learning and mindfulness games for young children, built with neurodivergent kids in mind. From April 2024 to May 2025 I was its Product Architect, reporting to the founder. ChomChom Tech was named a 2025 CODiE Awards Finalist in two categories in September 2025.",
+  "why": "Young kids need lessons matched to their reading level and sensory tolerance, which generic content and unguarded generative AI don't give them. As a student with ADHD, I was building the kind of adaptive learning system I needed when I was younger.",
+  "mechanism": "The ingestion pipeline I designed enforced one schema on every lesson and scrubbed content for safety. Each lesson was then tagged with reading level, teaching intent and sensory load, so the app could route a child to a suitable next lesson and track progress over time. For the generative-AI mini-games, I added regression tests that catch prompt drift.",
+  "pipeline": [
+   {
+    "step": "Ingest lessons",
+    "detail": "Schema enforced on every lesson object"
+   },
+   {
+    "step": "Safety scrub",
+    "detail": "Content scrubbed for safety at ingestion"
+   },
+   {
+    "step": "Tag",
+    "detail": "Reading level, pedagogy intent and sensory-load metadata"
+   },
+   {
+    "step": "Route",
+    "detail": "Tags feed adaptive next-lesson routing and progress tracking"
+   },
+   {
+    "step": "Test for drift",
+    "detail": "Regression tests catch prompt drift in the generative-AI games"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "1,571+",
+    "label": "lesson objects normalized through the ingestion pipeline"
+   },
+   {
+    "value": "1,500+",
+    "label": "lessons tagged for reading level, pedagogy and sensory load"
+   },
+   {
+    "value": "11",
+    "label": "generative-AI mini-games built and shipped"
+   },
+   {
+    "value": "934",
+    "label": "Bay Area schools prospected through the outreach CRM"
+   },
+   {
+    "value": "2",
+    "label": "2025 CODiE categories: Gamification in Learning; SEL or Mindfulness"
+   },
+   {
+    "value": "over 1,000",
+    "label": "kids across the country who tested its sessions"
+   }
+  ],
+  "stack": [
+   "Generative AI",
+   "Data pipeline with schema enforcement",
+   "Prompt regression tests",
+   "Telemetry and QA instrumentation"
+  ],
+  "links": [
+   {
+    "label": "2025 CODiE Awards finalists",
+    "url": "https://codieawards.com/finalists-2025",
+    "kind": "doc"
+   },
+   {
+    "label": "ChomChom on the App Store",
+    "url": "https://apps.apple.com/us/app/chomchom-habit-game/id6745027289",
+    "kind": "live"
+   }
+  ],
+  "credits": "Product screenshots: ChomChomTech, Corp (its App Store listings and a Learning Counsel feature); they show the current apps. CODiE Awards Finalist badge: CODiE Awards LLC.",
+  "span": {
+   "start": "2024-04",
+   "end": "2025-05"
+  },
+  "updated": "2025-05",
+  "brain": "My vault's ChomChom note is the evidence behind the ChomChom lines Recruiting OS can use in an outreach draft."
+ },
+ {
+  "id": "qvr",
+  "name": "QVR Advisors",
+  "kind": "work",
+  "type": "Internship",
+  "year": "2025",
+  "flagship": false,
+  "status": "ended",
+  "statusLabel": "Internship, ended Dec 2025",
+  "period": "Jun 2025 - Dec 2025",
+  "role": "Quantitative Research Intern",
+  "line": "A quantitative research internship at a volatility-focused investment firm: ETF rebalancing flows and the implied volatility surface.",
+  "keyFigure": {
+   "value": "Jun-Dec 2025",
+   "label": "quantitative research internship"
+  },
+  "summary": "QVR Advisors is a volatility-focused investment firm. From June to December 2025 I was a quantitative research intern there, full-time through August and part-time after. My research topic was how mechanical ETF rebalancing can leave short-lived mispricings in options and volatility markets, and how to model the implied volatility surface. This page stays at role level: the code, data and results belong to the employer.",
+  "why": "Yield-focused and volatility-linked ETFs trade on fixed schedules, and flows that predictable can leave short-lived mispricings in options and VIX futures. The question was whether they can be forecast once the test is honest and out of sample.",
+  "mechanism": "The work ran on four threads: the options supply that scheduled fund rebalancing creates, real-time fair values for VIX-linked ETFs, the implied volatility surface, and backtests that had to survive cross-validation and significance tests. I implemented and studied standard frameworks such as SVI and Dupire local volatility. What I kept from it is a rule for my own models: a model earns trust when it survives stress, not when it fits the past.",
+  "pipeline": [
+   {
+    "step": "Flows",
+    "detail": "Model the options supply that fund rebalancing schedules create"
+   },
+   {
+    "step": "Fair value",
+    "detail": "Compute real-time fair values for VIX-linked ETFs to isolate dislocation windows"
+   },
+   {
+    "step": "Surface",
+    "detail": "Fit the implied volatility surface with SVI and Dupire local-volatility frameworks"
+   },
+   {
+    "step": "Test",
+    "detail": "Backtest with cross-validation and significance tests before believing anything"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "6 Jun - 31 Dec 2025",
+    "label": "internship dates"
+   },
+   {
+    "value": "Jun-Aug",
+    "label": "full-time; part-time through December"
+   },
+   {
+    "value": "4",
+    "label": "research threads: flows, fair value, the volatility surface, backtest discipline"
+   }
+  ],
+  "stack": [
+   "Python",
+   "SVI volatility-surface model",
+   "Dupire local volatility",
+   "Cross-validated backtesting"
+  ],
+  "links": [],
+  "credits": "Employer-confidential work: no code, data or results are shown. Dates, role and research topic are at resume level.",
+  "span": {
+   "start": "2025-06",
+   "end": "2025-12"
+  },
+  "updated": "2025-12",
+  "brain": "The vault holds only my own notes about the role. The code and data stayed with the employer, so nothing from them is in the brain."
+ },
+ {
+  "id": "cloudflare",
+  "name": "Cloudflare (NET) Pitch",
+  "kind": "research",
+  "type": "Stock pitch",
+  "year": "2026",
+  "flagship": false,
+  "status": "shipped",
+  "statusLabel": "32-slide pitch deck",
+  "period": "Feb 2026",
+  "role": "Led the pitch and built the reverse DCF",
+  "line": "A reverse DCF of the growth Cloudflare's $191.58 share price already assumed.",
+  "keyFigure": {
+   "value": "26.6%",
+   "label": "probability-weighted upside"
+  },
+  "summary": "A stock pitch on Cloudflare built around a reverse DCF of the growth its $191.58 price already assumed. The thesis was that Cloudflare had become AI infrastructure: it charges for traffic rather than seats, so traffic from AI agents feeds its revenue. Remaining performance obligations up 48 percent and free cash flow up 56 percent to $261 million backed the case for enterprise demand and profitability. Four weighted scenarios gave a target of $242.53 against $191.58, or 26.6 percent upside.",
+  "why": "Tech stocks had sold off on fears that AI would weaken seat-based software pricing. Cloudflare charges for usage, not seats, so the pitch asked whether the selloff had mispriced it.",
+  "mechanism": "A reverse DCF runs a valuation backwards: it starts from today's price and solves for the growth the market must already expect. At a 10.8 percent cost of capital and a 30x free-cash-flow exit multiple, $191.58 implied revenue growth of 44 percent a year for 5 years, or 20 percent a year for 10. A customer-level revenue build through 2032 then fed four scenarios, from $70.28 in the bear case to $535.89 in a super-bull case where it charges AI crawlers for access and takes share from hyperscalers.",
+  "pipeline": [
+   {
+    "step": "Reverse DCF",
+    "detail": "Solve for the growth implied by $191.58 at a 10.8% WACC, 30x exit"
+   },
+   {
+    "step": "Revenue build",
+    "detail": "Large and other customers, revenue per account, through 2032"
+   },
+   {
+    "step": "Scenarios",
+    "detail": "Bear, Base, Bull, Super-Bull, weighted 10, 50, 30 and 10 percent"
+   },
+   {
+    "step": "Sensitivity",
+    "detail": "WACC by exit-multiple grid, from $147.45 to $301.44 a share"
+   },
+   {
+    "step": "Anti-pitch",
+    "detail": "Thesis defended in structured anti-pitches built to stress-test it"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "$242.53 vs $191.58",
+    "label": "expected price vs price at pitch"
+   },
+   {
+    "value": "44% / 20%",
+    "label": "implied revenue CAGR over 5 / 10 years"
+   },
+   {
+    "value": "$70.28 to $535.89",
+    "label": "Bear to Super-Bull scenario prices"
+   },
+   {
+    "value": "48%",
+    "label": "year-over-year growth in total remaining performance obligations"
+   },
+   {
+    "value": "$261M, +56%",
+    "label": "FY25 free cash flow and its year-over-year growth"
+   }
+  ],
+  "stack": [
+   "Excel valuation model",
+   "Reverse DCF",
+   "Scenario analysis",
+   "Sensitivity analysis",
+   "Comparable companies"
+  ],
+  "links": [
+   {
+    "label": "Pitch deck, 32 slides (PDF)",
+    "url": "docs/cloudflare-net-stock-pitch.pdf",
+    "kind": "deck"
+   }
+  ],
+  "credits": "Team work product of the 12-member TAMID at Michigan tech desk.",
+  "span": {
+   "start": "2026-02",
+   "end": "2026-02"
+  },
+  "updated": "2026-02-18",
+  "brain": "The deck and its scenario table live in the vault, and my application agent pulls them into its packets; ten cite this pitch.",
+  "demo": {
+   "label": "Open the deck",
+   "url": "docs/cloudflare-net-stock-pitch.pdf"
+  }
+ },
+ {
+  "id": "appfolio",
+  "name": "AppFolio (APPF): The Second Act",
+  "kind": "research",
+  "type": "Stock pitch",
+  "year": "2025",
+  "flagship": false,
+  "status": "shipped",
+  "statusLabel": "Pitch deck, Sep 2025",
+  "period": "Sep 2025",
+  "role": "Analyst and author",
+  "line": "A stock pitch built from nine annual 10-Ks: AppFolio now grows by earning more from each customer.",
+  "keyFigure": {
+   "value": "17.5%",
+   "label": "revenue-per-customer CAGR, 2016-24"
+  },
+  "summary": "The Second Act is a 21-slide pitch on AppFolio, a property-management software company. Its thesis is that customer growth is flattening, so the company's second act is earning more from each customer. Revenue per customer rose from $10,520 in 2016 to $38,210 in 2024, value-added services climbed to 76.2 percent of revenue, and GAAP operating margin went from −15.3 percent in 2022 to 17.1 percent in 2024. I pulled the figures from the company's filings, kept the data as small CSVs and charted it in R.",
+  "why": "AppFolio's customer count was leveling off. I wanted to separate growth from new customers and growth from bigger contracts, to see whether the company still had room to grow.",
+  "mechanism": "Revenue equals customers times units per customer times revenue per unit, so splitting each year's revenue change into those three pieces shows which one did the work. A logistic curve fitted to customer counts reaches 24,204 by 2030, with each year's gain smaller than the last. Over 2016 to 2024, revenue per customer grew 17.5 percent a year against 9.5 percent for customers.",
+  "pipeline": [
+   {
+    "step": "Collect filings",
+    "detail": "9 annual 10-Ks, 4 unit reports and 1 earnings-call transcript"
+   },
+   {
+    "step": "Build dataset",
+    "detail": "Customers, units and revenue by year as small tidy CSVs"
+   },
+   {
+    "step": "Decompose",
+    "detail": "Split each year's revenue change into three drivers"
+   },
+   {
+    "step": "Fit and project",
+    "detail": "Logistic fit to 2015-2024 customers, projected to 2030"
+   },
+   {
+    "step": "Size the market",
+    "detail": "Blend two published estimates into a $4.02B core market for 2024"
+   },
+   {
+    "step": "Chart in R",
+    "detail": "ggplot2 charts, saved as PNGs, for the 21-slide deck"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "$10,520 to $38,210",
+    "label": "revenue per customer, 2016 to 2024"
+   },
+   {
+    "value": "17.5% vs 9.5%",
+    "label": "CAGR, revenue per customer vs customers, 2016-24"
+   },
+   {
+    "value": "8,218 to 20,784",
+    "label": "customers 2015 to 2024; logistic fit reaches 24,204 by 2030"
+   },
+   {
+    "value": "60.2% to 76.2%",
+    "label": "value-added services share of revenue, 2019 to 2024"
+   },
+   {
+    "value": "−15.3% to 17.1%",
+    "label": "GAAP operating margin, 2022 to 2024"
+   },
+   {
+    "value": "7.82M of 48.5M",
+    "label": "U.S. rental units outside RealPage, Yardi, AppFolio and Entrata"
+   }
+  ],
+  "stack": [
+   "R",
+   "ggplot2",
+   "ggrepel",
+   "CSV",
+   "SEC 10-K filings"
+  ],
+  "links": [
+   {
+    "label": "Pitch deck, 21 slides (PDF)",
+    "url": "docs/appfolio-appf-the-second-act.pdf",
+    "kind": "deck"
+   }
+  ],
+  "credits": "Market-size inputs from Grand View Research and IMARC; rental units by platform from 6sense.",
+  "span": {
+   "start": "2025-09",
+   "end": "2025-09"
+  },
+  "updated": "2025-09-22",
+  "brain": "A vault note maps the pitch's data and charts and links it to my Work, Skills and Career notes, where it pairs with the Cloudflare pitch as a finance work sample.",
+  "demo": {
+   "label": "Open the deck",
+   "url": "docs/appfolio-appf-the-second-act.pdf"
+  }
+ },
+ {
+  "id": "notebooklm-study-loop",
+  "name": "NotebookLM Study Loop",
+  "kind": "tool",
+  "type": "Scheduled automation",
+  "year": "2026",
+  "flagship": false,
+  "status": "running",
+  "statusLabel": "Runs daily at 10:00",
+  "period": "May 2026 - now",
+  "role": "Designer and operator",
+  "line": "Turns finance study material into two audio lessons and a quiz every morning.",
+  "keyFigure": {
+   "value": "114",
+   "label": "daily runs since June 11"
+  },
+  "summary": "Every morning a scheduled job pulls new finance study material that a mentor emails me, adds it to a pinned NotebookLM notebook, and generates two audio lessons and an adaptive quiz. Every Wednesday a second job writes a 90-minute exam. The first pack landed on May 29, 2026, and every daily run since June 11 is logged.",
+  "why": "I wanted daily interview practice built from the material I was actually being sent, without writing each quiz myself.",
+  "mechanism": "Making an episode marks a concept as taught, never as mastered. The script estimates my confidence from whether macOS shows I opened each episode file, but caps that estimate at 2 of 3, so only my own rating can mark a concept mastered and retire it from review. I added the cap after an early version made a podcast on LBOs before I had learned LBOs.",
+  "pipeline": [
+   {
+    "step": "Ingest",
+    "detail": "Pulls new attachments from Gmail into the source list"
+   },
+   {
+    "step": "Generate",
+    "detail": "NotebookLM makes 2 audio lessons and a quiz in a pinned notebook"
+   },
+   {
+    "step": "Mastery gate",
+    "detail": "Only my own rating can retire a concept from review"
+   }
+  ],
+  "metrics": [
+   {
+    "value": "114",
+    "label": "Daily cycles logged"
+   },
+   {
+    "value": "203",
+    "label": "Audio lessons generated"
+   },
+   {
+    "value": "112",
+    "label": "Daily quizzes"
+   },
+   {
+    "value": "17",
+    "label": "Weekly exams"
+   },
+   {
+    "value": "2 of 3",
+    "label": "most confidence the script can credit before my own rating"
+   },
+   {
+    "value": "2,205",
+    "label": "Lines of Python, 14 scripts"
+   }
+  ],
+  "stack": [
+   "Python",
+   "notebooklm-py 0.5.0",
+   "macOS launchd",
+   "Gmail"
+  ],
+  "links": [],
+  "credits": "Uses Google NotebookLM through the open-source notebooklm-py client (MIT).",
+  "schedule": [
+   {
+    "job": "study.pack",
+    "when": "daily 10:00"
+   },
+   {
+    "job": "study.exam",
+    "when": "weekly WED 18:00"
+   }
+  ],
+  "brain": "Its jobs and outputs are listed in the brain's automation inventory and its project note, and the hourly watchdog checks that each morning's pack and each Wednesday's exam actually landed."
+ }
+]

@@ -1,0 +1,221 @@
+{
+  "picks": [
+    {
+      "title": "The Chain",
+      "artist": "Fleetwood Mac",
+      "itunesId": 651880159,
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/15/9f/31/159f3139-16ab-6ccf-813f-86d4adffcf61/mzaf_17361308171774933378.plus.aac.p.m4a",
+      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/2a/eb/dc/2aebdc18-c2c0-0fdd-fb85-07538a925700/603497925766.jpg/600x600bb.jpg",
+      "vibe": {
+        "mood": "dusk amber, the bassline driving long ripples",
+        "palette": [
+          "#ff9a2e",
+          "#2a0f06",
+          "#ffc477"
+        ],
+        "grade": "#ffb061",
+        "gradeAmt": 0.38,
+        "wash": 0.11,
+        "sat": 1.15,
+        "ripple": "bass",
+        "rippleAmp": 1.25,
+        "flare": "beat",
+        "flareColor": "#ffb457",
+        "strobe": 0,
+        "rain": 0,
+        "spark": 0,
+        "bpm": 117
+      }
+    },
+    {
+      "title": "A Day in the Life",
+      "artist": "The Beatles",
+      "itunesId": 1441165168,
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/01/1c/d7/011cd729-a50b-9311-52f3-06fe99c81946/mzaf_4509223857921685574.plus.aac.p.m4a",
+      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/6f/79/8d/6f798d84-7475-8525-fc91-f7b51b2b5a9b/00602567725428.rgb.jpg/600x600bb.jpg",
+      "vibe": {
+        "mood": "psychedelic orchestral swell that slowly saturates",
+        "palette": [
+          "#7a3cff",
+          "#10c8a0",
+          "#ff9a2e"
+        ],
+        "grade": "#d9b8ff",
+        "gradeAmt": 0.25,
+        "wash": 0.11,
+        "sat": 1.7,
+        "swell": 22,
+        "ripple": "bass",
+        "rippleAmp": 0.8,
+        "flare": "beat",
+        "flareColor": "#ffd27a",
+        "strobe": 0,
+        "rain": 0,
+        "spark": 0.25,
+        "bpm": 78
+      }
+    },
+    {
+      "title": "London Calling",
+      "artist": "The Clash",
+      "itunesId": 684811768,
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/0f/43/69/0f4369ad-dbc9-b0a1-dd89-a07b3085c45b/mzaf_13600915992817971714.plus.aac.p.m4a",
+      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/45/d7/17/45d71740-b204-de23-3f9e-f2f823296f1d/886443520721.jpg/600x600bb.jpg",
+      "vibe": {
+        "mood": "punk red and black, hard hits on the snare",
+        "palette": [
+          "#e01b24",
+          "#1a0305",
+          "#ff5a3c"
+        ],
+        "grade": "#ff8a7a",
+        "gradeAmt": 0.35,
+        "wash": 0.1,
+        "sat": 1.25,
+        "ripple": "snare",
+        "rippleAmp": 1.0,
+        "flare": "snare",
+        "flareColor": "#ff4a3a",
+        "strobe": 0.1,
+        "rain": 0,
+        "spark": 0,
+        "bpm": 130
+      }
+    },
+    {
+      "title": "Mr. Tambourine Man",
+      "artist": "Bob Dylan",
+      "itunesId": 192688704,
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d3/84/60/d3846021-1555-0917-eb26-07276a75b557/mzaf_5279117102043235564.plus.aac.p.m4a",
+      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Features124/v4/dc/e7/e3/dce7e385-5b40-bcda-4d09-ae4faab692ed/dj.fvugskmg.jpg/600x600bb.jpg",
+      "vibe": {
+        "mood": "folk dawn light",
+        "palette": [
+          "#ffb27a",
+          "#3a2a52",
+          "#ffe6b0"
+        ],
+        "grade": "#ffd2a0",
+        "gradeAmt": 0.3,
+        "wash": 0.11,
+        "sat": 1.1,
+        "ripple": "snare",
+        "rippleAmp": 0.5,
+        "flare": "beat",
+        "flareColor": "#ffd9a0",
+        "strobe": 0,
+        "rain": 0,
+        "spark": 0.15,
+        "bpm": 92
+      }
+    },
+    {
+      "title": "(Don't Fear) The Reaper",
+      "artist": "Blue Öyster Cult",
+      "itunesId": 170587451,
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/f5/4b/7f/f54b7f8c-35c3-e5e7-a3c7-4657832ae66b/mzaf_5045008210912451719.plus.aac.p.m4a",
+      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/2c/1f/07/2c1f0792-ae45-c6d9-0963-76f7d47dd804/dj.swpfhwke.jpg/600x600bb.jpg",
+      "vibe": {
+        "mood": "cool blue fog with sparkles on the guitar figure",
+        "palette": [
+          "#4aa8ff",
+          "#06101f",
+          "#9ad8ff"
+        ],
+        "grade": "#9cc8ff",
+        "gradeAmt": 0.4,
+        "wash": 0.12,
+        "sat": 1.05,
+        "ripple": "bass",
+        "rippleAmp": 0.7,
+        "flare": "snare",
+        "flareColor": "#9ad8ff",
+        "strobe": 0,
+        "rain": 0,
+        "spark": 0.9,
+        "bpm": 141
+      }
+    },
+    {
+      "title": "Through the Wire",
+      "artist": "Kanye West",
+      "itunesId": 1437467903,
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f4/45/22/f44522de-4cd9-b35c-61e2-e9c7c7784682/mzaf_7953631545375879531.plus.aac.p.m4a",
+      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/15/05/09/15050911-a2f1-9ebc-0d16-6e8faad1cf80/00602567924326.rgb.jpg/600x600bb.jpg",
+      "vibe": {
+        "mood": "warm soul-sample gold",
+        "palette": [
+          "#f2b84a",
+          "#2b1a05",
+          "#ffe0a0"
+        ],
+        "grade": "#ffd08a",
+        "gradeAmt": 0.4,
+        "wash": 0.12,
+        "sat": 1.2,
+        "ripple": "bass",
+        "rippleAmp": 0.9,
+        "flare": "beat",
+        "flareColor": "#ffd27a",
+        "strobe": 0,
+        "rain": 0,
+        "spark": 0.2,
+        "bpm": 98
+      }
+    },
+    {
+      "title": "Hunger Strike",
+      "artist": "Temple of the Dog",
+      "itunesId": 1440657642,
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d2/aa/c9/d2aac925-4f38-8c48-3784-5c90edb0c087/mzaf_17883336474668658919.plus.aac.p.m4a",
+      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/67/7d/7b/677d7b51-e664-d4ac-84f4-bc18920d95a0/00075021535022.rgb.jpg/600x600bb.jpg",
+      "vibe": {
+        "mood": "grey rain streaks",
+        "palette": [
+          "#8b97a6",
+          "#0a0d12",
+          "#c9d2dc"
+        ],
+        "grade": "#aab6c4",
+        "gradeAmt": 0.45,
+        "wash": 0.09,
+        "sat": 0.7,
+        "ripple": "bass",
+        "rippleAmp": 0.6,
+        "flare": "none",
+        "flareColor": "#c9d2dc",
+        "strobe": 0,
+        "rain": 0.5,
+        "spark": 0,
+        "bpm": 96
+      }
+    },
+    {
+      "title": "Ain't No Rest for the Wicked",
+      "artist": "Cage the Elephant",
+      "itunesId": 1437697155,
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/bf/b1/3a/bfb13a7c-7438-2e31-dc5f-e00a4c66535f/mzaf_205891211909979875.plus.aac.p.m4a",
+      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/9f/da/28/9fda2801-af49-b8d6-4b1f-0671af204dfb/886447357378.jpg/600x600bb.jpg",
+      "vibe": {
+        "mood": "neon garage-rock flicker",
+        "palette": [
+          "#ff2fa8",
+          "#16e0ff",
+          "#0a0618"
+        ],
+        "grade": "#ff9ae0",
+        "gradeAmt": 0.3,
+        "wash": 0.12,
+        "sat": 1.4,
+        "ripple": "snare",
+        "rippleAmp": 1.0,
+        "flare": "snare",
+        "flareColor": "#35e8ff",
+        "strobe": 0.08,
+        "rain": 0,
+        "spark": 0.1,
+        "bpm": 123
+      }
+    }
+  ]
+}

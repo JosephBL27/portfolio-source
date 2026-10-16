@@ -1,0 +1,27 @@
+{
+ "_note": "Written in chalk on the Education chalkboard (src/v3/world/extras/stages/chalkboard.ts), also kept as a list for screen readers. Titles exactly as on Joseph's resume under Relevant Coursework: no codes, grades, GPA, credits or instructors.",
+ "confirmed": true,
+ "source": "Joseph's resume, Relevant Coursework, 2026-10-12",
+ "title": "Relevant Coursework",
+ "program": {
+  "school": "The University of Chicago",
+  "degrees": ["B.S. Computational and Applied Mathematics", "B.A. Economics"]
+ },
+ "groups": [
+  {
+   "id": "math",
+   "heading": "Mathematics",
+   "courses": ["Real Analysis", "Probability Theory", "Proof-Based Linear Algebra", "Vector Calculus", "Differential Equations", "Calculus I–III"]
+  },
+  {
+   "id": "econ",
+   "heading": "Economics",
+   "courses": ["Microeconomics", "Macroeconomics", "Econometrics"]
+  },
+  {
+   "id": "fin",
+   "heading": "Finance",
+   "courses": ["Mathematical Finance", "Financial Accounting"]
+  }
+ ]
+}

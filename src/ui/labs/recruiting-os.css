@@ -1,0 +1,32 @@
+/* Recruiting OS lab: teal on ink. Scoped under .pl-ro (shared shell in lib/prod.css). */
+.pl-ro .ro-top { display: grid; gap: 14px; padding: 14px 16px; margin-bottom: 12px; }
+.pl-ro .ro-next { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; transform-origin: left center; }
+.pl-ro .ro-who { font: 650 22px/1 var(--pl-sans); color: #fff; }
+.pl-ro .ro-clock { font: 600 clamp(22px, 4cqw, 32px)/1 var(--pl-mono); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--pl-acc2); text-shadow: 0 0 22px rgba(var(--pl-glow), 0.5); }
+.pl-ro .ro-src { margin-left: auto; }
+.pl-ro .ro-line { position: relative; height: 22px; margin: 2px 8px 0; border-top: 2px solid rgba(255, 255, 255, 0.16); }
+.pl-ro .ro-now { position: absolute; top: -8px; width: 2px; height: 18px; margin-left: -1px; background: var(--pl-acc); box-shadow: 0 0 10px var(--pl-acc); }
+.pl-ro .ro-dot { position: absolute; top: -7px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.5); background: #0b0e12; transition: transform 0.25s var(--pl-ease), background 0.3s, border-color 0.3s, box-shadow 0.3s; }
+.pl-ro .ro-dot[data-st='1'] { border-color: var(--pl-acc); } .pl-ro .ro-dot[data-st='2'] { background: var(--pl-acc); border-color: var(--pl-acc); }
+.pl-ro .ro-dot[data-st='3'] { background: var(--pl-acc2); border-color: #fff; box-shadow: 0 0 12px var(--pl-acc); }
+.pl-ro .ro-dot.is-next, .pl-ro .ro-dot.is-pick { transform: scale(1.7); box-shadow: 0 0 0 4px rgba(var(--pl-glow), 0.25); }
+.pl-ro .ro-cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+@container pl (max-width: 700px) { .pl-ro .ro-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.pl-ro .ro-col { padding: 10px; min-height: 200px; transition: border-color 0.2s, background 0.2s, box-shadow 0.2s; }
+.pl-ro .ro-col.is-over { border-color: var(--pl-acc); background: rgba(var(--pl-glow), 0.12); box-shadow: 0 0 28px -8px rgba(var(--pl-glow), 0.6); }
+.pl-ro .ro-col h4 { display: flex; justify-content: space-between; margin: 0 0 8px; font-weight: 500; }
+.pl-ro .ro-n { color: var(--pl-acc2); font-variant-numeric: tabular-nums; }
+.pl-ro .ro-list { display: grid; gap: 8px; align-content: start; }
+.pl-ro .ro-card { position: relative; display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; align-items: center; padding: 8px 10px; min-height: 58px; border-radius: 12px; cursor: grab; user-select: none; -webkit-user-select: none; touch-action: pan-y;
+  border: 1px solid var(--pl-line); background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)); transition: border-color 0.2s, box-shadow 0.2s; }
+.pl-ro .ro-card:hover { border-color: var(--pl-acc); }
+.pl-ro .ro-card[data-st='2'], .pl-ro .ro-card[data-st='3'] { border-color: rgba(var(--pl-glow), 0.5); }
+.pl-ro .ro-card.is-drag { z-index: 5; cursor: grabbing; border-color: var(--pl-acc2); box-shadow: 0 22px 40px -14px #000, 0 0 30px -6px rgba(var(--pl-glow), 0.7); transition: none; }
+.pl-ro .ro-grip { width: 24px; height: 44px; display: grid; place-items: center; font-size: 13px; letter-spacing: -3px; color: var(--pl-faint); touch-action: none; cursor: grab; }
+.pl-ro .ro-body { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; min-width: 0; }
+.pl-ro .ro-body b { font: 620 14px/1.2 var(--pl-sans); color: #fff; }
+.pl-ro .ro-lane { font: 500 10px/1 var(--pl-mono); letter-spacing: 0.1em; color: var(--pl-acc); text-transform: uppercase; }
+.pl-ro .ro-due { flex-basis: 100%; font: 500 11px/1.2 var(--pl-mono); color: var(--pl-dim); }
+.pl-ro .ro-tag { grid-column: 1 / -1; justify-self: start; font: 500 9.5px/1 var(--pl-mono); font-style: normal; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: rgba(255, 255, 255, 0.07); color: var(--pl-faint); }
+.pl-ro .ro-tag.official { color: var(--pl-acc2); background: rgba(var(--pl-glow), 0.16); }
+.pl-ro .ro-msg { margin: 10px 2px 0; min-height: 14px; color: var(--pl-acc2); text-transform: none; letter-spacing: 0.02em; font-size: 12px; }

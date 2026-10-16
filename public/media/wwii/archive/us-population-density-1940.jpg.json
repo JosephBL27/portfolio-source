@@ -1,0 +1,13 @@
+{
+  "id": "wwii-archive-map",
+  "asset": "us-population-density-1940.jpg",
+  "title": "United States population density map by minor civil divisions: 1940",
+  "source": "https://www.loc.gov/item/2011593047/",
+  "file": "https://tile.loc.gov/image-services/iiif/service:gmd:gmd370:g3701:g3701e:ct003336/full/pct:12.5/0/default.jpg",
+  "licenceUrl": "https://www.loc.gov/legal/",
+  "credit": "Library of Congress, Geography and Map Division. U.S. Department of Commerce, Bureau of the Census; Washington, D.C.: U.S. Government Printing Office, 1942.",
+  "processing": "Cropped to the country, title block / legend / scale bar painted out, downsampled to 1600 px wide. LOC item rights field read on 2026-10-09: no Rights Advisory statement present.",
+  "licenceLine": "The content of the Library of Congress Geography and Map Division digitized collections is free to use and reuse unless a Rights Advisory statement is present that indicates otherwise. Credit Line: Library of Congress, Geography and Map Division.",
+  "retrieved": "2026-10-09",
+  "bytes": 377122
+}

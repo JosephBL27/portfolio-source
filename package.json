@@ -1,0 +1,32 @@
+{
+  "name": "mock-portfolio",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "shot": "node scripts/shot.mjs",
+    "design:lint": "designmd lint DESIGN.md | node -e \"let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{const r=JSON.parse(s);console.log(s.trim());const n=r.summary.errors+r.summary.warnings;if(n)console.error('design:lint failed: '+r.summary.errors+' errors, '+r.summary.warnings+' warnings');process.exit(n?1:0)})\""
+  },
+  "dependencies": {
+    "@fontsource-variable/archivo": "^5.3.0",
+    "@fontsource-variable/bodoni-moda": "^5.3.0",
+    "@fontsource-variable/martian-mono": "^5.3.0",
+    "@fontsource-variable/newsreader": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
+    "animejs": "^4.5.0",
+    "motion": "^14.0.0",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@google/design.md": "0.4.0",
+    "@types/three": "^0.186.0",
+    "playwright-core": "^1.63.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.3"
+  }
+}

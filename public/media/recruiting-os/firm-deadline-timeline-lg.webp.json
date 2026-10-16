@@ -1,0 +1,4 @@
+{
+  "prompt": "Recruiting OS firm detail page, 'Programs and deadlines' timeline for Evercore with the legend for official, estimated and stale dates. Origin: recruiting-os-data folder, reports/production/qa/firm-detail-1440x900.png (agent QA capture of Joseph's local instance, 2026-10-01). Pre-existing screenshot, cropped to the timeline strip only (a summary card naming a third-party contact and a personal status column were excluded), converted to WebP 2026-10-04. Data: real public program dates, not synthetic. App UI by Joseph Blumberg (agent-built under his direction); firm name belongs to its owner.",
+  "createdAt": "2026-10-04T10:18:15.336Z"
+}

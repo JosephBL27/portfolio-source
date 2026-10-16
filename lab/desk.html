@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" data-theme="day">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="data:," />
+  <title>PNEUMA lab: the reading desk</title>
+  <style>
+    html, body { margin: 0; background: var(--paper, #EEECE6); color: var(--ink, #121212); }
+    body { font-family: 'Archivo Variable', system-ui, sans-serif; padding: 48px; min-height: 100vh; box-sizing: border-box; }
+    .lab-head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; border-bottom: 1px solid var(--ink); padding-bottom: 16px; margin-bottom: 8px; }
+    .lab-head h1 { margin: 0; font-stretch: 112%; font-weight: 700; font-size: 44px; letter-spacing: -0.035em; }
+    .lab-head p { margin: 0; font: 500 11px 'IBM Plex Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--graphite); }
+    .lab-night { font: 600 13px 'Archivo Variable', sans-serif; height: 34px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--ink); background: none; color: var(--ink); cursor: pointer; }
+    .lab-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); column-gap: 24px; }
+    .lab-list button {
+      width: 100%; display: grid; grid-template-columns: 52px 1fr auto; align-items: baseline; gap: 10px; text-align: left;
+      padding: 13px 2px; border: 0; border-bottom: 1px solid var(--rule); background: none; color: var(--ink); cursor: pointer;
+      font: 600 16px 'Archivo Variable', sans-serif; letter-spacing: -0.01em;
+    }
+    .lab-list button:hover { background: var(--paper-raised); }
+    .lab-list button:focus-visible { outline: 2px solid var(--brain); outline-offset: 2px; }
+    .lab-list .n, .lab-list .k { font: 500 11px 'IBM Plex Mono', monospace; letter-spacing: 0.08em; color: var(--graphite); text-transform: uppercase; }
+    .lab-log { margin-top: 24px; font: 400 12px 'IBM Plex Mono', monospace; color: var(--graphite); }
+    @media (max-width: 767px) { body { padding: 20px; } .lab-head h1 { font-size: 30px; } }
+  </style>
+</head>
+<body>
+  <header class="lab-head">
+    <div>
+      <p>PNEUMA lab · module 3.5</p>
+      <h1>The reading desk</h1>
+    </div>
+    <button class="lab-night" type="button" aria-pressed="false">Night shift</button>
+  </header>
+  <ul class="lab-list"></ul>
+  <p class="lab-log" aria-live="polite"></p>
+  <script type="module" src="./desk.ts"></script>
+</body>
+</html>

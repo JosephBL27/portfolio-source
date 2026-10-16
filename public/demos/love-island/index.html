@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Love Island Dynamics: couples as coupled differential equations</title>
+  <meta name="description" content="An interactive simulation of a Love Island villa. Every couple is a pair of coupled differential equations, with the public vote built in. All figures are simulated; no real contestant is depicted.">
+  <meta name="theme-color" content="#050506">
+  <meta property="og:title" content="Love Island Dynamics">
+  <meta property="og:description" content="Couples as coupled differential equations, with the public vote built in. Drag the dials and watch a villa of 25 invented islanders recouple over 53 days.">
+  <script>
+    // set before first paint so the embed and reduced-motion layouts never flash the full page
+    (function () {
+      var h = document.documentElement
+      if (new URLSearchParams(location.search).get('embed') === '1') h.classList.add('embed')
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) h.classList.add('rm')
+    })()
+  </script>
+  <script type="module" crossorigin src="./assets/index-GZvYg-MN.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-wpCGE4OU.css">
+</head>
+<body>
+  <a class="skip" href="#lab">Skip to the charts</a>
+  <div id="app"></div>
+</body>
+</html>

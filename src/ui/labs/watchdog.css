@@ -1,0 +1,42 @@
+/* Watchdog lab: coral on near-black, with green for healthy. Scoped under .wd (shares .sys from lib/sys-base.css). */
+.wd { --g: 12px; --s-acc: #ff7c5c; --s-acc2: #ffc2b0; --s-tint: 255, 124, 92; }
+.wd-ctl { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 16px; margin-bottom: 12px; }
+.wd-modes, .wd-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.wd-clk { display: inline-flex; flex-direction: column; min-width: 78px; margin-right: 4px; }
+.wd-clk b { font: 600 24px/1 var(--s-mono); font-variant-numeric: tabular-nums; color: #fff; text-shadow: 0 0 22px rgba(var(--s-tint), 0.5); }
+.wd-clk i { font: 500 9px/1.4 var(--s-mono); font-style: normal; letter-spacing: 0.14em; text-transform: uppercase; color: var(--s-acc2); }
+.wd-tl { position: relative; padding: 12px; }
+.wd-axis, .wd-row { display: grid; grid-template-columns: var(--lw) minmax(0, 1fr) var(--pw); gap: var(--g); align-items: center; }
+.wd-axis > div { position: relative; height: 14px; } .wd-axis u { position: absolute; transform: translateX(-50%); text-decoration: none; font: 500 10px/1 var(--s-mono); color: var(--s-faint); }
+.wd-axis u:first-child { transform: none; } .wd-axis u:last-child { transform: translateX(-100%); }
+.wd-rows { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.wd-row { padding: 4px 0; border-radius: 10px; transition: background 0.3s; }
+.wd-name { text-align: left; cursor: pointer; padding: 8px 10px; min-height: 44px; border-radius: 10px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--s-line); display: grid; gap: 2px; transition: border-color 0.2s, background 0.2s; }
+.wd-name:hover { border-color: var(--s-acc2); background: rgba(var(--s-tint), 0.1); }
+.wd-name b { font: 600 12.5px/1.15 var(--s-sans); color: #fff; } .wd-name small { font: 500 10px/1.2 var(--s-mono); color: var(--s-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wd-track { position: relative; height: 34px; border-radius: 8px; background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px calc(100% / 24)); border-top: 1px solid rgba(255, 255, 255, 0.06); border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+.wd-tick { position: absolute; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; border: 2px solid var(--s-faint); background: transparent; transition: all 0.3s; }
+.wd-tick[data-s="ok"] { background: var(--s-ok); border-color: var(--s-ok); box-shadow: 0 0 10px rgba(127, 224, 160, 0.45); }
+.wd-tick[data-s="miss"] { border-color: var(--s-bad); background: repeating-linear-gradient(45deg, var(--s-bad) 0 2px, transparent 2px 4px); }
+.wd-tick[data-s="empty"] { border-color: var(--s-ok); background: transparent; box-shadow: inset 0 0 0 2px #0a0c12, 0 0 0 1px var(--s-bad); }
+.wd-tick[data-s="unread"] { border-color: var(--s-warn); background: var(--s-warn); border-radius: 3px; }
+.wd-ex s { position: absolute; top: 50%; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; transform: rotate(45deg); background: var(--s-acc2); box-shadow: 0 0 10px var(--s-acc); }
+.wd-pill { justify-self: stretch; text-align: center; padding: 6px 4px; border-radius: 999px; font: 600 9.5px/1.15 var(--s-mono); letter-spacing: 0.06em; color: var(--s-ok); background: rgba(127, 224, 160, 0.1); border: 1px solid rgba(127, 224, 160, 0.4); transition: all 0.3s; }
+.wd-row[data-s="stale"] .wd-pill { color: var(--s-bad); background: rgba(255, 124, 110, 0.12); border-color: rgba(255, 124, 110, 0.55); }
+.wd-row[data-s="nochk"] .wd-pill { color: var(--s-warn); background: rgba(255, 198, 92, 0.12); border-color: rgba(255, 198, 92, 0.55); }
+.wd-row[data-s="retry"] .wd-pill { color: var(--s-acc2); background: rgba(var(--s-tint), 0.14); border-color: var(--s-acc); }
+.wd-row[data-s="rec"] .wd-pill { color: #fff; background: rgba(127, 224, 160, 0.3); }
+.wd-row.is-broken { background: rgba(255, 124, 110, 0.05); }
+.wd-cursor { position: absolute; top: 36px; bottom: 8px; width: 2px; margin-left: -1px; pointer-events: none; background: linear-gradient(180deg, var(--s-acc2), var(--s-acc)); box-shadow: 0 0 14px var(--s-acc); border-radius: 2px; }
+.wd-toasts { position: absolute; right: 10px; bottom: 10px; display: grid; gap: 8px; width: min(300px, calc(100% - 20px)); pointer-events: none; z-index: 3; }
+.wd-toast { display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 10px 12px; border-radius: 14px; background: rgba(24, 26, 34, 0.92); border: 1px solid rgba(255, 255, 255, 0.16); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 16px 34px -12px #000; }
+.wd-toast i { width: 22px; height: 22px; border-radius: 6px; background: var(--s-acc); } .wd-toast.is-ok i { background: var(--s-ok); } .wd-toast.is-warn i { background: var(--s-warn); } .wd-toast.is-bad i { background: var(--s-bad); }
+.wd-toast b { display: block; font: 600 12.5px/1.2 var(--s-sans); color: #fff; } .wd-toast span { font-size: 12px; color: var(--s-dim); }
+.wd-log { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 4px; min-height: 100px; }
+.wd-log li { position: relative; display: grid; grid-template-columns: 46px 1fr; gap: 8px; font-size: 12.5px; color: var(--s-dim); padding-left: 16px; }
+.wd-log li::before { content: ''; position: absolute; left: 2px; top: 0.6em; width: 6px; height: 6px; border-radius: 50%; background: var(--s-line); }
+.wd-log li > b { font: 500 11px/1.6 var(--s-mono); color: var(--s-faint); } .wd-log li span b { color: #fff; font-weight: 600; }
+.wd-log li.is-bad::before { background: var(--s-bad); } .wd-log li.is-ok::before { background: var(--s-ok); } .wd-log li.is-warn::before { background: var(--s-warn); }
+.wd-log li.is-empty::before { display: none; }
+.wd-log li.is-empty { display: block; padding: 0; color: var(--s-faint); }
+@container sys (max-width: 520px) { .wd-tl { --lw: 84px !important; --pw: 56px !important; } .wd-tl { --g: 8px !important; } .wd-name small { display: none; } .wd-pill { font-size: 8px; } .wd-toasts { position: static; width: 100%; margin-top: 8px; } }

@@ -1,0 +1,223 @@
+/* 3.6 Off the board. Fallbacks mirror src/theme.ts so the section works before base.css lands. */
+.offboard {
+  --ob-paper: var(--paper, #EEECE6);
+  --ob-ink: var(--ink, #121212);
+  --ob-graphite: var(--graphite, #5A5853);
+  --ob-rule: var(--rule, #CBC7BD);
+  --ob-glass: color-mix(in srgb, var(--glass-tint, #DDE3E6) 45%, transparent);
+  --ob-pad: clamp(16px, 2vw, 28px);
+  position: relative;
+  color: var(--ob-ink);
+  padding-block: clamp(72px, 10vw, 144px);
+  padding-inline: clamp(20px, 3.4vw, 48px);
+  max-width: 1440px;
+  margin-inline: auto;
+}
+:root[data-theme='night'] .offboard {
+  --ob-paper: var(--paper, #0E0F10);
+  --ob-ink: var(--ink, #ECEAE3);
+  --ob-graphite: var(--graphite, #9A978F);
+  --ob-rule: var(--rule, #2C2E31);
+  --ob-glass: color-mix(in srgb, var(--glass-tint, #20262A) 60%, transparent);
+}
+
+.offboard__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: clamp(28px, 3.4vw, 48px);
+}
+.offboard__title {
+  margin: 0;
+  font-family: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
+  font-variation-settings: 'wdth' 112;
+  font-weight: 560;
+  font-size: clamp(36px, 5vw, 80px);
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+}
+
+/* ---------- the plate grid: a drawing sheet split by hairlines ---------- */
+.offboard__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-bottom: 1px solid var(--ob-rule);
+}
+
+.ob-card {
+  --open: 1;
+  position: relative;
+  padding: 0 var(--ob-pad) calc(var(--ob-pad) + 8px);
+  box-shadow: inset 1px 0 0 var(--ob-rule);
+  cursor: default;
+}
+.offboard__grid > .ob-card:nth-child(4n + 1) { box-shadow: none; }
+
+/* the main tube runs across the top of every row, in elevation: two ink rims, a glass core */
+.ob-card::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 14px;
+  border-block: 1px solid var(--ob-ink);
+  background: linear-gradient(to bottom, transparent 0 28%, var(--ob-glass) 28% 46%, transparent 46%);
+}
+/* a branch drops from the main into each plate */
+.ob-card__tube {
+  position: absolute;
+  left: 50%; top: 14px;
+  width: 16px; height: 34px;
+  transform: translateX(-50%);
+  border-inline: 1px solid var(--ob-ink);
+  background: linear-gradient(to right, transparent 0 22%, var(--ob-glass) 22% 40%, transparent 40%);
+}
+.ob-card__tube::before { /* tee joint: knock the main's lower rim out over the branch */
+  content: '';
+  position: absolute;
+  left: -1px; right: -1px; top: -1px;
+  height: 1px;
+  background: var(--ob-paper);
+}
+.ob-card__tube::after { /* outlet flange */
+  content: '';
+  position: absolute;
+  left: 50%; bottom: -3px;
+  width: 30px; height: 6px;
+  transform: translateX(-50%);
+  border: 1px solid var(--ob-ink);
+  border-radius: 1px;
+  background: var(--ob-paper);
+}
+.ob-card__capsule {
+  position: absolute;
+  left: 50%; top: 16px;
+  width: 12px; height: 30px;
+  transform: translate(-50%, 0);
+  border-radius: 999px;
+  border: 1px solid var(--ob-ink);
+  background: linear-gradient(to bottom,
+    var(--ob-ink) 0 24%, var(--ob-glass) 24% 76%, var(--ob-ink) 76%);
+  transform-origin: 50% 50%;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ob-card__plate {
+  position: relative;
+  margin-top: 66px;
+  display: flex;
+  flex-direction: column;
+  clip-path: inset(
+    0% calc((1 - var(--open)) * 44%) calc((1 - var(--open)) * 93%) calc((1 - var(--open)) * 44%)
+    round calc((1 - var(--open)) * 40px)
+  );
+}
+.ob-card__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ob-graphite);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--ob-rule);
+  transition: color 0.2s ease;
+}
+.ob-card__label::after { /* registration mark */
+  content: '';
+  width: 11px; height: 11px;
+  background:
+    linear-gradient(var(--ob-graphite), var(--ob-graphite)) center / 1px 100% no-repeat,
+    linear-gradient(var(--ob-graphite), var(--ob-graphite)) center / 100% 1px no-repeat;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--ob-paper), 0 0 0 0 transparent;
+}
+.ob-card:hover .ob-card__label { color: var(--ob-ink); }
+
+.ob-card__art {
+  position: relative;
+  aspect-ratio: 1;
+  margin-top: 6px;
+}
+.ob-card__art canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ob-card__figure {
+  position: relative;
+  z-index: 1;
+  margin-top: -0.42em;
+  font-family: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
+  font-variation-settings: 'wdth' 62;
+  font-weight: 800;
+  font-size: clamp(88px, 9.6vw, 168px);
+  line-height: 0.8;
+  letter-spacing: -0.012em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ob-ink);
+  /* knockout: a paper halo lifts the figure off the dots, like a print overprint trap */
+  -webkit-text-stroke: 0.1em var(--ob-paper);
+  paint-order: stroke fill;
+}
+.ob-card__caption {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--ob-ink);
+  width: fit-content;
+  min-width: 48%;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ob-ink);
+}
+
+.offboard__text {
+  margin: clamp(28px, 3.4vw, 48px) 0 0;
+  max-width: 60ch;
+  font-family: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
+  font-variation-settings: 'wdth' 100;
+  font-weight: 400;
+  font-size: clamp(17px, 1.45vw, 22px);
+  line-height: 1.5;
+  color: var(--ob-ink);
+  text-wrap: pretty;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 1080px) {
+  .offboard__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .offboard__grid > .ob-card:nth-child(4n + 1) { box-shadow: inset 1px 0 0 var(--ob-rule); }
+  .offboard__grid > .ob-card:nth-child(2n + 1) { box-shadow: none; }
+  .ob-card__figure { font-size: clamp(80px, 15vw, 150px); }
+}
+@media (max-width: 560px) {
+  .ob-card { padding-inline: 12px; }
+  .ob-card__plate { margin-top: 58px; }
+  .ob-card__figure { font-size: clamp(56px, 17vw, 88px); }
+  .ob-card__label { font-size: 10px; letter-spacing: 0.06em; }
+  .ob-card__label::after { display: none; }
+  .ob-card__caption { font-size: 10.5px; letter-spacing: 0.06em; }
+}
+
+@media (forced-colors: active) {
+  .ob-card__art { display: none; }
+  .ob-card__figure { -webkit-text-stroke: 0; margin-top: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ob-card { --open: 1 !important; }
+  .ob-card__capsule { display: none; }
+}

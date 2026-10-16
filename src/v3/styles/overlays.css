@@ -1,0 +1,466 @@
+/* v4 overlays: one fixed layer of copy panels driven by the flight state (src/v3/ui/overlays.ts).
+   Rules: type never blends (normal blend, solid ink), body copy gets a soft scrim, titles sit at the lane edge
+   and never over the subject, info pieces reveal on time (520 ms in, 180 ms out), titles scrub with the leg. */
+#overlays { position: fixed; inset: 0; z-index: var(--z-overlay); pointer-events: none; transition: opacity .45s var(--ease-out); }
+html.jumping #overlays { opacity: 0; transition: opacity .16s var(--ease-io); }
+html.in-index #overlays { opacity: 0; }
+.ov-measure { position: absolute; left: -99999px; top: 0; visibility: hidden; pointer-events: none; white-space: nowrap; }
+
+.ov { position: absolute; inset: 0; visibility: hidden; transition: visibility 0s linear .5s; --sx: 1; --lane: 36vw; --fs: 120px; }
+.ov.vis { visibility: visible; transition-delay: 0s; }
+.ov[data-side='r'] { --sx: -1; }
+
+/* ---------- header: kicker + title (scrubbed by --ti in, --to out) ---------- */
+.head {
+  position: absolute; top: calc(var(--pad) + 62px); width: var(--lane); max-width: calc(100vw - 2 * var(--pad));
+  opacity: calc(var(--ti, 0) * (1 - var(--to, 0)));
+  scale: calc(0.86 + 0.14 * var(--ti, 0) + 0.08 * var(--to, 0));
+  translate: calc((1 - var(--ti, 0)) * 14px * var(--sx) + var(--to, 0) * -10px * var(--sx)) 0;
+  transform-origin: 0 0;
+}
+.ov.vis .head { will-change: opacity, scale, translate; }
+.ov[data-side='l'] .head { left: calc(var(--pad) + 10px); }
+.ov[data-side='r'] .head { right: calc(var(--pad) + 44px); text-align: right; transform-origin: 100% 0; }
+.ov[data-side='r'] .kicker { justify-content: flex-end; }
+
+.kicker { display: flex; align-items: center; gap: 8px; min-height: 18px; margin-bottom: 14px; }
+/* w12: "II · Systems": the numeral and the dot carry the accent, the plain area name the dim ink */
+.kicker .k-num, .kicker .k-sep { color: var(--a); }
+.kicker .k-sep { opacity: .8; }
+.kicker .k-text { color: var(--dim); }
+.kicker { text-shadow: 0 0 14px rgba(5,5,6,.95), 0 0 4px rgba(5,5,6,.9); }
+.k-prologue .kicker .k-text { color: var(--ink); }
+
+.title { margin: 0; font-weight: 400; color: var(--ink); text-shadow: 0 0 32px rgba(5,5,6,.85), 0 2px 5px rgba(5,5,6,.45); }
+.title .tl { display: block; }
+.title .tl.big {
+  font-family: var(--serif-d); font-size: var(--fs); line-height: 0.9; font-weight: 640; font-variation-settings: 'opsz' 44;
+  /* hairlines of a Didone drop out at 1x over a grain field: a lower optical size keeps them, a faint stroke seals them */
+  -webkit-text-stroke: 0.4px currentColor; paint-order: stroke fill;
+  text-transform: uppercase; letter-spacing: -0.015em; text-wrap: balance; overflow-wrap: normal; hyphens: none;
+}
+.title .tl.lead { font: italic 400 max(19px, calc(var(--fs) * 0.27))/1.05 var(--serif-i); letter-spacing: 0; margin: 0 0 calc(var(--fs) * 0.02) calc(var(--fs) * 0.03); text-transform: none; }
+.ov[data-side='r'] .title .tl.lead { margin: 0 calc(var(--fs) * 0.03) calc(var(--fs) * 0.02) 0; }
+.ov-measure .title .tl.big { text-wrap: nowrap; }
+
+/* ---------- deconstructable type (deconstruct.ts): words of letter boxes; a scrubbed timeline moves the letters, CSS carries the dwell ----------
+   .dx is on while an overlay's letters are driven (not under reduced motion): the head stops scaling / fading as a block, the letters do it.
+   Pointer and camera tilt reach the type as four numbers (--px --py parallax, --rx --ry plane tilt); the glyphs themselves are never re-transformed for them. */
+.title { position: relative; }
+.dw { display: inline-block; white-space: nowrap; position: relative; }
+.dc { display: inline-block; position: relative; }
+.ov.dx { --par: calc(var(--fs) * 0.026); }
+.ov.dx .dc { translate: calc(var(--px, 0) * var(--d, 0) * var(--par)) calc(var(--py, 0) * var(--d, 0) * var(--par)); }
+.ov.dx.vis .dc { will-change: transform, opacity; }
+.ov.dx .head { opacity: 1; scale: 1; translate: 0 0; will-change: auto; }
+/* w11: a set-piece leg (a doorway, a long walk) fades the outgoing title in 0.3 s; the letters hold still (overlays.ts sets .xf) */
+.ov.dx.xf .head { opacity: 0; transition: opacity .3s linear; }
+.ov.dx .head::before { opacity: calc(var(--ti, 0) * (1 - var(--to, 0))); }
+.ov.dx .title { transform: var(--tf, none); }
+.ov.dx .epi-tr { opacity: calc(var(--ti, 0) * (1 - var(--to, 0)) * (1 - var(--to, 0))); }
+.ov.dx .kicker { opacity: calc(var(--ti, 0) * (1 - var(--to, 0)) * (1 - var(--to, 0))); translate: calc(var(--to, 0) * var(--tdx, 0px)) calc(var(--to, 0) * var(--tdy, 0px)); }
+.ov.dx .kicker .k-text { white-space: nowrap; }
+/* a letter caught mid-decode shows a mono numeral in its box (absolute, so the line never reflows) */
+.dc.g { color: transparent; -webkit-text-stroke-color: transparent; text-shadow: none; }
+.dc.g::after { content: attr(data-g); position: absolute; left: 0; right: 0; top: 50%; translate: 0 -50%; text-align: center; font: 500 0.36em/1 var(--mono); letter-spacing: 0; text-transform: none; color: var(--a, var(--ink)); -webkit-text-stroke: 0; text-shadow: 0 0 10px rgba(5,5,6,.8); }
+.k-prologue.dx .dc.g::after, .ov.k-prologue .dc.g::after { color: var(--ink); font-size: 0.4em; }
+
+/* the hero name: a plane of letters laid over the particle name by a live homography (deconstruct.ts Hero) */
+.hero { position: absolute; left: 0; top: 0; transform-origin: 0 0; pointer-events: none; font-family: var(--serif-d); font-weight: 900; font-optical-sizing: auto; font-variation-settings: normal; line-height: 1; contain: layout style; }
+.hero .hl { position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block; }
+.hero .dc { position: absolute; display: block; white-space: pre; letter-spacing: 0; text-transform: none; color: rgba(255,246,222,var(--f, 0)); -webkit-text-stroke: 1.25px rgba(255,246,222,.82); text-shadow: none; }
+.hero .dc.g { color: transparent; }
+.hero .dc.g::after { font-size: 0.16em; color: rgba(255,246,222,.95); }
+.hero .bp { display: inline-block; width: 0; height: 0; }
+.hero { will-change: transform; }
+
+/* soft dark scrim behind the title block so it holds over the brightest bloom */
+.head::before {
+  content: ''; position: absolute; z-index: -1; inset: -30px -44px -34px -44px; pointer-events: none;
+  background: radial-gradient(ellipse closest-side at 38% 50%, rgba(5,5,6,.62) 0%, rgba(5,5,6,.4) 55%, rgba(5,5,6,0) 100%);
+}
+.ov[data-side='r'] .head::before { background: radial-gradient(ellipse closest-side at 62% 50%, rgba(5,5,6,.62) 0%, rgba(5,5,6,.4) 55%, rgba(5,5,6,0) 100%); }
+.head { isolation: isolate; }
+
+/* ---------- info: time-based pieces ---------- */
+.info {
+  position: absolute; bottom: calc(var(--pad) + 76px); width: var(--lane); max-width: calc(100vw - 2 * var(--pad));
+  display: grid; gap: 18px; isolation: isolate;
+}
+.ov[data-side='l'] .info { left: calc(var(--pad) + 10px); }
+.ov[data-side='r'] .info { right: calc(var(--pad) + 44px); }
+.info::before {
+  content: ''; position: absolute; z-index: -1; inset: -44px -60px -34px -60px; pointer-events: none; opacity: 0;
+  background: radial-gradient(ellipse closest-side at 50% 54%, rgba(5,5,6,.86) 0%, rgba(5,5,6,.7) 60%, rgba(5,5,6,0) 100%);
+  transition: opacity .2s linear;
+}
+.ov.in .info::before { opacity: 1; transition: opacity .5s var(--ease-out); }
+
+.rv { opacity: 0; translate: 0 24px; transition: opacity .18s var(--ease-io) calc(var(--i, 0) * 40ms), translate .18s var(--ease-io) calc(var(--i, 0) * 40ms); }
+.ov.in .rv { opacity: 1; translate: 0 0; transition: opacity .52s var(--ease-out) calc(var(--i, 0) * 70ms), translate .52s var(--ease-out) calc(var(--i, 0) * 70ms); }
+.ov a, .ov button { pointer-events: none; }
+.ov.live a, .ov.live button { pointer-events: auto; }
+
+.body { margin: 0; font: 400 clamp(17px, 1.35vw, 21px)/1.5 var(--sans); font-stretch: 96%; color: color-mix(in srgb, var(--ink) 94%, transparent); text-wrap: pretty; text-shadow: 0 0 16px rgba(5,5,6,.9), 0 1px 3px rgba(5,5,6,.7); }
+.lede { margin: 0; font: italic 400 clamp(21px, 1.75vw, 28px)/1.22 var(--serif-i); letter-spacing: -0.003em; color: var(--ink); text-wrap: pretty; text-shadow: 0 0 18px rgba(5,5,6,.9), 0 1px 3px rgba(5,5,6,.6); }
+.proj { display: grid; gap: 10px; }
+.pk { color: var(--a); display: flex; align-items: center; gap: 12px; text-shadow: 0 0 12px rgba(5,5,6,.95); }
+.pk::before { content: ''; flex: 0 0 22px; height: 1px; background: var(--a); }
+.fig .fv { display: block; font: 500 clamp(34px, 3.9vw, 64px)/0.95 var(--mono); font-size: min(clamp(34px, 3.9vw, 64px), calc((var(--lane, 440px) - 12px) / (var(--n, 6) * 0.6))); letter-spacing: -0.05em; color: var(--a); font-variant-numeric: tabular-nums; white-space: nowrap; text-shadow: 0 0 20px rgba(5,5,6,.9); }
+.fig .fv .pre, .fig .fv .suf { font-size: 0.42em; letter-spacing: -0.01em; vertical-align: 0.12em; }
+.fig .fv .suf { margin-left: .22em; }
+.fig .fl { display: block; margin-top: 9px; max-width: 34ch; color: var(--dim); text-shadow: 0 0 12px rgba(5,5,6,.95); }
+
+.acts { display: flex; flex-wrap: wrap; gap: 9px; min-width: 0; max-width: 100%; } /* min-width: a grid item may not outgrow the lane: the long Thrift button was 398 px wide on a 390 px phone */
+.open {
+  position: relative; display: inline-flex; align-items: center; gap: 10px; max-width: 100%;
+  padding: 10px 14px 10px 16px; border: 1.5px solid color-mix(in srgb, var(--a) 72%, transparent); border-radius: 999px;
+  min-height: 40px; font: 500 11.5px/1.15 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink);
+  overflow: hidden; isolation: isolate; text-decoration: none; background: rgba(5,5,6,.5); text-align: left;
+  transition: color .3s var(--ease-out), border-color .3s;
+}
+.open .ot { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.open::before { content: ''; position: absolute; inset: 0; background: var(--a); transform: translateY(101%); transition: transform .4s var(--ease-out); z-index: -1; border-radius: inherit; }
+.open:focus-visible { color: var(--ground); }
+.open:focus-visible::before { transform: none; transition: none; }
+.open .ar { display: inline-block; flex: none; transition: transform .3s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .open:hover { color: var(--ground); }
+  .open:hover::before { transform: none; }
+  .open:hover .ar { transform: translate(3px, -3px); }
+}
+
+/* ---------- 7C: the project card (one shape at every waypoint) and the first screen's actions ----------
+   name (pk) / plain type line (pt) / one sentence (body) / one figure (fig) / Case study (primary) + Live demo, Paper, Deck, Code (secondary) / Also here (chips) */
+.what { margin: 0; font: 500 clamp(15px, 1.1vw, 17px)/1.4 var(--sans); font-stretch: 98%; letter-spacing: 0.005em; color: var(--ink); text-wrap: balance; text-shadow: 0 0 16px rgba(5,5,6,.9), 0 1px 3px rgba(5,5,6,.7); }
+.pcard { gap: 9px; }
+.pcard .pt { margin: -4px 0 0; font-size: 12px; line-height: 1.4; letter-spacing: 0.02em; text-transform: none; color: var(--dim); text-wrap: balance; text-shadow: 0 0 12px rgba(5,5,6,.95); }
+.pcard .body { font-size: clamp(16px, 1.2vw, 19px); line-height: 1.42; }
+.pcard .acts.pa { align-items: center; gap: 4px 20px; margin-top: 2px; }
+.open.pri { background: var(--a); border-color: var(--a); color: var(--ground); font-weight: 600; }
+/* w12: the primary action of a project card ("Open case study") is the same size at every stop, first in its row, flush with the card */
+.pcard .acts.pa .open.pri { padding: 11px 20px 11px 22px; min-height: 42px; font: 600 14.5px/1.15 var(--sans); font-stretch: 100%; letter-spacing: 0.005em; text-transform: none; }
+/* the strings the brief names are set in sentence case so the page reads them exactly as written: Start / Watch the tour / Open case study / Open: <name> */
+.first-acts .open { font: 600 15px/1.15 var(--sans); font-stretch: 100%; letter-spacing: 0.005em; text-transform: none; }
+.also .open.chip[data-project] { font-size: 12px; letter-spacing: 0.02em; text-transform: none; }
+.open.pri::before { display: none; }
+.open kbd { flex: none; padding: 1px 5px; border: 1px solid color-mix(in srgb, currentColor 40%, transparent); border-radius: 4px; font: 500 10px/1.4 var(--mono); letter-spacing: 0; opacity: .8; }
+.open.chip { min-height: 0; padding: 6px 11px 6px 13px; gap: 8px; border-width: 1px; border-color: color-mix(in srgb, var(--a) 46%, transparent); font-size: 11px; letter-spacing: 0.1em; }
+/* secondary links (Live demo, Paper, Deck): full-ink mono with a 1.5px accent underline, so they read as links next to the filled Open case study */
+.sec { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 1px 3px; font: 500 12.5px/1.15 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); text-decoration: none; border-bottom: 1.5px solid color-mix(in srgb, var(--a) 88%, transparent); text-shadow: 0 0 12px rgba(5,5,6,.95); transition: color .25s var(--ease-out), border-color .25s, background-color .25s; }
+/* Source code: the one secondary link drawn as a hairline pill, so the repo reads as a thing to take away; the pill stays lighter than the filled button */
+.sec[data-kind="code"] { padding: 0 14px 0 15px; border: 1px solid color-mix(in srgb, var(--a) 72%, transparent); border-radius: 999px; background: rgba(5,5,6,.5); }
+.sec .ar { display: inline-block; transition: transform .3s var(--ease-out); }
+.sec:focus-visible { color: var(--a); border-color: var(--a); }
+.also { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 8px; margin-top: 2px; }
+.also .also-lab { color: var(--dim); margin-right: 2px; text-shadow: 0 0 12px rgba(5,5,6,.95); }
+.first-acts { justify-content: center; gap: 12px; margin-top: 6px; }
+.first-acts .open { min-height: 46px; padding: 13px 22px 13px 24px; }
+@media (hover: hover) and (pointer: fine) {
+  .open.pri:hover { color: var(--ground); filter: brightness(1.14); }
+  .sec:hover { color: var(--a); border-color: var(--a); }
+  .sec[data-kind="code"]:hover { background: color-mix(in srgb, var(--a) 14%, rgba(5,5,6,.5)); }
+  .sec:hover .ar { transform: translate(3px, -3px); }
+}
+/* the source row of a reading instrument (stop and education list): a label, then one pill per repo */
+.src-row { margin-top: 4px; }
+
+/* ---------- prologue (w12: orient first, decorate second) ----------
+   top to bottom: the Ovid line (wave-22 #23: a voice line at monument size that morphs into its English and back) over its source label /
+   Joseph Blumberg (h1) / the school line / the claim / "How this works" (three rows) / the route / Start and Watch the tour, centred on a dark scrim. */
+.k-prologue .head { left: 0; right: 0; top: clamp(78px, 10.5vh, 112px); width: auto; max-width: none; text-align: center; transform-origin: 50% 0; padding: 0 var(--pad); }
+.k-prologue .kicker { display: none; }
+.k-prologue .head::before { inset: -18px 12% -16px 12%; background: radial-gradient(ellipse closest-side, rgba(5,5,6,.6) 0%, rgba(5,5,6,.4) 58%, rgba(5,5,6,0) 100%); }
+/* wave-22 #23: the monument is two balanced lines in both languages (one silhouette). The width cap is in em, so Latin (30.2em on one line) and English
+   (29.3em) each break once, near the middle; the size is 0.84 of the name's (clamp(44px, 5vw, 76px)), i.e. 4.2vw from 37px up to 64px, and never more than 7.4vh so a
+   short window keeps the line clear of the name block (overlays.ts placePrologue also pushes that block down when it would come closer than 36px). */
+.title.epigraph { margin: 0 auto; font-size: clamp(37px, min(4.2vw, 7.4vh), 64px); line-height: 1.06; opacity: .94; max-width: min(94vw, 17.5em); color: var(--ink); text-shadow: 0 0 22px rgba(5,5,6,.95), 0 0 7px rgba(5,5,6,.8); }
+.title.epigraph .tl.epi, .mx-bi { font: italic 400 1em/1.06 var(--serif-i); letter-spacing: -0.008em; text-wrap: balance; }
+.epi-tr { margin: 3px auto 0; max-width: 56ch; font: 400 13px/1.4 var(--sans); letter-spacing: 0.005em; color: var(--dim); text-wrap: balance; text-shadow: 0 0 14px rgba(5,5,6,.95), 0 1px 3px rgba(5,5,6,.7); }
+/* wave-22 #23 morph text (src/v3/ui/morph.ts; VengeanceUI morph-text, MIT): Latin (.mx-a, its letters are Deco's) and English (.mx-bi) share one grid cell,
+   so the block is as tall as the longer line and neither ever reflows. At rest there is no filter and no animation: plain type with its usual shadow.
+   During the 1.8 s morph only: the threshold filter on the stack (the shadow moves into a drop-shadow after it, since the threshold would turn a
+   text-shadow into a hard dark blob), and one-shot keyframes on the two line wrappers (opacity, blur, scale). The English leaves with the head (--to). */
+.mx { display: grid; align-items: center; }
+.mx > * { grid-area: 1 / 1; min-width: 0; }
+.mx-bi { display: block; opacity: 0; }
+.ov.dx .mx-b { opacity: calc(var(--ti, 0) * (1 - var(--to, 0)) * (1 - var(--to, 0))); }
+.mx.mx-b1 .mx-a { opacity: 0; }
+.mx.mx-b1 .mx-bi { opacity: 1; }
+.mx.mx-tb, .mx.mx-ta { filter: url(#mx-goo) drop-shadow(0 0 12px rgba(5,5,6,.9)); }
+.mx.mx-tb > *, .mx.mx-ta > * { text-shadow: none; }
+.mx.mx-tb .mx-a, .mx.mx-ta .mx-bi { animation: mx-out var(--mx-d, 1.8s) ease-in-out both; }
+.mx.mx-tb .mx-bi, .mx.mx-ta .mx-a { animation: mx-in var(--mx-d, 1.8s) ease-in-out both; }
+.mx.mx-p .mx-a, .mx.mx-p .mx-bi { animation-play-state: paused; }
+/* upstream's shape (sharp -> half opacity + blur -> gone + blur, scale out; the mirror in). Blur in em, sized to the strokes of the italic:
+   0.035em at the crossing keeps letters (ascenders too) as a thin skeleton through the threshold (cut -8 in morph.ts), 0.16em at the ends evaporates
+   them (tuned on freeze frames: 0.13em fused the line into one bar, 0.06em flattened it to an x-height ribbon; 0.045em with the old cut -5 gave
+   a solid slab once the line was 60px and two lines high) */
+@keyframes mx-out {
+  0% { opacity: 1; filter: blur(0); scale: 1; }
+  55% { opacity: .5; filter: blur(.035em); }
+  100% { opacity: 0; filter: blur(.16em); scale: 1.03; }
+}
+@keyframes mx-in {
+  0% { opacity: 0; filter: blur(.16em); scale: .97; }
+  45% { opacity: .5; filter: blur(.035em); }
+  100% { opacity: 1; filter: blur(0); scale: 1; }
+}
+/* while it morphs, the visible line under it is the source label; the translation stays in the text for screen readers.
+   Reduced motion: no morph (overlays.ts never runs the clock), the Latin holds and its translation is shown under it as before. */
+html:not(.rm) .k-prologue .epi-tr { margin-top: 14px; font: 500 11.5px/1.35 var(--mono); letter-spacing: 0.13em; text-transform: uppercase; }
+html:not(.rm) .k-prologue .epi-tr .tr-en { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html.rm .mx-b { display: none; }
+.k-prologue .info { left: 0; right: 0; width: auto; max-width: none; justify-items: center; text-align: center; top: 54%; bottom: auto; translate: 0 -50%; padding: 0 var(--pad); gap: 14px; }
+.k-prologue .info::before { inset: -40px 5vw -34px 5vw; background: radial-gradient(ellipse closest-side at 50% 50%, rgba(5,5,6,.9) 0%, rgba(5,5,6,.76) 62%, rgba(5,5,6,0) 100%); }
+.ident { margin: 0; display: grid; gap: 12px; justify-items: center; }
+.ident .id-name { margin: 0; font: 640 clamp(44px, 5vw, 76px)/0.98 var(--serif-d); font-variation-settings: 'opsz' 44; -webkit-text-stroke: 0.4px currentColor; paint-order: stroke fill; letter-spacing: -0.015em; text-wrap: balance; color: var(--ink); text-shadow: 0 0 28px rgba(5,5,6,.95), 0 2px 4px rgba(5,5,6,.5); }
+.ident .school { margin: 0; font: 400 15px/1.4 var(--sans); letter-spacing: 0.005em; color: var(--dim); text-wrap: balance; text-shadow: 0 0 14px rgba(5,5,6,.95); }
+.k-prologue .info .claim-line { margin: 0; font: italic 400 clamp(26px, 2.5vw, 36px)/1.14 var(--serif-i); letter-spacing: -0.008em; text-wrap: balance; color: var(--ink); text-shadow: 0 0 22px rgba(5,5,6,.95), 0 1px 3px rgba(5,5,6,.5); }
+/* how this works: three rows, no digits; the cue is the bold part */
+.how { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 7px; justify-items: start; text-align: left; width: min(100%, 38em); }
+.how li { position: relative; padding-left: 20px; font: 400 15px/1.45 var(--sans); color: color-mix(in srgb, var(--ink) 86%, transparent); text-wrap: pretty; text-shadow: 0 0 14px rgba(5,5,6,.95), 0 1px 3px rgba(5,5,6,.7); }
+.how li::before { content: ''; position: absolute; left: 2px; top: 0.62em; width: 7px; height: 7px; border-radius: 50%; background: var(--ink); opacity: .55; }
+.how .hw-k { font-weight: 600; color: var(--ink); }
+.route { margin: 0; max-width: 46em; font: 400 15px/1.45 var(--sans); color: var(--ink); text-wrap: balance; text-shadow: 0 0 14px rgba(5,5,6,.95), 0 1px 3px rgba(5,5,6,.7); }
+.route .rt-l { font-size: 12px; letter-spacing: 0.06em; text-transform: none; color: var(--dim); margin-right: 4px; }
+
+/* ---------- name: the particles spell the name; the DOM carries the claim at the bottom edge ---------- */
+.k-name .head { display: none; }
+.k-name .info { left: 0; right: 0; width: auto; max-width: none; justify-items: center; text-align: center; padding: 0 var(--pad); bottom: calc(var(--pad) + 26px); gap: 14px; }
+.k-name .info::before { inset: -34px 12vw -26px 12vw; }
+.k-name .claim { margin: 0; font: italic 400 clamp(28px, 4.2vw, 70px)/1.02 var(--serif-i); letter-spacing: -0.012em; text-wrap: balance; text-shadow: 0 0 24px rgba(5,5,6,.9); }
+.k-name .school { margin: 0; font: 400 15px/1.4 var(--sans); letter-spacing: 0.005em; color: var(--dim); text-wrap: balance; text-shadow: 0 0 14px rgba(5,5,6,.95); }
+
+/* ---------- world: contents of the six books ---------- */
+/* w11: a soft scrim on the left so the ring ribbons never cross the copy; the list is 470 px wide so no title wraps */
+.ov.k-world::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: min(62vw, 820px); pointer-events: none; opacity: 0; transition: opacity .3s linear; background: radial-gradient(ellipse 72% 56% at 6% 66%, rgba(5,5,6,.55) 0%, rgba(5,5,6,.5) 50%, rgba(5,5,6,.22) 78%, rgba(5,5,6,0) 100%); }
+.ov.k-world.in::before { opacity: 1; transition: opacity .5s var(--ease-out); }
+@media (min-width: 761px) { .ov.k-world .info { width: 500px; max-width: calc(100vw - 2 * var(--pad)); } }
+.toc, .edu { list-style: none; margin: 0; padding: 0; display: grid; }
+.toc li, .edu li { border-top: 1px solid var(--hair-2); }
+.toc li:last-child, .edu li:last-child { border-bottom: 1px solid var(--hair-2); }
+.toc-row { --a: var(--ink); width: 100%; display: grid; grid-template-columns: 2.4em auto minmax(0, 1fr); align-items: baseline; column-gap: 12px; padding: 10px 0 9px; text-align: left; }
+.toc-row .tn, .toc-row .tt { transition: translate .35s var(--ease-out), color .25s; }
+.toc-row .tn { color: var(--a); }
+.toc-row .tt { font: italic 400 clamp(20px, 1.7vw, 26px)/1.1 var(--serif-i); white-space: nowrap; }
+.toc-row .tk { color: var(--dim); text-align: right; text-transform: none; letter-spacing: 0.02em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.toc-row:focus-visible .tt { color: var(--a); }
+@media (hover: hover) and (pointer: fine) {
+  .toc-row:hover .tn, .toc-row:hover .tt { translate: 10px 0; }
+  .toc-row:hover .tt { color: var(--a); }
+}
+
+/* ---------- education ---------- */
+.edu-row { width: 100%; display: grid; gap: 3px; padding: 10px 0 9px; text-align: left; }
+.edu-row .es { font: italic 400 clamp(21px, 1.8vw, 28px)/1.1 var(--serif-i); transition: color .25s; }
+.edu-row .ep { color: var(--dim); text-transform: none; letter-spacing: 0.04em; }
+.edu-row[aria-expanded='true'] .es, .edu-row:hover .es { color: var(--a); }
+/* w11: on a portrait screen the motto's translation and the "Before Chicago" row stay folded until the motto row is tapped */
+.edu-row .ep-more { display: none; margin-left: 10px; color: var(--a); }
+@media (max-width: 760px), (orientation: portrait) {
+  .edu:not(.x) li:nth-child(2) { display: none; }
+  .edu:not(.x) li:first-child { border-bottom: 1px solid var(--hair-2); }
+  .edu:not(.x) li:first-child .ep-t, .edu:not(.x) li:first-child .ep-s { display: none; }
+  .edu li:first-child .ep-more { display: inline; }
+  .edu.x li:first-child .ep-more { transform: rotate(45deg); display: inline-block; }
+}
+.edu-detail { margin: 0; min-height: 4.6em; font: 400 clamp(17px, 1.3vw, 20px)/1.5 var(--sans); font-stretch: 96%; color: color-mix(in srgb, var(--ink) 94%, transparent); text-shadow: 0 0 16px rgba(5,5,6,.9); }
+
+/* ---------- about: four beats ---------- */
+.beats { position: relative; height: clamp(110px, 20vh, 200px); }
+.beat { position: absolute; left: 0; bottom: 0; visibility: hidden; opacity: 0; translate: 0 18px; transition: opacity .18s var(--ease-io), translate .18s var(--ease-io), visibility 0s .18s; }
+.beat.on { visibility: visible; opacity: 1; translate: 0 0; transition: opacity .52s var(--ease-out), translate .52s var(--ease-out), visibility 0s; }
+.beat .bf { display: block; font: 640 clamp(64px, 14vh, 150px)/0.85 var(--serif-d); font-variation-settings: 'opsz' 44; -webkit-text-stroke: 0.4px currentColor; paint-order: stroke fill; letter-spacing: -0.03em; color: var(--a); text-shadow: 0 0 24px rgba(5,5,6,.9); }
+.beat .bl { display: block; margin-top: 8px; font: italic 400 clamp(21px, 2vw, 32px)/1.05 var(--serif-i); color: var(--ink); text-shadow: 0 0 18px rgba(5,5,6,.9); }
+
+/* ---------- w11 About: the doors, the hall and one stop per interest ---------- */
+.afford { margin: 0; color: var(--ink); text-wrap: balance; text-shadow: 0 0 14px rgba(5,5,6,.95), 0 1px 3px rgba(5,5,6,.7); }
+.body.bio { font-size: clamp(15px, 1.1vw, 17px); line-height: 1.5; color: var(--dim); }
+.stat { margin: 0; display: grid; gap: 8px; }
+.stat .sv { display: block; font: 640 clamp(64px, 14vh, 140px)/0.85 var(--serif-d); font-variation-settings: 'opsz' 44; -webkit-text-stroke: 0.4px currentColor; paint-order: stroke fill; letter-spacing: -0.03em; color: var(--a); text-shadow: 0 0 24px rgba(5,5,6,.9); }
+.stat .sl { display: block; font: italic 400 clamp(21px, 2vw, 32px)/1.05 var(--serif-i); color: var(--ink); text-shadow: 0 0 18px rgba(5,5,6,.9); }
+.int-nav { margin-top: 2px; }
+/* a flat panel anchored to the side edge behind the About copy: nothing bright sits behind the text (desktop; phones keep the bottom scrim) */
+@media (min-width: 761px) {
+  .ov[data-area='about'] .info::before {
+    inset: -22px -24px -12px -24px; background: rgba(5,5,6,.78); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    border: 1px solid var(--hair-2); border-radius: 0;
+  }
+  .ov[data-area='about'][data-side='l'] .info::before { left: calc(-1 * (var(--pad) + 10px)); border-left-width: 0; }
+  .ov[data-area='about'][data-side='r'] .info::before { right: -22px; }  /* the right edge keeps clear of the scroll rail */
+}
+
+/* ---------- w11: the stop rows ---------- */
+/* a labelled row (market's "Also in Research"): the label on its own line, then ONE row of chips */
+.ov .stops.one { flex-wrap: wrap; }
+.ov .stops.one .also-lab { flex-basis: 100%; }
+.ov .stops.one .open.chip { flex: 0 1 auto; min-width: 0; padding: 5px 9px 5px 11px; font-size: 11px; }
+.ov .stops.one .open.chip .sn { margin-right: 5px; }
+.ov .stops.one.is-short .open.chip .sn { display: none; }
+/* the hall: a narrower lane keeps the copy panel clear of the first window's caption */
+@media (min-width: 761px) {
+  .ov[data-id='hall'] .info { width: min(var(--lane), 360px); bottom: max(calc(var(--pad) + 76px), 130px); }
+  .ov[data-id='hall'] .lede { font-size: clamp(19px, 1.5vw, 23px); }
+}
+/* the hall title sits over the lit stonework and the first window's spill: a deeper scrim keeps its contrast above 4.5:1 */
+.ov[data-id='hall'] .head::before { background: radial-gradient(ellipse closest-side at 38% 50%, rgba(5,5,6,.82) 0%, rgba(5,5,6,.6) 58%, rgba(5,5,6,0) 100%); }
+/* market: the lede is capped at two lines */
+.ov[data-id='market'] .lede { font-size: clamp(18px, 1.4vw, 21px); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+/* mathecon: the kicker carries the long name, so it is a little tighter */
+.ov[data-id='mathecon'] .kicker { gap: 10px; }
+.ov[data-id='mathecon'] .kicker .k-rule { flex-basis: 22px; }
+.ov[data-id='mathecon'] .kicker .k-text { letter-spacing: 0.06em; font-size: 11px; }
+
+/* ---------- epilogue: the form draws the line; the DOM holds the contact ---------- */
+.k-epilogue .info, .k-epilogue .kicker { display: none; } /* the finale's glass console (finale.css) carries the contact */
+.contact { display: grid; gap: 14px; max-width: 100%; }
+.contact .lab { color: var(--dim); }
+.contact .em-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.contact .em { font: italic 400 clamp(24px, 2.6vw, 44px)/1 var(--serif-i); text-decoration: none; position: relative; letter-spacing: -0.01em; overflow-wrap: anywhere; text-shadow: 0 0 20px rgba(5,5,6,.9); }
+.contact .em::after { content: ''; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: var(--a, var(--accent)); transform-origin: 0 50%; scale: 0 1; transition: scale .6s var(--ease-out); }
+.contact .em:hover::after, .contact .em:focus-visible::after { scale: 1 1; }
+.contact .cp { padding: 9px 13px; border: 1.5px solid var(--hair); border-radius: 999px; color: var(--ink); min-width: 7.2em; text-align: center; background: rgba(5,5,6,.5); transition: border-color .3s, background .3s, color .3s; }
+.contact .cp:hover, .contact .cp:focus-visible { border-color: var(--a, var(--accent)); background: var(--a, var(--accent)); color: var(--ground); }
+.contact .li { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); text-shadow: 0 0 14px rgba(5,5,6,.95); }
+.contact .li:hover { color: var(--a, var(--accent)); }
+.contact .li .ar { display: inline-block; transition: transform .35s var(--ease-out); }
+.contact .li:hover .ar { transform: translate(3px, -3px); }
+.contact .to-index { color: var(--dim); text-decoration: none; text-shadow: 0 0 12px rgba(5,5,6,.95); }
+.contact .to-index:hover { color: var(--ink); }
+
+/* ---------- the index (below the track, over the epilogue) ---------- */
+.idx {
+  position: relative; z-index: var(--z-index);
+  padding: clamp(110px, 24vh, 260px) calc(var(--pad) + 36px) calc(var(--pad) * 1.6 + 96px) var(--pad);
+  background: linear-gradient(to bottom, rgba(5,5,6,0) 0, rgba(5,5,6,.96) clamp(80px, 18vh, 200px), #050506 clamp(160px, 36vh, 420px), #050506 100%);
+}
+.idx-head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px; padding-bottom: 18px; border-bottom: 1px solid var(--hair); }
+.idx-head h2 { margin: 0; font: 600 clamp(48px, 8vw, 148px)/0.82 var(--serif-d); font-variation-settings: 'opsz' 96; letter-spacing: -0.02em; text-transform: uppercase; }
+.idx-head .meta { color: var(--dim); text-align: right; }
+.idx-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: clamp(24px, 4vw, 72px); grid-auto-flow: row; }
+.idx-grid li { position: relative; display: block; border-bottom: 1px solid var(--hair-2); }
+.row {
+  --a: var(--ink);
+  position: relative; display: grid; grid-template-columns: 2.4em minmax(0, 1fr) minmax(5.2em, 9.6em) minmax(5.6em, auto); align-items: baseline; column-gap: 12px;
+  width: 100%; padding: 13px 2.6em 12px 0; text-align: left; text-decoration: none; color: var(--ink);
+  transition: color .3s;
+}
+.row .rn, .row .nm { transition: translate .45s var(--ease-out), color .3s; }
+.row::before { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--a); scale: 0 1; transform-origin: 0 50%; transition: scale .55s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .row:hover .rn, li:hover > .row .rn, .row:hover .nm, li:hover > .row .nm { translate: 12px 0; } }
+.row:focus-visible::before { scale: 1 1; transition: none; }
+@media (hover: hover) and (pointer: fine) { .row:hover::before, li:hover > .row::before { scale: 1 1; } }
+.row .rn { color: var(--dim); }
+.row .nm { font: 500 clamp(15px, 1.2vw, 19px)/1.2 var(--sans); font-stretch: 100%; overflow-wrap: anywhere; }
+.row:focus-visible .nm { color: var(--a); }
+@media (hover: hover) and (pointer: fine) { .row:hover .nm, li:hover > .row .nm { color: var(--a); } }
+.row.static { cursor: default; }
+.ch-go, .row .ch-n { position: absolute; right: 0; top: 14px; z-index: 1; width: 2.4em; text-align: right; color: var(--a); opacity: .9; text-decoration: none; line-height: 1.35; }
+.row .ch-n { z-index: 0; }
+.ch-go:hover, .ch-go:focus-visible { opacity: 1; text-decoration: underline; text-underline-offset: 5px; }
+.row .kd { color: var(--dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-transform: none; letter-spacing: 0.02em; }
+.row .fg { text-align: right; font: 500 12px/1.2 var(--mono); letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+.idx-line { min-height: 2.6em; margin: 14px 0 0; color: var(--dim); }
+.idx-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px 40px; margin-top: clamp(40px, 8vh, 90px); padding-top: 16px; border-top: 1px solid var(--hair); color: var(--dim); }
+.idx-links { display: inline-flex; flex-wrap: wrap; gap: 8px 26px; }
+.idx-foot a { text-decoration: none; }
+.idx-foot a:hover { color: var(--ink); }
+/* Index: a reading instrument's repo under its row, aligned with the name (the row's number column is 2.4em, then a 12px gap) */
+.idx-src { display: inline-flex; align-items: center; gap: 8px; margin: -4px 0 12px calc(2.4em + 12px); padding: 0 0 3px; font: 500 12px/1.2 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); text-decoration: none; border-bottom: 1.5px solid color-mix(in srgb, var(--a) 88%, transparent); transition: color .25s var(--ease-out), border-color .25s; }
+.idx-src .ar { display: inline-block; transition: transform .3s var(--ease-out); }
+.idx-src:focus-visible { color: var(--a); border-color: var(--a); }
+@media (hover: hover) and (pointer: fine) { .idx-src:hover { color: var(--a); border-color: var(--a); } .idx-src:hover .ar { transform: translate(3px, -3px); } }
+.idx-row-in { opacity: 0; translate: 0 18px; }
+
+/* ---------- reduced motion: crossfades only, nothing travels ---------- */
+html.rm .head { scale: 1; translate: none; transition: opacity .35s linear; }
+html.rm .hero { opacity: calc(var(--ti, 0) * (1 - var(--to, 0))); }
+html.rm .rv { translate: none; transition: opacity .35s linear; }
+html.rm .ov.in .rv { transition: opacity .35s linear; }
+html.rm .beat, html.rm .beat.on { translate: none; transition: opacity .35s linear, visibility 0s; }
+html.rm .toc-row .tn, html.rm .toc-row .tt, html.rm .row .rn, html.rm .row .nm { transition: color .2s; translate: none !important; }
+html.rm #overlays { transition: opacity .35s linear; }
+
+/* ---------- phone: the title hangs from the top, copy sits on a scrim at the bottom, the subject keeps the middle ----------
+   Contract with the HUD (w11): copy lives between 64 px from the top and 84 px (plus the safe area) from the bottom. */
+@media (max-width: 760px) {
+  .head, .ov[data-side='l'] .head, .ov[data-side='r'] .head { left: var(--pad); right: var(--pad); top: 64px; width: auto; text-align: left; transform-origin: 0 0; }
+  .ov[data-side='r'] .kicker { justify-content: flex-start; flex-direction: row; }
+  .ov[data-side='r'] .title .tl.lead { margin: 0 0 calc(var(--fs) * 0.02) calc(var(--fs) * 0.03); }
+  .info, .ov[data-side='l'] .info, .ov[data-side='r'] .info { left: var(--pad); right: var(--pad); width: auto; bottom: calc(88px + env(safe-area-inset-bottom, 0px)); gap: 12px; }
+  /* the scrim fades out through eased stops at the top and sides: no hard edge anywhere */
+  .info::before, .ov[data-area='about'] .info::before {
+    inset: -96px -16px -96px -16px;
+    background: linear-gradient(to top, rgba(5,5,6,.95) 0, rgba(5,5,6,.93) 56%, rgba(5,5,6,.84) 68%, rgba(5,5,6,.6) 79%, rgba(5,5,6,.3) 89%, rgba(5,5,6,.1) 95%, rgba(5,5,6,0) 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%); mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+    border: 0; backdrop-filter: none; -webkit-backdrop-filter: none;
+  }
+  .ov.k-offboard .info::before { inset: -130px -16px -96px -16px; }
+  .lede { font-size: 20px; }
+  .ov[data-id='market'] .lede { font-size: 18px; }
+  .fig .fv { font-size: 34px; }
+  .proj .body { font-size: 17px; }
+  .proj { gap: 8px; }
+  .bio { display: none; }
+  .k-prologue .head { top: clamp(84px, 13vh, 132px); }
+  .title.epigraph { max-width: 100%; font-size: clamp(24px, min(7.7vw, 4.2vh), 34px); }   /* two lines in both languages down to a 360px phone (the longer English line is ~10.8em, the lane 91vw); 4.2vh trims it on a short screen (375x667) so the caption clears the name */
+  html:not(.rm) .k-prologue .epi-tr { margin-top: clamp(7px, 1.6vh, 14px); }
+  .epi-tr { font-size: 13px; }
+  .k-prologue .info { top: auto; bottom: calc(88px + env(safe-area-inset-bottom, 0px)); translate: none; gap: 10px; }
+  .k-prologue .info::before { inset: -70px -16px -70px -16px; background: linear-gradient(to top, rgba(5,5,6,.94) 0, rgba(5,5,6,.9) 60%, rgba(5,5,6,.6) 80%, rgba(5,5,6,.2) 93%, rgba(5,5,6,0) 100%); }
+  .k-prologue .info .claim-line { font-size: 26px; }
+  .ident .id-name { font-size: 44px; }
+  .how { gap: 6px; margin-top: 2px; }
+  .first-acts { gap: 8px; margin-bottom: 0; }
+  .first-acts .open { padding: 12px 16px 12px 18px; font-size: 15px; min-height: 46px; }
+  .pcard .acts.pa .open.pri { min-height: 44px; }
+  .k-name .info { bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
+  .toc-row .tk { display: none; }
+  .toc-row { grid-template-columns: 2.4em minmax(0, 1fr); padding: 7px 0 6px; }
+  .edu-row { padding: 6px 0 5px; }
+  .edu-detail { min-height: 0; font-size: 17px; }
+  .beat .bf { font-size: clamp(56px, 11vh, 110px); }
+  .beats { height: clamp(90px, 15vh, 140px); }
+  /* chips and stop chips: ONE horizontally scrolling row, snapped, faded at the edges (no 3-row wraps) */
+  .also, .ov .stops.one {
+    flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; margin-inline: -16px; padding-inline: 16px; gap: 8px; scroll-snap-type: x proximity; scrollbar-width: none; overscroll-behavior-x: contain;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 14px, #000 calc(100% - 26px), transparent 100%); mask-image: linear-gradient(to right, transparent 0, #000 14px, #000 calc(100% - 26px), transparent 100%);
+  }
+  .also::-webkit-scrollbar { display: none; }
+  .also > *, .ov .stops.one > * { flex: none; scroll-snap-align: start; }
+  .ov .stops.one .also-lab { flex-basis: auto; }
+  .ov.live .also { pointer-events: auto; touch-action: pan-x; }
+  .open.chip, .ov .stops.one .open.chip { min-height: 40px; font-size: 12px; padding: 6px 13px 6px 14px; }
+  /* interest stops: title, stat and one line, in the bottom 40%; the object keeps the top 55% */
+  .ov.k-interest { --ib: calc(88px + env(safe-area-inset-bottom, 0px)); }
+  .ov.k-interest .head, .ov.k-interest[data-side='r'] .head { top: auto; bottom: calc(var(--ib) + var(--ih, 130px) + 16px); }
+  .ov.k-interest .info, .ov.k-interest[data-side='r'] .info { bottom: var(--ib); }
+  .ov.k-interest .info::before { inset: -26px -16px -96px -16px; }  /* the title sits right above the copy: the scrim must not dim it */
+  /* the records stop carries Joseph's crate tray (crate.css, bottom 96 px, about 160 px tall): the copy sits above it */
+  .ov[data-id='records'] { --ib: calc(268px + env(safe-area-inset-bottom, 0px)); }
+  .ov.k-interest .info .also { display: none; }
+  .ov.k-interest .stat { gap: 4px; }
+  .ov.k-interest .stat .sv { font-size: clamp(48px, 8.5vh, 76px); }
+  .ov.k-interest .stat .sl { font-size: 22px; }
+  .ov.k-interest .info { gap: 8px; }
+  .idx { padding-right: calc(var(--pad) + 14px); }
+  .idx-grid { grid-template-columns: 1fr; }
+  .idx-head { grid-template-columns: 1fr; }
+  .idx-head .meta { text-align: left; }
+  .row { grid-template-columns: 2.1em minmax(0, 1fr) auto; }
+  .row .kd { display: none; }
+  .idx-src { margin-left: calc(2.1em + 12px); }
+}
+/* the records stop on a tablet-width window (761-1000 px wide, 760 px or more tall): crate.css centres the tray 108 px up from the bottom (about 170 px tall), so the copy block stands above it, as on a phone */
+@media (min-width: 761px) and (max-width: 1000px) and (min-height: 760px) { .ov[data-id='records'] .info { bottom: calc(308px + env(safe-area-inset-bottom, 0px)); } }
+/* touch targets: 44 px, no double-tap zoom delay */
+.open, .sec, .toc-row, .edu-row { touch-action: manipulation; }
+@media (pointer: coarse) { .open, .open.chip, .ov .stops.one .open.chip, .sec { min-height: 44px; } }
+@media (max-height: 760px) and (min-width: 761px) {
+  .info { gap: 12px; }
+  .lede { font-size: 21px; }
+  .fig .fv { font-size: 34px; }
+  .body { font-size: 17px; }
+  .edu-detail { min-height: 3.4em; }
+}

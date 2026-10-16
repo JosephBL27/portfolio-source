@@ -1,0 +1,71 @@
+/* 21st-style vector effects (unit 14V). Ivory hairlines, no new colours: every effect reads --ink / --a / --acc from where it sits. Reduced motion (html.rm,
+   or the media query) shows each effect still. Nothing here carries text. */
+@property --fx-a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+
+/* ---- border beam on the "Open case study" button: a short bright arc runs round the rim (conic gradient masked to the 1.5px border box) ---- */
+.open.pri { position: relative; isolation: isolate; }
+.open.pri::after {
+  content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1.5px; pointer-events: none; z-index: 1;
+  background: conic-gradient(from var(--fx-a), transparent 0 74%, color-mix(in srgb, #fff 95%, transparent) 90%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: fx-beam 3.6s linear infinite; opacity: .9;
+}
+@keyframes fx-beam { to { --fx-a: 360deg; } }
+
+/* ---- spotlight on Overview rows ---- */
+.fx-spot { position: relative; }
+.fx-spot::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; opacity: 0; transition: opacity .25s ease-out;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--a, var(--ink, #EDE6D6)) 15%, transparent), transparent 70%);
+}
+.fx-spot.fx-lit::before { opacity: 1; }
+
+/* ---- Overview beams ---- */
+.fx-beamed { position: relative; }
+.fx-beams { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 0; }
+.fx-beamed > :not(.fx-beams) { position: relative; z-index: 1; }
+.fx-beam__line { fill: none; stroke: color-mix(in srgb, var(--a, var(--ink, #EDE6D6)) 34%, transparent); stroke-width: 1; stroke-dasharray: 2 4; }
+.fx-beam__pulse { fill: none; stroke: var(--a, var(--ink, #EDE6D6)); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 9 91; stroke-dashoffset: 9; opacity: 0; }
+.fx-beamed.fx-live .fx-beam__pulse { animation: fx-pulse 3.2s cubic-bezier(.45, 0, .25, 1) infinite; }
+@keyframes fx-pulse { 0% { stroke-dashoffset: 9; opacity: 0; } 12% { opacity: 1; } 78% { opacity: 1; } 100% { stroke-dashoffset: -100; opacity: 0; } }
+
+/* ---- case view: grid + meteors behind the header ---- */
+.cv-hero > i.cv-fx.cv-fx { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.cv-fx__m {
+  position: absolute; top: -8%; left: var(--x); width: 1px; height: 120px; opacity: 0; transform-origin: top; rotate: 215deg;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--acc, #fff) 80%, #fff), transparent);
+  animation: fx-meteor var(--d) linear var(--w) infinite;
+}
+.cv-fx__m::before { content: ''; position: absolute; top: -1px; left: -1px; width: 3px; height: 3px; border-radius: 50%; background: #fff; box-shadow: 0 0 8px 1px color-mix(in srgb, var(--acc, #fff) 70%, transparent); }
+@keyframes fx-meteor { 0% { transform: translate3d(0, 0, 0); opacity: 0; } 8% { opacity: .8; } 70% { opacity: .5; } 100% { transform: translate3d(-34vh, 78vh, 0); opacity: 0; } }
+.case.is-still .cv-fx__m { animation: none; }
+
+/* ---- case view: the stroke-drawn pipeline diagram ---- */
+.cv-dia { padding: 8px 0 40px; border-top: 0; }
+.cv-dia .dia { position: relative; padding: 18px 0 8px; }
+.dia__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.dia__base { fill: none; stroke: color-mix(in srgb, var(--ink, #ECEAE3) 14%, transparent); stroke-width: 1; stroke-dasharray: 2 5; }
+.dia__line { fill: none; stroke: var(--acc, var(--ink, #ECEAE3)); stroke-width: 1.4; stroke-linecap: round; }
+.dia__st { list-style: none; margin: 0; padding: 0; display: flex; justify-content: space-between; gap: 6px; position: relative; }
+.dia__st li { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.dia__st li:nth-child(even) { margin-top: 38px; }
+.dia__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--paper, #0E0F10); border: 1.5px solid var(--acc, var(--ink, #ECEAE3)); box-shadow: 0 0 0 4px color-mix(in srgb, var(--acc, #fff) 14%, transparent); flex: none; }
+.dia__nm { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--soft, color-mix(in srgb, #ECEAE3 66%, transparent)); line-height: 1.3; overflow-wrap: anywhere; }
+.cv-dia.is-armed:not(.is-in) .dia__line { opacity: 0; }
+.cv-dia.is-armed:not(.is-in) .dia__dot, .cv-dia.is-armed:not(.is-in) .dia__nm { opacity: 0; }
+@media (max-width: 640px) {
+  .dia__st { flex-direction: column; gap: 14px; }
+  .dia__st li { flex-direction: row; align-items: center; justify-content: flex-start; text-align: left; gap: 12px; }
+  .dia__st li:nth-child(even) { margin-top: 0; }
+  .dia__st { padding-left: 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .open.pri::after { animation: none; --fx-a: 40deg; opacity: .6; }
+  .fx-beamed.fx-live .fx-beam__pulse, .cv-fx__m { animation: none; }
+  .fx-beam__pulse { opacity: .7; stroke-dashoffset: -45; }
+}
+html.rm .open.pri::after { animation: none; --fx-a: 40deg; opacity: .6; }
+html.rm .fx-beamed.fx-live .fx-beam__pulse, html.rm .cv-fx__m { animation: none; }
+html.rm .fx-beam__pulse { opacity: .7; stroke-dashoffset: -45; }

@@ -1,0 +1,109 @@
+/* v4: tokens, reset, loader + entry gate. Imported by src/v3/ui/ui.ts. */
+:root {
+  --ground: #050506;
+  --ink: #EDE6D6;
+  --accent: #EDE6D6;
+  --hair: color-mix(in srgb, var(--ink) 34%, transparent);
+  --hair-2: color-mix(in srgb, var(--ink) 16%, transparent);
+  --dim: color-mix(in srgb, var(--ink) 74%, transparent);
+  --serif-d: 'Bodoni Moda Variable', 'Bodoni Moda', 'Bodoni 72', Didot, 'Times New Roman', serif;
+  --serif-i: 'Instrument Serif', 'Times New Roman', serif;
+  --sans: 'Archivo Variable', 'Archivo', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --vh: 100vh;                         /* replaced by px in JS (ui.ts) so layout never jumps with mobile URL bars */
+  --pad: clamp(16px, 2.6vw, 44px);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-fly: cubic-bezier(0.22, 1, 0.36, 1);
+  /* one layer scale; nothing outranks the cursor (which lives in the top layer anyway) */
+  --z-field: 0;
+  --z-overlay: 40;
+  --z-index: 45;
+  --z-anchors: 50;
+  --z-hud: 60;
+  --z-skip: 300;
+  --z-loader: 400;
+  --z-cursor: 450;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  background: var(--ground); color: var(--ink);
+  scrollbar-width: none; overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+  overflow-x: clip;
+}
+html::-webkit-scrollbar { display: none; }
+html.is-loading { overflow: hidden; }
+body {
+  margin: 0; background: transparent; color: var(--ink);
+  font: 400 17px/1.55 var(--sans); font-stretch: 100%;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+::selection { background: var(--ink); color: var(--ground); }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.mono { font: 500 11.5px/1.35 var(--mono); letter-spacing: 0.13em; text-transform: uppercase; }
+.skip {
+  position: fixed; left: 12px; top: -64px; z-index: var(--z-skip); background: var(--ink); color: var(--ground);
+  padding: 10px 14px; font: 500 11.5px/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none;
+}
+.skip:focus { top: 12px; }
+
+/* ---------- the world canvas ---------- */
+#field { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100lvh; display: block; z-index: var(--z-field); background: var(--ground); }
+#track { margin: 0; position: relative; z-index: 1; pointer-events: none; }
+
+/* ---------- loader and entry gate ---------- */
+#loader {
+  position: fixed; inset: 0; z-index: var(--z-loader); background: var(--ground); color: var(--ink);
+  display: grid; place-items: center; padding: var(--pad);
+}
+#loader .ld-line {
+  margin: 0; max-width: 18ch; text-align: center;
+  font: italic 400 clamp(26px, 4.6vw, 74px)/1.04 var(--serif-i); letter-spacing: -0.005em;
+  text-wrap: balance; transition: transform .8s var(--ease-out);
+}
+#loader.is-gate .ld-line { transform: translateY(-6vh); }
+#loader .ld-line .g { display: inline-block; transition: color .5s, opacity .5s; }
+#loader .ld-line .g.n { color: color-mix(in srgb, var(--ink) 40%, transparent); font-family: var(--mono); font-style: normal; font-size: .62em; }
+#loader .ld-meta {
+  position: absolute; left: var(--pad); right: var(--pad); bottom: var(--pad);
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; transition: opacity .6s var(--ease-out);
+}
+#loader.is-gate .ld-meta { opacity: .45; }
+#loader .ld-pct { font: 500 clamp(54px, 9vw, 150px)/0.8 var(--mono); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+#loader .ld-pct small { font-size: .28em; letter-spacing: 0.1em; margin-left: .2em; vertical-align: top; color: var(--dim); }
+#loader .ld-cap { font: 500 11.5px/1.5 var(--mono); letter-spacing: 0.13em; text-transform: uppercase; color: var(--dim); text-align: right; }
+#loader .ld-bar { position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: var(--ink); transform-origin: 0 50%; transform: scaleX(var(--p, 0)); }
+
+.gate {
+  position: absolute; left: 0; right: 0; top: 63%; display: grid; justify-items: center; gap: 22px; padding: 0 var(--pad);
+  opacity: 0; translate: 0 18px; pointer-events: none; transition: opacity .7s var(--ease-out) .15s, translate .9s var(--ease-out) .15s;
+}
+#loader.is-gate .gate { opacity: 1; translate: 0 0; pointer-events: auto; }
+.gate-k { margin: 0; color: var(--dim); }
+.gate-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+.gate-btn {
+  position: relative; display: inline-flex; align-items: center; gap: 14px; padding: 17px 26px 16px; border: 2px solid var(--hair); border-radius: 999px;
+  font: 500 13px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); background: transparent;
+  transition: border-color .3s, background .3s, color .3s, translate .4s var(--ease-out);
+}
+.gate-btn.primary { border-color: var(--ink); background: var(--ink); color: var(--ground); }
+.gate-btn .gb-ar { font-style: normal; transition: translate .4s var(--ease-out); }
+.gate-btn:focus-visible { border-color: var(--ink); transition: none; }
+.gate-btn:not(.primary):focus-visible { background: color-mix(in srgb, var(--ink) 12%, transparent); }
+@media (hover: hover) and (pointer: fine) {
+  .gate-btn:hover { border-color: var(--ink); translate: 0 -2px; }
+  .gate-btn:not(.primary):hover { background: color-mix(in srgb, var(--ink) 12%, transparent); }
+  .gate-btn.primary:hover .gb-ar { translate: 5px 0; }
+}
+.gate-btn:active { translate: 0 0; }
+.gate-n { margin: 0; max-width: 46ch; text-align: center; color: var(--dim); text-transform: none; letter-spacing: 0.04em; font-size: 12px; line-height: 1.5; }
+@media (max-width: 760px) { .gate { top: 58%; } .gate-btn { padding: 16px 22px 15px; } }
+@media (prefers-reduced-motion: reduce) { #loader .ld-line .g, .gate, .gate-btn, #loader .ld-line, #loader .ld-meta { transition: none; } }
+html.rm #loader .ld-line .g, html.rm .gate, html.rm .gate-btn { transition: none; }

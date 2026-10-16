@@ -1,0 +1,4 @@
+/* Odyssey lab theme: dark navy and bronze gold, with a terracotta episode scale. */
+.oy { --vv-acc: #d9a441; --vv-acc2: #f2d58d; --vv-hot: #c8553d; --vv-base: rgba(14, 22, 44, 0.94); --vv-ringbase: rgba(30, 34, 58, 0.96); --vv-markbg: rgba(241, 233, 212, 0.93); --vv-numfill: #1d1a2a;
+  --vv-p0: #1b2342; --vv-p1: #0f1630; --vv-p2: #080c1c; --vv-bg: linear-gradient(180deg, #0d1330 0%, #080c20 58%, #04060f 100%); --vv-glow: rgba(217, 164, 65, 0.2); --vv-title: #fff6dc; }
+.oy .vv-num { font-size: calc(13px * var(--u)); }

@@ -1,0 +1,38 @@
+{
+ "wwii": {
+  "pdf": "docs/unequal-mobilization-wwii-paper.pdf",
+  "pages": 55,
+  "width": 850,
+  "height": 1100,
+  "dir": "media/wwii/book",
+  "prefix": "p-",
+  "ext": "webp"
+ },
+ "love-island": {
+  "pdf": "docs/romantic-dynamics-love-island-paper.pdf",
+  "pages": 14,
+  "width": 850,
+  "height": 1100,
+  "dir": "media/love-island/book",
+  "prefix": "p-",
+  "ext": "webp"
+ },
+ "cloudflare": {
+  "pdf": "docs/cloudflare-net-stock-pitch.pdf",
+  "pages": 32,
+  "width": 1000,
+  "height": 563,
+  "dir": "media/cloudflare/book",
+  "prefix": "p-",
+  "ext": "webp"
+ },
+ "appfolio": {
+  "pdf": "docs/appfolio-appf-the-second-act.pdf",
+  "pages": 21,
+  "width": 1000,
+  "height": 563,
+  "dir": "media/appfolio/book",
+  "prefix": "p-",
+  "ext": "webp"
+ }
+}

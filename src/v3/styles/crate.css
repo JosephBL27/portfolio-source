@@ -1,0 +1,162 @@
+/* The record crate (src/v3/ui/crate.ts): a glass tray of sleeves under the turntable at the 'records' waypoint. One amber accent. */
+.crate {
+  --cr-acc: #f1a05a; --cr-acc2: #ffd9a8;
+  /* where the copy panel on the right begins: overlays.ts sets the records lane to min(max(31vw, 380), 560), the info block sits pad + 44 px from the right edge and its panel reaches 24 px
+     further left. --cr-lim is the right edge the tray may reach (14 px clear of that panel), so the tray never lies over the 400+ figure at any window size */
+  --cr-lane: clamp(380px, 31vw, 560px); --cr-lim: calc(100vw - var(--pad) - 44px - var(--cr-lane) - 38px);
+  position: fixed; z-index: 56; left: 50%; bottom: max(14px, env(safe-area-inset-bottom)); width: min(620px, calc(100vw - 24px));
+  translate: -50% 0; padding: 10px 12px 12px; border-radius: 20px; color: var(--ink);
+  font: 400 13px/1.35 var(--sans); -webkit-font-smoothing: antialiased;
+  background: linear-gradient(180deg, rgba(26, 20, 15, .72), rgba(12, 9, 7, .82));
+  border: 1px solid rgba(241, 160, 90, .22); backdrop-filter: blur(18px) saturate(1.2); -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  box-shadow: 0 30px 70px -30px #000, inset 0 1px 0 rgba(255, 255, 255, .08);
+  opacity: 0; transform: translateY(26px); pointer-events: none; visibility: hidden;
+  transition: opacity .5s var(--ease-out), transform .6s var(--ease-out), visibility 0s .6s;
+  user-select: none; -webkit-user-select: none; touch-action: none;
+}
+.crate.on { opacity: 1; transform: none; pointer-events: auto; visibility: visible; transition-delay: 0s; }
+.crate *, .crate *::before, .crate *::after { box-sizing: border-box; }
+.crate button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+.crate :focus-visible { outline: 2px solid var(--cr-acc2); outline-offset: 2px; border-radius: 8px; }
+.crate [hidden] { display: none !important; }
+
+.cr-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 2px 2px; }
+.cr-kick { font: 500 11px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--cr-acc); }
+.cr-spec { flex: 1; align-self: center; display: flex; align-items: flex-end; gap: 2px; height: 15px; min-width: 0; margin: 0 4px; opacity: 0; transition: opacity .5s var(--ease-out); }
+.cr-spec.on { opacity: 1; }
+.cr-spec i { flex: 1; min-width: 1px; height: 100%; border-radius: 1px; background: linear-gradient(to top, var(--cr-acc), var(--cr-acc2)); transform-origin: bottom; scale: 1 .06; box-shadow: 0 0 6px color-mix(in srgb, var(--cr-acc) 50%, transparent); }
+.cr-hint { font: 500 11px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: rgba(237, 230, 214, .5); }
+
+.cr-strip {
+  position: relative; display: flex; gap: 0; overflow-x: auto; overflow-y: visible; scroll-snap-type: x mandatory; scrollbar-width: none;
+  padding: 38px calc(50% - 38px) 8px; margin: 0 -4px; perspective: 700px; touch-action: pan-x; overscroll-behavior: contain; cursor: grab;
+  /* the tray's two ends fade out, so a sleeve cut off by the edge reads as "more this way", not as a clipping bug */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 13%, #000 87%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 13%, #000 87%, transparent 100%);
+}
+.cr-strip::-webkit-scrollbar { display: none; }
+.cr-strip.grab { cursor: grabbing; scroll-snap-type: none; }
+.crate .cr-sl {   /* .crate button { background: none } is more specific than a bare .cr-sl, and its shorthand reset the sleeve's size/position: the cover showed as the 76 px top-left corner of the full-size artwork */
+  flex: 0 0 76px; width: 76px; height: 76px; margin: 0 6px; scroll-snap-align: center; position: relative; border-radius: 4px;
+  transform-origin: 50% 80%; will-change: transform; transition: translate .35s var(--ease-out), box-shadow .3s;
+  background: #1a1511; box-shadow: 0 10px 22px -8px rgba(0, 0, 0, .8), inset 0 0 0 1px rgba(255, 255, 255, .1);
+}
+.cr-gen, .cr-art { position: absolute; inset: 0; border-radius: inherit; }
+/* the generated cover: the title and artist in the crate's type on a colour block (the artwork fades in over it) */
+.cr-gen { display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; padding: 6px 6px 5px; text-align: left; overflow: hidden;
+  background: radial-gradient(120% 90% at 20% 10%, hsl(var(--h, 30) 52% 36%), transparent 60%), linear-gradient(150deg, hsl(var(--h, 30) 40% 26%), hsl(calc(var(--h, 30) + 38) 46% 11%)); }
+.cr-gen b { font: italic 400 11px/1.1 var(--serif-i, Georgia, serif); color: #f6ead3; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.cr-gen i { font: 500 11px/1.2 var(--mono, monospace); font-style: normal; letter-spacing: .02em; color: rgba(246, 234, 211, .66); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cr-art { background: center / cover no-repeat; opacity: 0; transition: opacity .28s ease-out; }
+.cr-sl.art .cr-art, .cr-ghost.art .cr-art { opacity: 1; }
+.cr-sl.art .cr-gen, .cr-ghost.art .cr-gen { opacity: 0; }
+.cr-sl::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(135deg, rgba(255, 255, 255, .22), transparent 40%, rgba(0, 0, 0, .25)); pointer-events: none; }
+.cr-sl.sel { translate: 0 -10px; box-shadow: 0 10px 22px -8px rgba(0, 0, 0, .8), 0 0 18px rgba(241, 160, 90, .4), inset 0 0 0 1px rgba(255, 255, 255, .1); } /* a box-shadow glow (no filter on a 3D-transformed sleeve) */
+.cr-sl.cur::before { content: ''; position: absolute; left: 50%; bottom: -9px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: var(--cr-acc); box-shadow: 0 0 8px var(--cr-acc); }
+.cr-sl.lifted { opacity: .25; }
+
+.cr-ghost {
+  position: fixed; z-index: 70; left: 0; top: 0; width: 96px; height: 96px; border-radius: 4px; pointer-events: none; will-change: transform;
+  background: #1a1511; overflow: hidden; box-shadow: 0 24px 40px -10px rgba(0, 0, 0, .75), 0 0 0 1px rgba(255, 255, 255, .14);
+}
+.cr-ghost.hot { box-shadow: 0 24px 40px -10px rgba(0, 0, 0, .75), 0 0 0 2px var(--cr-acc), 0 0 30px rgba(241, 160, 90, .55); }
+
+.cr-info { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; margin-top: 8px; }
+.cr-t { font: 600 15px/1.2 var(--sans); letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cr-a { font: 400 12px/1.2 var(--sans); color: rgba(237, 230, 214, .62); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cr-act { grid-row: 1 / span 2; grid-column: 2; display: flex; gap: 6px; align-items: center; }
+.cr-btn {
+  font: 500 11px/1 var(--mono) !important; letter-spacing: .12em; text-transform: uppercase; padding: 10px 12px !important; border-radius: 999px;
+  border: 1px solid rgba(241, 160, 90, .4) !important; color: var(--cr-acc2); background: rgba(241, 160, 90, .1) !important;
+  transition: background .2s, transform .2s var(--ease-out); white-space: nowrap; text-decoration: none; display: inline-block;
+}
+.cr-btn:hover { background: rgba(241, 160, 90, .22) !important; }
+.cr-btn:active { transform: scale(.96); }
+.cr-btn.ghost { border-color: rgba(237, 230, 214, .22) !important; color: rgba(237, 230, 214, .8); background: transparent !important; }
+.cr-bar { grid-column: 1 / -1; height: 2px; border-radius: 2px; background: rgba(237, 230, 214, .14); overflow: hidden; margin-top: 6px; }
+.cr-bar i { display: block; height: 100%; width: 100%; background: var(--cr-acc); transform-origin: 0 0; scale: 0 1; }
+.cr-msg { grid-column: 1 / -1; font: 500 11.5px/1.35 var(--mono); letter-spacing: .06em; color: var(--cr-acc2); margin-top: 6px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cr-links { grid-column: 1 / -1; display: flex; gap: 14px; margin-top: 6px; font: 500 12px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.cr-links a { color: var(--cr-acc2); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(241, 160, 90, .4); }
+.cr-links a:hover { text-decoration-color: var(--cr-acc); }
+
+/* the arrows at the tray's two ends: 36 px discs on the strip's vertical middle */
+.crate { --cr-navy: 100px; }
+.cr-nav { position: absolute; top: calc(var(--cr-navy) - 18px); width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; z-index: 5;
+  background: rgba(14, 10, 8, .72) !important; border: 1px solid rgba(241, 160, 90, .38) !important; color: var(--cr-acc2); transition: background .2s, opacity .2s, transform .2s var(--ease-out); }
+.cr-nav.prev { left: 6px; } .cr-nav.next { right: 6px; }
+.cr-nav i { width: 8px; height: 8px; border: solid currentColor; border-width: 0 0 2px 2px; rotate: 45deg; translate: 2px 0; }
+.cr-nav.next i { rotate: -135deg; translate: -2px 0; }
+.cr-nav:hover:not(:disabled) { background: rgba(241, 160, 90, .26) !important; }
+.cr-nav:active:not(:disabled) { transform: scale(.94); }
+.cr-nav:disabled { opacity: .25; cursor: default; }
+
+/* empty crate: outlines only, and a line of copy */
+.cr-empty { display: flex; gap: 10px; justify-content: center; padding: 14px 0 6px; }
+.cr-empty i { width: 64px; height: 64px; border-radius: 4px; border: 1px dashed rgba(241, 160, 90, .28); background: rgba(241, 160, 90, .04); }
+.cr-empty i:nth-child(2) { transform: translateY(-6px); } .cr-empty i:nth-child(4) { transform: translateY(-4px); }
+.cr-soon { text-align: center; margin: 8px 0 0; font: 400 italic 17px/1.2 var(--serif-i); color: var(--cr-acc2); }
+.cr-soon small { display: block; margin-top: 6px; font: 500 11px/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; font-style: normal; color: rgba(237, 230, 214, .5); }
+
+/* 761-1000 px (tablet): centred above the bottom HUD (the compass reaches 102 px up from the bottom edge, the stop readout 84 px); the records copy block is lifted above the tray (overlays.css) */
+@media (min-width: 761px) and (max-width: 1000px) { .crate { bottom: max(108px, calc(env(safe-area-inset-bottom) + 96px)); } }
+/* 1001 px and up: the tray docks in the column the copy panel leaves, right of the bottom-left compass (it ends about 100 px from the pad) and above the Scroll pill */
+@media (min-width: 1001px) {
+  .crate { left: calc(var(--pad) + 100px); translate: 0 0; width: min(620px, calc(var(--cr-lim) - var(--pad) - 100px)); bottom: max(76px, calc(env(safe-area-inset-bottom) + 64px)); }
+}
+/* wide window: under the turntable (the object stands left, the copy lane right), above the bottom-left readout; as wide as the room between its left mark and the copy panel */
+@media (min-width: 1180px) and (min-aspect-ratio: 5/4) {
+  .crate { left: max(256px, 17.4vw); width: min(620px, calc(var(--cr-lim) - max(256px, 17.4vw))); bottom: max(112px, calc(env(safe-area-inset-bottom) + 100px)); }
+}
+/* the compact tray (a phone, a tablet, any window under 880 px tall): no hint line, small sleeves, a 15 px head with the name and the spectrum; about 170 px tall, so it stays under the turntable's platter */
+@media (max-width: 1000px), (max-height: 880px) {
+  .crate { padding: 6px 10px 8px; border-radius: 16px; --cr-navy: 77px; }
+  .cr-head { margin: 0 2px; }
+  .cr-hint { display: none; }
+  .cr-strip { padding: 30px calc(50% - 30px) 4px; margin: 0 -2px; }
+  .cr-nav { width: 32px; height: 32px; top: calc(var(--cr-navy) - 16px); }
+  .cr-nav.prev { left: 4px; } .cr-nav.next { right: 4px; }
+  .cr-gen { padding: 3px; } .cr-gen i { display: none; }
+  .crate .cr-sl { flex-basis: 52px; width: 52px; height: 52px; margin: 0 4px; }
+  .cr-sl.sel { translate: 0 -6px; }
+  .cr-info { margin-top: 2px; gap: 2px 10px; }
+  .cr-t { font-size: 14px; }
+  .cr-btn { padding: 9px 11px !important; }
+  .cr-links { margin-top: 2px; gap: 10px; font-size: 11px; letter-spacing: .06em; }
+  .cr-bar { margin-top: 4px; }
+  .cr-msg { margin-top: 3px; }
+  .cr-soon { font-size: 15px; } .cr-empty i { width: 44px; height: 44px; } .cr-empty { padding-top: 8px; }
+}
+@media (max-width: 760px) {
+  /* phone: a slim tray above the bottom HUD (its bottom 72 px + the safe area): a single strip, one line of title, one button, never taller than a third of the screen */
+  .crate { bottom: calc(88px + env(safe-area-inset-bottom)); left: 50%; width: calc(100vw - 20px); max-width: 520px; translate: -50% 0; }
+  .cr-head { display: none; }
+  .crate { --cr-navy: 62px; }
+  .cr-links { font-size: 12px; letter-spacing: .04em; }
+  .cr-links span { display: none; }
+}
+html.rm .crate, html.rm .cr-sl { transition: none; }
+@media (prefers-reduced-motion: reduce) { .crate, .cr-sl { transition: none; } .cr-spec i { transition: none; } }
+@media (max-width: 760px) { .cr-spec { display: none; } }
+
+/* the now-playing pill: bottom-left, small, follows the flight while a record plays */
+.np {
+  position: fixed; z-index: 55; left: max(14px, env(safe-area-inset-left)); top: 96px;
+  display: flex; align-items: center; gap: 9px; max-width: min(300px, calc(100vw - 28px)); padding: 6px 8px 6px 6px; border-radius: 999px;
+  color: var(--ink); font: 400 12px/1.2 var(--sans); background: rgba(16, 12, 9, .72); border: 1px solid rgba(241, 160, 90, .26);
+  backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2); box-shadow: 0 14px 34px -16px #000;
+  opacity: 0; transform: translateY(12px); pointer-events: none; visibility: hidden; transition: opacity .4s var(--ease-out), transform .5s var(--ease-out), visibility 0s .5s;
+}
+.np.on { opacity: 1; transform: none; pointer-events: auto; visibility: visible; transition-delay: 0s; }
+.np-art { flex: none; width: 30px; height: 30px; border-radius: 50%; background: #2a1d12 center / cover; box-shadow: 0 0 0 1px rgba(255, 255, 255, .12); animation: np-spin 6s linear infinite; }
+.np-eq { flex: none; display: flex; align-items: flex-end; gap: 2px; height: 14px; }
+.np-eq i { display: block; width: 2.5px; height: 100%; border-radius: 1px; background: #f1a05a; transform-origin: bottom; animation: np-eq 1.1s ease-in-out infinite; }
+.np-eq i:nth-child(2) { animation-duration: 1.45s; animation-delay: -.4s; } .np-eq i:nth-child(3) { animation-duration: 0.9s; animation-delay: -.7s; }
+.np-txt { min-width: 0; display: flex; flex-direction: column; } .np-txt b { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .np-txt small { font-size: 11px; color: rgba(237, 230, 214, .6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.np-stop { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 0; cursor: pointer; background: rgba(241, 160, 90, .16); display: grid; place-items: center; }
+.np-stop:hover { background: rgba(241, 160, 90, .32); } .np-stop:focus-visible { outline: 2px solid #ffd9a8; outline-offset: 2px; }
+.np-stop i { display: block; width: 9px; height: 9px; border-radius: 1.5px; background: #ffd9a8; }
+/* v19: while the song's own levels drive the bars the canned animation steps aside */
+.np.live .np-eq i { animation: none; transition: scale .08s linear; }
+@keyframes np-spin { to { rotate: 360deg; } } @keyframes np-eq { 0%, 100% { scale: 1 .25; } 50% { scale: 1 1; } }
+@media (prefers-reduced-motion: reduce) { .np-art, .np-eq i { animation: none; } .np-eq i { scale: 1 .6; } }
+@media (max-width: 600px) { .np { top: 74px; } }

@@ -1,0 +1,235 @@
+/* 8C Overview (src/v3/ui/overview.ts): the whole portfolio on one scannable page over a blurred world.
+   Same ground, ink, hairlines and type voices as the rest of v4: Instrument Serif italic for headings, Archivo for reading,
+   Plex Mono only for data (dates, type lines, counts, links). Spacing runs on a 4-unit scale: 4 8 12 16 24 32 48 64. */
+html.ov-open { overflow: hidden; }
+
+dialog.ovw {
+  position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0;
+  color: var(--ink); background: rgba(5,5,6,.86);
+  -webkit-backdrop-filter: blur(18px) saturate(.85); backdrop-filter: blur(18px) saturate(.85);
+  overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--hair) transparent;
+  opacity: 0; transition: opacity .26s var(--ease-out);
+}
+dialog.ovw.on { opacity: 1; }
+dialog.ovw::backdrop { background: transparent; }
+dialog.ovw::-webkit-scrollbar { width: 8px; }
+dialog.ovw::-webkit-scrollbar-thumb { background: var(--hair); border-radius: 4px; }
+dialog.ovw .mono { white-space: normal; }
+
+/* ---------- top bar ---------- */
+.ovw-bar { position: sticky; top: 0; z-index: 6; background: linear-gradient(rgba(5,5,6,.84) 70%, rgba(5,5,6,0)); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.ovw-bari { max-width: 1400px; margin: 0 auto; padding: 16px calc(var(--pad) + 10px) 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.ovw-bt { margin: 0; color: var(--dim); }
+.ovw-bb { display: flex; gap: 8px; }
+.ovw-tourbtn .ovw-ar { margin-left: -2px; }
+.ovw-in { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 0 calc(var(--pad) + 10px) 96px; }
+
+/* anchor row under the title bar */
+.ovw-anchors { max-width: 1400px; margin: 0 auto; padding: 0 calc(var(--pad) - 2px) 10px; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+.ovw-anchors::-webkit-scrollbar { display: none; }
+.ovw-anc { flex: none; min-height: 32px; padding: 6px 12px; border: 1px solid transparent; border-radius: 999px; color: var(--dim); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; transition: color .2s, border-color .2s, background .2s; }
+.ovw-anc:hover, .ovw-anc:focus-visible { color: var(--ink); border-color: var(--hair); background: color-mix(in srgb, var(--ink) 8%, transparent); }
+@media (pointer: coarse) { .ovw-anc { min-height: 40px; } }
+.ovw-flash { animation: ovw-flash 1.3s var(--ease-out); }
+@keyframes ovw-flash { 0% { box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 55%, transparent); background: color-mix(in srgb, var(--ink) 7%, transparent); } 100% { box-shadow: 0 0 0 1px transparent; background: transparent; } }
+html.rm .ovw-flash { animation: none; }
+
+/* ---------- head: who, in one claim; contact beside it ---------- */
+.ovw-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 440px); column-gap: 48px; row-gap: 24px; align-items: end; padding: clamp(16px, 4vh, 48px) 0 clamp(24px, 4vh, 48px); border-bottom: 1px solid var(--hair-2); }
+.ovw-hn { margin: 0; font: italic 400 clamp(48px, 6.4vw, 96px)/.96 var(--serif-i); letter-spacing: -0.02em; }
+.ovw-claim { margin: 16px 0 0; font: 400 clamp(19px, 1.8vw, 26px)/1.3 var(--sans); font-stretch: 98%; text-wrap: balance; }
+.ovw-school { margin: 12px 0 0; max-width: 62ch; color: var(--dim); font: 400 15px/1.5 var(--sans); text-wrap: pretty; }
+.ovw-contact .contact { gap: 12px; }
+.ovw-contact .contact .lab { display: none; }
+.ovw-contact .contact .em { font-size: clamp(20px, 1.7vw, 26px); text-shadow: none; }
+.ovw-contact .contact .links { display: flex; flex-wrap: wrap; gap: 4px 24px; }
+.ovw-contact .contact .li { min-height: 36px; text-shadow: none; font: 400 15px/1.2 var(--sans); letter-spacing: 0; text-transform: none; color: var(--dim); }
+.ovw-contact .contact .li:hover, .ovw-contact .contact .li:focus-visible { color: var(--ink); }
+.ovw-hn:focus { outline: none; }
+
+/* ---------- two columns: facts on the left, projects on the right ---------- */
+.ovw-cols { display: grid; grid-template-columns: minmax(300px, 360px) minmax(0, 1fr); column-gap: clamp(40px, 5.5vw, 96px); align-items: start; padding-top: 32px; }
+.ovw-side { display: grid; gap: 40px; align-content: start; }
+@media (min-width: 900px) and (min-height: 700px) { .ovw-side { position: sticky; top: calc(var(--ovw-bar, 60px) + 16px); } }
+.ovw-in .ovw-hs { margin: 0 0 12px; font: italic 400 26px/1.1 var(--serif-i); letter-spacing: -0.005em; }
+
+.ovw-facts { list-style: none; margin: 0; padding: 0; }
+.ovw-fact { position: relative; padding: 12px 0 14px; border-top: 1px solid var(--hair-2); }
+.ovw-fact:last-child { border-bottom: 1px solid var(--hair-2); }
+.ovw-fh { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.ovw-nm { font: 500 17px/1.25 var(--sans); font-stretch: 96%; color: var(--ink); transition: color .25s; }
+.ovw-when { flex: none; color: var(--dim); font-size: 11px; letter-spacing: .08em; text-align: right; }
+.ovw-fl { margin: 4px 0 0; color: var(--dim); font: 400 14px/1.5 var(--sans); text-wrap: pretty; }
+.ovw-fact.is-go .ovw-fl { padding-right: 20px; }
+.ovw-fact > .ovw-ar { position: absolute; right: 0; bottom: 14px; color: var(--dim); }
+.ovw-earlier { margin: 12px 0 0; color: var(--dim); font: 400 13px/1.5 var(--sans); text-wrap: pretty; }
+.ovw-sec-int .ovw-fl { margin: 0 0 12px; font-size: 14.5px; color: color-mix(in srgb, var(--ink) 86%, transparent); }
+.ovw-more { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; color: var(--dim); font: 500 11.5px/1 var(--mono); letter-spacing: .13em; text-transform: uppercase; transition: color .25s; }
+
+/* a button that stretches over its row, so the whole row is the target and the text inside stays plain */
+.ovw-main { display: block; text-align: left; color: inherit; }
+.ovw-main::after { content: ''; position: absolute; inset: 0; }
+.ovw-main:focus-visible { outline: none; }
+.ovw-main:focus-visible::after { outline: 2px solid color-mix(in srgb, var(--a, var(--ink)) 80%, transparent); outline-offset: -2px; }
+.ovw-ar { display: inline-block; flex: none; line-height: 0; transition: transform .3s var(--ease-out), color .25s; }
+
+.ovw-sw { display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--a, var(--ink)); }
+
+/* ---------- projects ---------- */
+.ovw-projects { min-width: 0; container-type: inline-size; }
+.ovw-pjbar { position: sticky; top: var(--ovw-bar, 60px); z-index: 5; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 12px; row-gap: 8px; margin: 0 -12px; padding: 12px 12px 14px; background: rgba(5,5,6,.72); -webkit-backdrop-filter: blur(14px) saturate(1.1); backdrop-filter: blur(14px) saturate(1.1); border-bottom: 1px solid var(--hair-2); border-radius: 0 0 10px 10px; }
+.ovw-pjbar .ovw-hs { margin: 0; }
+.ovw-gc { color: var(--dim); font-size: 11px; letter-spacing: .1em; }
+.ovw-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; align-self: center; }
+.ovw-chip { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px 7px 11px; border: 1px solid var(--hair); border-radius: 999px; color: var(--ink); font-size: 11px; letter-spacing: .1em; transition: border-color .25s, background .25s; }
+.ovw-chip .ovw-sw { width: 7px; height: 7px; }
+.ovw-chip b { color: var(--dim); font-weight: 500; }
+.ovw-chip:hover, .ovw-chip:focus-visible { border-color: var(--a); background: color-mix(in srgb, var(--a) 12%, transparent); }
+
+.ovw-g { padding-top: 32px; scroll-margin-top: 120px; }
+.ovw-g:first-of-type { padding-top: 12px; }
+.ovw-gh { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--hair); }
+.ovw-hg { margin: 0; font: italic 400 clamp(28px, 2.7vw, 38px)/1.05 var(--serif-i); letter-spacing: -0.01em; }
+.ovw-gh { flex-wrap: wrap; align-items: center; }
+.ovw-hg { margin-right: auto; }
+/* fieldwork stations: a pill-and-arrow entry; the arrow nudges, nothing lifts or shadows */
+.ovw-enter { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid var(--hair); border-radius: 999px; color: var(--a); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; transition: border-color .3s, background .3s; }
+.ovw-enter .ovw-ar { transition: transform .3s cubic-bezier(.22,1,.36,1); }
+.ovw-enter:focus-visible { outline: 2px solid var(--a); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .ovw-enter:hover { border-color: var(--a); background: color-mix(in srgb, var(--a) 12%, transparent); }
+  .ovw-enter:hover .ovw-ar { transform: translate(2px, -3px); }
+}
+@media (pointer: coarse) { .ovw-enter { min-height: 40px; } }
+html.rm .ovw-enter, html.rm .ovw-enter .ovw-ar { transition: none; }
+.ovw-list { list-style: none; margin: 0; padding: 0; }
+
+.ovw-row {
+  position: relative; display: grid; grid-template-columns: 8px minmax(0, .8fr) minmax(0, 1.5fr) minmax(104px, .5fr); column-gap: 20px; align-items: start;
+  grid-template-areas: 'sw who line fig' 'sw who acts fig';
+  padding: 14px 12px 14px 0; border-bottom: 1px solid var(--hair-2); transition: background .25s, opacity .3s;
+}
+.ovw-row .ovw-sw { grid-area: sw; margin-top: 8px; }
+.ovw-who { grid-area: who; }
+.ovw-line { grid-area: line; }
+.ovw-fig { grid-area: fig; }
+.ovw-acts { grid-area: acts; }
+.ovw-row .ovw-main { font: 500 18px/1.25 var(--sans); font-stretch: 96%; }
+.ovw-type { margin: 4px 0 0; color: var(--dim); font-size: 11px; letter-spacing: .08em; }
+.ovw-line { margin: 0; max-width: 58ch; font: 400 14.5px/1.45 var(--sans); color: color-mix(in srgb, var(--ink) 86%, transparent); text-wrap: pretty; }
+.ovw-acts { margin: 6px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 16px; font-size: 11px; letter-spacing: .1em; }
+.ovw-cs { display: inline-flex; align-items: center; gap: 6px; padding: 2px 0; color: var(--a); }
+.ovw-sec, .ovw-tour { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 6px; padding: 2px 0; color: var(--dim); text-decoration: none; font: inherit; letter-spacing: inherit; text-transform: inherit; transition: color .25s; }
+.ovw-sec:hover, .ovw-sec:focus-visible, .ovw-tour:hover, .ovw-tour:focus-visible, .ovw-more:hover, .ovw-more:focus-visible { color: var(--ink); }
+.ovw-sec:hover span, .ovw-tour:hover span { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+/* the demo, paper and repo links of a row: 12px, near-full ink, a hairline accent underline so they read as links; the repo leads its row */
+.ovw-sec { font-size: 12px; color: color-mix(in srgb, var(--ink) 88%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--a) 70%, transparent); padding-bottom: 1px; }
+.ovw-sec[data-kind="code"] { color: var(--ink); border-bottom-color: var(--a); }
+.ovw-fig { margin: 0; display: grid; gap: 2px; text-align: right; }
+.ovw-fig .v { font: 500 17px/1.2 var(--sans); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.ovw-fig .l { color: var(--dim); font: 400 12px/1.35 var(--sans); text-wrap: balance; }
+
+@media (hover: hover) and (pointer: fine) {
+  .ovw-row:hover, .ovw-fact.is-go:hover { background: color-mix(in srgb, var(--a, var(--ink)) 8%, transparent); }
+  .ovw-fact.is-go:hover { --a: var(--ink); }
+  .ovw-row:hover .ovw-nm { color: var(--a); }
+  .ovw-row:hover .ovw-cs .ovw-ar, .ovw-fact.is-go:hover > .ovw-ar { transform: translate(2px, -2px); }
+  .ovw-fact.is-go:hover > .ovw-ar { color: var(--ink); }
+  .ovw-list:has(.ovw-row:hover) .ovw-row:not(:hover), .ovw-list:has(.ovw-row:focus-within) .ovw-row:not(:focus-within) { opacity: .5; }
+}
+.ovw-row:focus-within { background: color-mix(in srgb, var(--a) 8%, transparent); }
+.ovw-more:hover .ovw-ar { transform: translate(2px, -2px); }
+
+/* a narrower projects column (a small window, or the side column folded in): name and figure share a line, the sentence sits under them */
+@container (max-width: 640px) {
+  .ovw-row { grid-template-columns: 8px minmax(0, 1fr) auto; grid-template-areas: 'sw who fig' '. line line' '. acts acts'; row-gap: 8px; }
+  .ovw-fig { max-width: 150px; }
+  .ovw-acts { margin-top: 0; }
+}
+/* a phone: the figure drops under the sentence as one line, and the links sit on the row below it */
+@container (max-width: 460px) {
+  .ovw-row { grid-template-columns: 8px minmax(0, 1fr); grid-template-areas: 'sw who' '. line' '. fig' '. acts'; row-gap: 6px; }
+  .ovw-fig { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 8px; max-width: none; text-align: left; }
+  .ovw-fig .l { text-wrap: pretty; }
+  .ovw-tour { display: none; }
+}
+
+/* ---------- narrow windows and phones: one column, facts first, then projects, interests last ---------- */
+@media (max-width: 899px) {
+  .ovw-head { grid-template-columns: minmax(0, 1fr); }
+  .ovw-cols { display: flex; flex-direction: column; align-items: stretch; gap: 32px; }
+  .ovw-side { display: contents; }
+  .ovw-sec-exp { order: 1; } .ovw-sec-edu { order: 2; } .ovw-projects { order: 3; } .ovw-sec-int { order: 4; }
+  .ovw-chips { margin-left: 0; width: 100%; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .ovw-chips::-webkit-scrollbar { display: none; }
+  .ovw-chip { flex: none; min-height: 40px; }
+  .ovw-g { scroll-margin-top: calc(var(--ovw-bar, 60px) + 100px); }
+}
+@media (pointer: coarse) {
+  .ovw-sec, .ovw-tour, .ovw-more { min-height: 36px; }
+  .ovw-row .ovw-main { min-height: 28px; }
+}
+@media (max-width: 560px) {
+  .ovw-bari { padding-top: 12px; padding-bottom: 12px; }
+  /* a phone: the address and its Copy share one row (the card is ~300 px wide); the button keeps room for "Copied" so it does not jump */
+  .ovw-contact .contact .em { font-size: 19px; }
+  .ovw-contact .contact .em-row { gap: 10px; }
+  .ovw-contact .contact .cp { min-width: 5.8em; padding: 9px 10px; }
+  .ovw-row { padding-right: 0; }
+  .ovw-hg { font-size: 28px; }
+}
+
+html.rm dialog.ovw { transition: opacity .12s linear; }
+html.rm .ovw-row, html.rm .ovw-ar, html.rm .ovw-nm { transition: none; }
+
+/* ---------- the stops of an area, on the first card of the area (overlays.ts; same chips as "Also here") ---------- */
+.stops .open.chip .sn { color: var(--a); font-weight: 600; margin-right: 6px; }
+.stops .open.chip:hover .sn, .stops .open.chip:focus-visible .sn { color: inherit; }
+
+/* ---------- credits: one line per vendored image (overview.ts; src/data/credits.json) ---------- */
+.ovw-credits { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--hair-2); max-width: 980px; }
+.ovw-credits .ovw-hs { font-size: 22px; }
+.ovw-crl { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.ovw-cr { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; padding: 6px 0; border-top: 1px solid var(--hair-2); font: 400 13px/1.45 var(--sans); color: var(--dim); }
+.ovw-crw { flex: 0 1 auto; min-width: min(7.5em, 100%); max-width: 100%; font-size: 10.5px; letter-spacing: .1em; overflow-wrap: anywhere; }
+.ovw-crn { display: inline-flex; align-items: baseline; gap: 5px; color: var(--ink); text-decoration: none; font-weight: 500; }
+a.ovw-crn:hover, a.ovw-crn:focus-visible { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.ovw-crr { min-width: 0; text-wrap: pretty; }
+@media (pointer: coarse) { .ovw-cr { padding: 10px 0; } }
+/* a short window has no room for names under the copy: overlays.ts trimStops() shrinks the chips to numbers (the name stays in the tooltip, the label and the HUD), then drops the row */
+.stops.is-num .open.chip { padding: 5px 10px; }
+.stops.is-num .open.chip .ot { display: none; }
+.stops.is-num .open.chip .sn { margin: 0; }
+.stops.is-off { display: none; }
+
+/* ---------- 15F: ink behind, glass cards in front ---------- */
+.ovw-glass { position: relative; padding: 20px 22px 22px; border-radius: 22px; border: 1px solid color-mix(in srgb, var(--ink) 9%, transparent); background: color-mix(in srgb, var(--ink) 3%, transparent); box-shadow: 0 24px 60px -30px rgba(0,0,0,.6); }
+.ovw-glass .ovw-fact:first-of-type { border-top: 0; }
+@media (max-width: 899px) { .ovw-glass { padding: 16px 16px 18px; } }
+
+/* ---------- contact: two addresses, each with its own Copy (epilogue.ts buildContact), and the "Copied" pill ---------- */
+.contact .em-set { display: grid; gap: 14px; }
+.contact .em-item { display: grid; gap: 6px; }
+.contact .em-k { color: var(--dim); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.contact .em-row { position: relative; }
+.copy-toast { position: absolute; right: 0; bottom: calc(100% + 8px); z-index: 3; padding: 6px 11px; border-radius: 999px; background: #8FD6A0; color: #07120a; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; pointer-events: none; opacity: 0; translate: 0 6px; transition: opacity .25s var(--ease-out), translate .35s var(--ease-out); }
+.copy-toast.on { opacity: 1; translate: 0 0; }
+html.rm .copy-toast { transition: none; translate: 0 0; }
+
+/* ---------- the ending: this same page shown inline at the last stop (world/extras/finale/panel.ts), the contact first ---------- */
+.ovw-ask { margin: 0; font: 500 clamp(26px, 2.5vw, 38px)/1.02 var(--serif-d); font-variation-settings: 'opsz' 44; letter-spacing: -0.02em; text-wrap: balance; }
+.ovw-askp { margin: 8px 0 18px; max-width: 36ch; color: var(--dim); font: 400 15px/1.5 var(--sans); text-wrap: pretty; }
+.ovw-contact[data-end-contact] .contact { gap: 16px; }
+.ovw-replay { margin-top: 20px; display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 999px; border: 1.5px solid var(--ink); background: var(--ink); color: var(--ground); font: 500 12px/1 var(--mono); letter-spacing: .13em; text-transform: uppercase; transition: transform .35s var(--ease-out), background .25s, color .25s; }
+.ovw-rp { display: inline-block; transition: transform .35s var(--ease-out); }
+.ovw-replay:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.ovw-replay:active { transform: scale(.97); transition-duration: .08s; }
+@media (hover: hover) and (pointer: fine) {
+  .ovw-replay:hover { transform: translateY(-2px); }
+  .ovw-replay:hover .ovw-rp { transform: rotate(-200deg); }
+}
+.ovw-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 40px; margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--hair-2); }
+.ovw-sign { margin: 0; color: var(--dim); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.ovw-top .ovw-up { display: inline-block; transition: transform .3s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .ovw-top:hover .ovw-up { transform: translateY(-2px); } }
+html.rm .ovw-replay, html.rm .ovw-rp, html.rm .ovw-up { transition: none; }

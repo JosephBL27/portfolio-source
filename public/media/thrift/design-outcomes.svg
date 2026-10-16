@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img">
+<rect width="1600" height="1000" fill="#F2EEE3"/>
+<g stroke="#CFC9B8" stroke-width="1" opacity=".55"><line x1="0" y1="100" x2="1600" y2="100"/><line x1="0" y1="200" x2="1600" y2="200"/><line x1="0" y1="300" x2="1600" y2="300"/><line x1="0" y1="400" x2="1600" y2="400"/><line x1="0" y1="500" x2="1600" y2="500"/><line x1="0" y1="600" x2="1600" y2="600"/><line x1="0" y1="700" x2="1600" y2="700"/><line x1="0" y1="800" x2="1600" y2="800"/><line x1="0" y1="900" x2="1600" y2="900"/><line x1="100" y1="0" x2="100" y2="1000"/><line x1="200" y1="0" x2="200" y2="1000"/><line x1="300" y1="0" x2="300" y2="1000"/><line x1="400" y1="0" x2="400" y2="1000"/><line x1="500" y1="0" x2="500" y2="1000"/><line x1="600" y1="0" x2="600" y2="1000"/><line x1="700" y1="0" x2="700" y2="1000"/><line x1="800" y1="0" x2="800" y2="1000"/><line x1="900" y1="0" x2="900" y2="1000"/><line x1="1000" y1="0" x2="1000" y2="1000"/><line x1="1100" y1="0" x2="1100" y2="1000"/><line x1="1200" y1="0" x2="1200" y2="1000"/><line x1="1300" y1="0" x2="1300" y2="1000"/><line x1="1400" y1="0" x2="1400" y2="1000"/><line x1="1500" y1="0" x2="1500" y2="1000"/></g>
+<rect x="60" y="60" width="1480" height="880" fill="none" stroke="#17181A" stroke-width="3"/>
+<text x="110" y="132" font-family="Menlo, Courier New, monospace" font-size="26" letter-spacing="5" fill="#D2553B">THE DESIGN</text>
+<text x="110" y="214" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="64" font-weight="800" fill="#17181A" letter-spacing="-1.5">Three families of outcomes, named in advance</text>
+<text x="110" y="276" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="32" fill="#6B6A64">They help read the purchase result. They do not split it into causes.</text><rect x="110" y="360" width="400" height="330" rx="6" fill="none" stroke="#17181A" stroke-width="3"/>
+<rect x="110" y="360" width="400" height="14" fill="#D2553B"/>
+<text x="146" y="480" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="120" font-weight="800" fill="#D2553B" letter-spacing="-4">1</text>
+<text x="146" y="560" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="40" font-weight="800" fill="#17181A" letter-spacing="-.5">Validation</text>
+<text x="146" y="608" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="40" font-weight="800" fill="#17181A" letter-spacing="-.5">and confidence</text>
+<text x="146" y="660" font-family="Menlo, Courier New, monospace" font-size="21" letter-spacing="3" fill="#6B6A64">NAMED BEFORE THE ANALYSIS</text><rect x="590" y="360" width="400" height="330" rx="6" fill="none" stroke="#17181A" stroke-width="3"/>
+<rect x="590" y="360" width="400" height="14" fill="#D2553B"/>
+<text x="626" y="480" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="120" font-weight="800" fill="#D2553B" letter-spacing="-4">2</text>
+<text x="626" y="560" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="40" font-weight="800" fill="#17181A" letter-spacing="-.5">Search productivity</text>
+<text x="626" y="608" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="40" font-weight="800" fill="#17181A" letter-spacing="-.5">and breadth</text>
+<text x="626" y="660" font-family="Menlo, Courier New, monospace" font-size="21" letter-spacing="3" fill="#6B6A64">NAMED BEFORE THE ANALYSIS</text><rect x="1070" y="360" width="400" height="330" rx="6" fill="none" stroke="#17181A" stroke-width="3"/>
+<rect x="1070" y="360" width="400" height="14" fill="#D2553B"/>
+<text x="1106" y="480" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="120" font-weight="800" fill="#D2553B" letter-spacing="-4">3</text>
+<text x="1106" y="560" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="40" font-weight="800" fill="#17181A" letter-spacing="-.5">Coordination</text>
+<text x="1106" y="608" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="40" font-weight="800" fill="#17181A" letter-spacing="-.5">cost</text>
+<text x="1106" y="660" font-family="Menlo, Courier New, monospace" font-size="21" letter-spacing="3" fill="#6B6A64">NAMED BEFORE THE ANALYSIS</text><line x1="110" y1="850" x2="1490" y2="850" stroke="#17181A" stroke-width="2"/>
+<text x="110" y="898" font-family="Menlo, Courier New, monospace" font-size="22" letter-spacing="2" fill="#6B6A64">DRAWN FROM THE DESIGN DESCRIBED ON THIS PAGE. NOT A PAGE OF THE MANUSCRIPT. NO RESULTS.</text>
+</svg>

@@ -1,0 +1,36 @@
+{
+  "picks": [
+    {
+      "title": "Get Lucky",
+      "artist": "Daft Punk",
+      "note": "dev fixture",
+      "itunesId": 617154366,
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/57/a5/85/57a585aa-f1bc-7619-881b-f8a04a5541d5/mzaf_6906185026678279401.plus.aac.p.m4a",
+      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/e8/43/5f/e8435ffa-b6b9-b171-40ab-4ff3959ab661/886443919266.jpg/600x600bb.jpg"
+    },
+    {
+      "title": "Superstition",
+      "artist": "Stevie Wonder",
+      "note": "dev fixture",
+      "itunesId": 1440808985,
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/59/4b/88/594b880c-4744-0510-775c-73d8b06567e8/mzaf_14855748840810986812.plus.aac.p.m4a",
+      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/62/61/61/626161c0-f4d7-e6ff-8586-768340ef278f/00602537002382.rgb.jpg/600x600bb.jpg"
+    },
+    {
+      "title": "Take Five",
+      "artist": "The Dave Brubeck Quartet",
+      "note": "dev fixture",
+      "itunesId": 316475543,
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/8c/fb/e3/8cfbe318-32a9-7b19-0fd9-ea9764ef46fc/mzaf_7049515640073719848.plus.aac.p.m4a",
+      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/39/da/45/39da45ea-0a55-8668-0a84-4017b45fb13e/dj.rzbgoyft.jpg/600x600bb.jpg"
+    },
+    {
+      "title": "Hotel California",
+      "artist": "Eagles",
+      "note": "dev fixture",
+      "itunesId": 635770202,
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/17/30/06/1730066d-13fb-6803-0e52-46d4762b94e0/mzaf_8068080726527063383.plus.aac.p.m4a",
+      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/88/16/2c/88162c3d-46db-8321-61f3-3a47404cfe76/075596050920.jpg/600x600bb.jpg"
+    }
+  ]
+}

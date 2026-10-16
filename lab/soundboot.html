@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" data-theme="day">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PNEUMA lab: sound + boot</title>
+  <style>
+    :root { --paper:#EEECE6; --ink:#121212; --graphite:#5A5853; --rule:#CBC7BD; --brain:#E0442B; --raised:#F7F5F0; }
+    [data-theme="night"] { --paper:#0E0F10; --ink:#ECEAE3; --graphite:#9A978F; --rule:#2C2E31; --brain:#FF6A4D; --raised:#17191B; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--paper); color: var(--ink); }
+    body { font: 400 17px/1.55 'Archivo Variable', sans-serif; min-height: 100vh; }
+    .fake { padding: 48px; min-height: 100vh; position: relative;
+      background-image: linear-gradient(to right, color-mix(in srgb, var(--rule) 45%, transparent) 1px, transparent 1px);
+      background-size: calc((100% - 96px) / 12) 100%; background-position: 48px 0; }
+    .fake .k { font: 500 11px/1 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--graphite); }
+    .fake h1 { font-variation-settings: 'wdth' 100, 'wght' 700; font-size: clamp(56px, 9vw, 152px); letter-spacing: -0.04em; line-height: .9; margin: 22vh 0 24px; }
+    .fake h1 i { display: inline-block; width: .9em; height: .34em; border-radius: .17em; background: var(--brain); vertical-align: .18em; margin: 0 .08em; }
+    .fake p { font-variation-settings: 'wdth' 112, 'wght' 560; font-size: clamp(22px, 2.4vw, 36px); letter-spacing: -0.025em; max-width: 24ch; margin: 0; }
+    .panel { position: fixed; right: 24px; bottom: 24px; z-index: 10; width: 300px; padding: 16px; background: var(--raised);
+      border: 1px solid var(--ink); border-radius: 10px; font: 500 11px/1.3 'IBM Plex Mono', monospace; letter-spacing: .06em; text-transform: uppercase; }
+    .panel h2 { font: inherit; margin: 0 0 10px; color: var(--graphite); }
+    .panel .row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .panel button { font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--ink); background: transparent;
+      border: 1px solid var(--ink); border-radius: 999px; padding: 7px 11px; cursor: pointer; }
+    .panel button:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+    .panel button:active { transform: scale(.96); }
+    .panel button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+    .panel button:disabled { opacity: .35; cursor: not-allowed; }
+    .panel label { display: flex; align-items: center; gap: 8px; color: var(--graphite); }
+    .panel input[type=range] { flex: 1; accent-color: var(--brain); }
+    .panel output { min-width: 3.5ch; text-align: right; color: var(--ink); }
+  </style>
+</head>
+<body>
+  <main class="fake">
+    <div class="k" id="kicker"></div>
+    <h1 id="h1"></h1>
+    <p id="claim"></p>
+  </main>
+  <aside class="panel" aria-label="Lab controls">
+    <h2>Boot</h2>
+    <div class="row">
+      <button id="replay">Replay boot</button>
+      <button id="replay-slow">Slow network</button>
+      <button id="replay-repeat">Repeat visit</button>
+      <button id="night" aria-pressed="false">Night</button>
+    </div>
+    <h2>Sound</h2>
+    <div class="row">
+      <button id="snd" aria-pressed="false">Sound on</button>
+      <button data-s="thwoop" disabled>Thwoop</button>
+      <button data-s="rattle" disabled>Rattle</button>
+      <button data-s="clunk" disabled>Clunk</button>
+      <button data-s="ratchet" disabled>Ratchet</button>
+      <button data-s="pulse" disabled>Pulse</button>
+      <button data-s="tick" disabled>Tick</button>
+      <button data-s="send" disabled>Full send</button>
+    </div>
+    <label>Pan <input id="pan" type="range" min="-1" max="1" step="0.05" value="0" /><output id="panv">0.00</output></label>
+  </aside>
+  <script type="module" src="./soundboot.ts"></script>
+</body>
+</html>

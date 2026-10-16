@@ -1,0 +1,8 @@
+/* Unit 15F: the ink layer. One canvas, moved between hosts by fluid.ts. Decorative only: never takes the pointer. */
+.fx-fluid { position: absolute; inset: 0; z-index: -1; display: block; overflow: hidden; pointer-events: none; mix-blend-mode: screen; contain: strict; }
+.fx-fluid--fixed { position: fixed; z-index: 0; }
+.fx-fluid canvas { display: block; width: 100%; height: 100%; image-rendering: auto; }
+.fx-fluid--idle { visibility: hidden; }
+.fx-fluid--still { mix-blend-mode: normal; }
+/* inside a case hero a rule (.cv-hero > :not(...) { position: relative }) would win: out-rank it */
+.cv-hero > i.fx-fluid.fx-fluid { position: absolute; inset: 0; z-index: -1; }

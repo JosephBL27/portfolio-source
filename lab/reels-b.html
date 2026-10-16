@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" data-theme="night">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="data:," />
+  <title>PNEUMA lab: reels B (digits, synapse, deadlines)</title>
+  <style>
+    :root { --paper:#EEECE6; --paper-raised:#F7F5F0; --ink:#121212; --graphite:#5A5853; --rule:#CBC7BD; --brain:#E0442B; color-scheme: light; }
+    :root[data-theme='night'] { --paper:#0E0F10; --paper-raised:#17191B; --ink:#ECEAE3; --graphite:#9A978F; --rule:#2C2E31; --brain:#FF6A4D; color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--paper); color: var(--ink); }
+    body { font-family: 'Archivo Variable', system-ui, sans-serif; -webkit-font-smoothing: antialiased; padding: 0 48px 64px; }
+    .mono { font: 500 11px/1 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .bar { position: sticky; top: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      height: 52px; margin: 0 -48px 32px; padding: 0 48px; background: color-mix(in srgb, var(--paper) 88%, transparent);
+      backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule); }
+    .bar .t { display: flex; gap: 8px; }
+    .bar button { font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--ink); background: none;
+      border: 1px solid var(--rule); border-radius: 999px; padding: 8px 13px; cursor: pointer; }
+    .bar button:hover { border-color: var(--ink); }
+    .bar button[aria-pressed='true'] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    h1 { margin: 0 0 6px; font-variation-settings: 'wdth' 112; font-weight: 640; font-size: clamp(30px, 3.4vw, 48px); letter-spacing: -.03em; }
+    .lede { margin: 0 0 32px; color: var(--graphite); max-width: 62ch; }
+    .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 600px), 640px)); gap: 28px 32px; }
+    .tile { margin: 0; }
+    .tile .scr { position: relative; aspect-ratio: 16 / 10; border-radius: 10px; overflow: hidden; background: #050506;
+      box-shadow: 0 0 0 1px var(--rule), 0 30px 60px -30px rgba(0,0,0,.8); }
+    .tile canvas, .thumb canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    .tile .scr button { position: absolute; right: 10px; top: 10px; z-index: 2; opacity: 0; transition: opacity .2s;
+      font: 500 10px/1 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase;
+      color: #ECEAE3; background: rgba(14,15,16,.6); border: 1px solid rgba(236,234,227,.3); border-radius: 999px; padding: 7px 10px; cursor: pointer; }
+    .tile .scr:hover button, .tile .scr button:focus-visible { opacity: 1; }
+    .tile figcaption { display: flex; justify-content: space-between; gap: 16px; padding: 12px 2px 0; align-items: baseline; }
+    .tile figcaption b { font-weight: 640; font-size: 19px; letter-spacing: -.01em; }
+    .tile figcaption span { color: var(--graphite); }
+    h2 { margin: 56px 0 16px; font-weight: 600; font-size: 22px; letter-spacing: -.015em; }
+    .thumbs { display: flex; gap: 20px; flex-wrap: wrap; }
+    .thumb { position: relative; width: 240px; height: 150px; border-radius: 6px; overflow: hidden; background: #050506; box-shadow: 0 0 0 1px var(--rule); }
+    .full { position: fixed; inset: 0; z-index: 20; background: #000; display: none; }
+    .full.on { display: block; }
+    .full canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    .full .hud { position: absolute; left: 28px; bottom: 24px; right: 28px; display: flex; justify-content: space-between; align-items: flex-end; color: #ECEAE3; pointer-events: none; mix-blend-mode: difference; }
+    .full .hud b { display: block; font-variation-settings: 'wdth' 118; font-weight: 700; font-size: 28px; letter-spacing: -.02em; margin-top: 8px; }
+    .full .x { position: absolute; right: 24px; top: 20px; color: #ECEAE3; background: rgba(0,0,0,.4); border: 1px solid rgba(236,234,227,.35); border-radius: 999px; padding: 8px 13px; cursor: pointer; }
+    .log { margin-top: 32px; color: var(--graphite); white-space: pre-wrap; }
+    @media (max-width: 760px) { body { padding: 0 20px 48px; } .bar { margin: 0 -20px 24px; padding: 0 20px; } .bar .lbl { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="bar"><span class="mono lbl">PNEUMA lab · reels B</span>
+    <span class="t mono"><button id="fs" type="button">Fullscreen</button><button id="pause" type="button" aria-pressed="false">Pause</button><button id="night" type="button" aria-pressed="true">Night</button></span></div>
+  <h1>Three generative reels</h1>
+  <p class="lede">ZETA, Second Brain and Recruiting OS as fragment shaders. Each tile runs at full intensity; the strip below runs the same shaders as 240×150 previews at low intensity.</p>
+  <section class="tiles" id="tiles" aria-label="Reels"></section>
+  <h2>Thumbnails</h2>
+  <div class="thumbs" id="thumbs"></div>
+  <div class="log mono" id="log"></div>
+  <div class="full" id="full" role="dialog" aria-modal="true" aria-label="Fullscreen reel">
+    <canvas></canvas>
+    <button class="x mono" id="fx" type="button">Close · Esc</button>
+    <div class="hud"><div class="mono"><span id="fn"></span><b id="ft"></b></div><div class="mono" id="fm"></div></div>
+  </div>
+  <script type="module" src="./reels-b.ts"></script>
+</body>
+</html>

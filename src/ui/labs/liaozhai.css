@@ -1,0 +1,5 @@
+/* Liaozhai lab theme: dark teal docket, cream marks and a vermilion seal. */
+.lz { --vv-acc: #7fd0c0; --vv-acc2: #bfece2; --vv-hot: #d2493c; --vv-line: rgba(127, 208, 192, 0.3); --vv-glow: rgba(127, 208, 192, 0.2); --vv-base: rgba(10, 36, 38, 0.94); --vv-ringbase: rgba(16, 52, 54, 0.96); --vv-markbg: rgba(238, 230, 208, 0.93); --vv-markon: #bfece2; --vv-numfill: #0c2a2c;
+  --vv-p0: #17464a; --vv-p1: #0b2a2d; --vv-p2: #061819; --vv-bg: linear-gradient(180deg, #0c2a2d 0%, #071b1d 58%, #041012 100%); --vv-title: #f4efe0; }
+.lz .vv-rays { display: none; }
+.lz .vv-chips li { color: #f4efe0; }

@@ -1,0 +1,84 @@
+/* The hall's quiet chrome (unit 10H / w11): the labels under the five windows, the caption of the one under the pointer, the hint pill, the keyboard route and the dive's flood.
+   Stack: canvas 0 < labels 30 < copy 40 < anchors 50 < caption and hint 52 < the flood 58 < the HUD 60 (the copy always draws over a label: legibility first). Never hides the native cursor. */
+#hall-labs { position: fixed; inset: 0; z-index: 30; pointer-events: none; transition: opacity .2s; }
+#hall-labs[hidden] { display: none; }
+.hall-lab {
+  position: absolute; left: 0; top: 0; padding: 5px 14px 6px; white-space: nowrap; text-align: center; will-change: transform;
+  background: radial-gradient(ellipse at 50% 50%, rgba(5, 5, 6, .8) 0%, rgba(5, 5, 6, .55) 62%, rgba(5, 5, 6, 0) 100%);
+  font: 500 11.5px/1.2 var(--mono, monospace); letter-spacing: .12em; text-transform: uppercase; color: var(--ink, #EDE6D6);
+  text-shadow: 0 0 14px rgba(5, 5, 6, .95), 0 1px 2px rgba(5, 5, 6, .9);
+}
+.hall-lab b { font-weight: 500; opacity: .82; transition: opacity .25s var(--ease-out, ease); }
+.hall-lab i { font-style: normal; opacity: .5; }
+.hall-lab span { color: var(--hc, #EDE6D6); opacity: .95; }
+/* the underline is 46 px wide and grows from its centre with transform (impeccable layout-transition: no width transition) */
+.hall-lab::after { content: ''; display: block; width: 46px; height: 1.5px; margin: 5px auto 0; background: var(--hc, #EDE6D6); box-shadow: 0 0 12px var(--hc, #EDE6D6); transform: scaleX(0); transition: transform .3s var(--ease-out, ease); }
+.hall-lab.hot b { opacity: 1; }
+.hall-lab.hot::after { transform: scaleX(1); }
+.hall-lab > * { display: inline-block; transition: translate .3s var(--ease-out, ease); }
+.hall-lab.hot > * { translate: 0 -3px; }
+@media (max-width: 760px) {
+  /* five labels across a phone: two lines, a smaller face */
+  .hall-lab { padding: 4px 4px 5px; font-size: 9.5px; letter-spacing: .06em; line-height: 1.25; }
+  .hall-lab > * { display: block; }
+  .hall-lab i { display: none; }
+}
+
+#hall-cap {
+  position: fixed; left: 0; top: 0; z-index: 52; pointer-events: none; text-align: center; min-width: 190px; padding: 12px 22px 14px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(5, 5, 6, .86) 0%, rgba(5, 5, 6, .62) 58%, rgba(5, 5, 6, 0) 100%);
+  opacity: 0; transition: opacity .28s var(--ease-out, ease); will-change: transform, opacity;
+  text-shadow: 0 0 18px rgba(5, 5, 6, .95), 0 1px 2px rgba(5, 5, 6, .9);
+}
+#hall-cap.on { opacity: 1; }
+#hall-cap b { display: block; font: italic 400 clamp(22px, 2.1vw, 32px)/1.05 var(--serif-i, serif); letter-spacing: 0; color: var(--ink, #EDE6D6); }
+#hall-cap span { display: block; margin-top: 7px; font: 500 11.5px/1.3 var(--mono, monospace); letter-spacing: .13em; text-transform: uppercase; color: var(--ink, #EDE6D6); opacity: .86; }
+#hall-cap i { display: block; width: 46px; height: 1.5px; margin: 8px auto 0; background: var(--hc, #EDE6D6); box-shadow: 0 0 12px var(--hc, #EDE6D6); }
+
+/* the hint: a pill on a blurred plate. top is set from the labels each frame (under them on a desktop, below the windows on a phone) */
+#hall-hint {
+  position: fixed; left: 50%; top: 0; translate: -50% 0; z-index: 52; pointer-events: none; text-align: center;
+  width: max-content; max-width: calc(100vw - 32px);
+  font: 500 13px/1.3 var(--mono, monospace); letter-spacing: .08em; color: var(--ink, #EDE6D6);
+  padding: 9px 18px; border-radius: 999px; background: rgba(5, 5, 6, .72); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  opacity: 0; transition: opacity .7s var(--ease-out, ease);
+}
+#hall-hint.on { opacity: .9; }
+@media (max-width: 760px) { #hall-hint { font-size: 12px; padding: 8px 14px; border-radius: 22px; } }
+
+/* five visually hidden buttons: the keyboard route to the windows (focusable only while the hall is live: the container is [hidden] otherwise) */
+#hall-keys[hidden] { display: none; }
+.hall-key { position: fixed; left: 0; top: 0; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; opacity: 0; }
+
+/* the dive's flood: that window's light, expanding from the window's screen point, with a faint leaded-glass lattice. It sits above the canvas and the copy, below the HUD. */
+#hall-flood {
+  position: fixed; inset: 0; z-index: 58; pointer-events: none; visibility: hidden; opacity: 0;
+  clip-path: circle(var(--fr, 0px) at var(--fx, 50%) var(--fy, 50%));
+  background:
+    repeating-linear-gradient(45deg, rgba(5, 5, 6, .30) 0 2px, transparent 2px 52px),
+    repeating-linear-gradient(-45deg, rgba(5, 5, 6, .30) 0 2px, transparent 2px 52px),
+    radial-gradient(circle at var(--fx, 50%) var(--fy, 50%), rgba(255, 244, 214, .98) 0%, rgb(var(--fc, 237, 230, 214)) 24%, rgb(var(--fcd, 90, 86, 80)) 100%);
+}
+#hall-flood.on { visibility: visible; opacity: var(--fo, 1); }
+#hall-flood.drain { -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent var(--fh, 0px), #000 calc(var(--fh, 0px) + 90px)); mask-image: radial-gradient(circle at 50% 50%, transparent var(--fh, 0px), #000 calc(var(--fh, 0px) + 90px)); }
+html.hall-diving #hall-cap, html.hall-diving #hall-hint { opacity: 0; }
+html.hall-hover, html.hall-hover body, html.hall-hover main, html.hall-hover #field { cursor: pointer !important; }
+
+/* Adapt the existing hall's ivory/hairline buttons for keyboard and touch walking. */
+/* Wave 24: the walk panel is its own row. walk.ts measures the hall card and sets left/top inline (under the text, right of the ring radar; above the text on a phone).
+   This is the default for the frames before the first measure: the card's text ends at max(pad + 76px, 130px) above the bottom edge (overlays.css), the panel is 44 px tall
+   and sits 10 px under it, and it starts just right of the 88 px ring radar (nav.css .mm-hud, left pad + 10px). */
+#hall-walk { position: fixed; left: calc(var(--pad) + 10px + 88px + 14px); bottom: calc(max(var(--pad) + 76px, 130px) - 54px); z-index: 52; display: flex; align-items: center; gap: 10px; width: max-content; max-width: calc(100vw - 16px); color: var(--ink); font: 500 11px/1.3 var(--mono); }
+#hall-walk[hidden] { display: none; }
+/* the hint and the buttons are instrument labels (DESIGN.md: Plex Mono, uppercase, 0.10 to 0.14em) on the panel's own plate, so they read over the stonework below the card's scrim */
+#hall-walk { letter-spacing: .1em; text-transform: uppercase; }
+#hall-walk > span { padding: 6px 10px; border-radius: 4px; background: rgba(5, 5, 6, .78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); text-shadow: 0 0 12px rgba(5, 5, 6, .95); }
+#hall-walk button { min-width: 44px; min-height: 44px; padding: 8px 12px; border: 1.5px solid var(--hair); border-radius: 4px; color: var(--ink); background: rgba(5, 5, 6, .78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; touch-action: none; }
+#hall-walk button:focus-visible { border-color: var(--ink); outline: 1.5px solid var(--ink); outline-offset: 3px; }
+#hall-walk button:active { background: color-mix(in srgb, var(--ink) 14%, rgba(5, 5, 6, .78)); border-color: var(--ink); }
+@media (hover: hover) and (pointer: fine) { #hall-walk button:hover { border-color: var(--ink); } }
+.hall-walk-pad { display: flex; gap: 4px; }
+@media (max-width: 760px) {
+  #hall-walk { left: 12px; right: 12px; bottom: 142px; width: auto; max-width: none; flex-wrap: wrap; justify-content: center; gap: 6px; }
+  #hall-walk > span { width: 100%; text-align: center; padding: 5px; }
+}

@@ -1,0 +1,3 @@
+/* UNIT 7D: while the 3D letters (src/v3/world/extras/hero3d.ts) read as letters, the DOM twin of the name (.hero in overlays.css, built by
+   deconstruct.ts Hero) steps aside: both draw the same two words in the same world plane, so showing both would double every stroke. */
+html[data-hero3d] .hero { visibility: hidden !important; }

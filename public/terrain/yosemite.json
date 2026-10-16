@@ -1,0 +1,108 @@
+{
+ "name": "Yosemite Valley from Tunnel View",
+ "retrieved": "2026-10-10",
+ "bounds": {
+  "lon0": -119.72,
+  "lon1": -119.5,
+  "lat0": 37.69,
+  "lat1": 37.78
+ },
+ "size_m": {
+  "east": 19392,
+  "north": 9989
+ },
+ "grid": {
+  "height": [
+   768,
+   396
+  ],
+  "color": [
+   2560,
+   1319
+  ],
+  "shade": [
+   768,
+   396
+  ],
+  "projection": "equirectangular, north up, one pixel square on the ground"
+ },
+ "elevation_m": {
+  "min": 1002,
+  "max": 2767,
+  "encoding": "terrarium: R*256 + G + B/256 - 32768 (B = 0, 1 m steps)"
+ },
+ "shade": {
+  "R": "sun visibility 0..1 (soft ray-marched shadow)",
+  "G": "sky ambient occlusion 0..1 (16-direction horizon, 3.5 km)",
+  "B": "unused"
+ },
+ "tunnelView": {
+  "lat": 37.7156,
+  "lon": -119.677,
+  "elev_m": 1340
+ },
+ "view": {
+  "lat": 37.7195,
+  "lon": -119.655,
+  "bearingDeg": 62,
+  "note": "Tunnel View moved about 2.2 km up-valley onto the valley floor; looking east-north-east up the valley: El Capitan left, Half Dome right of centre, the south wall (Cathedral Rocks, Sentinel Dome) on the right"
+ },
+ "sun": {
+  "azimuthDeg": 262,
+  "elevationDeg": 3,
+  "dirENU": [
+   -0.98891,
+   -0.13898,
+   0.05234
+  ]
+ },
+ "tiles": {
+  "elevation": {
+   "service": "AWS Terrain Tiles (Terrarium)",
+   "z": 13,
+   "x": [
+    1371,
+    1376
+   ],
+   "y": [
+    3166,
+    3168
+   ],
+   "count": 18,
+   "urlTemplate": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"
+  },
+  "imagery": {
+   "service": "USGS The National Map, USGSImageryOnly",
+   "z": 15,
+   "x": [
+    5486,
+    5506
+   ],
+   "y": [
+    12664,
+    12675
+   ],
+   "count": 252,
+   "urlTemplate": "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}"
+  }
+ },
+ "credits": {
+  "elevation": "Elevation: AWS Terrain Tiles (Terrarium), Mapzen / AWS Open Data; sources include USGS 3DEP",
+  "elevationUrls": [
+   "https://registry.opendata.aws/terrain-tiles/",
+   "https://github.com/tilezen/joerd/blob/master/docs/attribution.md"
+  ],
+  "imagery": "Imagery: USGS The National Map orthoimagery, U.S. Geological Survey, public domain",
+  "imageryUrl": "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer",
+  "verified": [
+   "registry.opendata.aws/terrain-tiles: license = tilezen/joerd docs/attribution.md; managed by Mapzen, a Linux Foundation project",
+   "attribution.md: \"United States 3DEP (formerly NED) and global GMTED2010 and SRTM terrain data courtesy of the U.S. Geological Survey\"; 3DEP products are public domain, credit requested (\"3DEP data courtesy of the U.S. Geological Survey\")",
+   "USGSImageryOnly MapServer copyrightText: \"USDA, USGS The National Map: Orthoimagery. Data refreshed June, 2024.v1.2\" (the USDA is co-credited: the California imagery includes USDA NAIP, a U.S. Government work)"
+  ]
+ },
+ "geography": {
+  "El Capitan summit": 2305,
+  "Half Dome": 2684,
+  "El Cap Meadow": 1207
+ }
+}

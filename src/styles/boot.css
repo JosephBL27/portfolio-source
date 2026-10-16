@@ -1,0 +1,169 @@
+/* PNEUMA boot: a drafting sheet, the word INCOMING, and a capsule riding a glass tube. */
+.pn-boot {
+  --b-paper: #EEECE6; --b-ink: #121212; --b-graphite: #5A5853; --b-rule: #CBC7BD;
+  --b-brain: #E0442B; --b-glass: #DDE3E6;
+  position: fixed; inset: 0; z-index: 2147483000;
+  background: var(--b-paper); color: var(--b-ink);
+  overflow: hidden; contain: strict;
+  cursor: progress;
+  -webkit-font-smoothing: antialiased;
+  will-change: clip-path, transform, opacity;
+}
+
+/* drafting paper: a 24 px dot grid, vignette toward the edges (no line grid: the detector reads tiled hairline grids as a generated-UI signature) */
+.pn-boot-sheet {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--b-rule) 90%, transparent) 0.9px, transparent 1.3px);
+  background-size: 24px 24px;
+  background-position: center center;
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, #000 35%, rgba(0,0,0,.25) 100%);
+          mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, #000 35%, rgba(0,0,0,.25) 100%);
+}
+
+/* crop marks + sheet annotations */
+.pn-boot-mark { position: absolute; width: 22px; height: 22px; pointer-events: none; }
+.pn-boot-mark::before, .pn-boot-mark::after { content: ''; position: absolute; background: var(--b-ink); }
+.pn-boot-mark::before { width: 22px; height: 1px; top: 0; left: 0; }
+.pn-boot-mark::after { width: 1px; height: 22px; top: 0; left: 0; }
+.pn-boot-mark.tl { top: 28px; left: 28px; }
+.pn-boot-mark.tr { top: 28px; right: 28px; transform: scaleX(-1); }
+.pn-boot-mark.bl { bottom: 28px; left: 28px; transform: scaleY(-1); }
+.pn-boot-mark.br { bottom: 28px; right: 28px; transform: scale(-1, -1); }
+
+.pn-boot-note {
+  position: absolute; top: 34px;
+  font: 500 11px/1 'IBM Plex Mono', ui-monospace, monospace;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--b-graphite);
+  white-space: nowrap;
+}
+.pn-boot-note.l { left: 62px; }
+.pn-boot-note.r { right: 62px; }
+.pn-boot-note b { font-weight: 600; color: var(--b-ink); letter-spacing: 0.14em; }
+
+/* centre stack */
+.pn-boot-stage {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: clamp(26px, 5.4vh, 60px);
+  padding-bottom: 2vh;
+}
+
+/* the word */
+.pn-boot-word {
+  position: relative; display: grid; margin: 0;
+  font-family: 'Archivo Variable', 'Archivo', 'Arial Narrow', sans-serif;
+  font-variation-settings: 'wdth' 62, 'wght' 900;
+  font-stretch: 62%; font-weight: 900;
+  font-size: min(19vw, 30vh);
+  line-height: 0.8; letter-spacing: -0.012em; text-transform: uppercase;
+  white-space: nowrap; user-select: none;
+}
+.pn-boot-word > * { grid-area: 1 / 1; }
+.pn-boot-ink { position: relative; display: block; }
+.pn-boot-ch { position: relative; display: inline-block; }
+.pn-boot-ch > .w { visibility: hidden; }
+.pn-boot-ch > .s {
+  position: absolute; inset: -0.02em 0; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+/* scramble glyphs: block elements, sized so one block fills a letter's cap height */
+.pn-boot-ch.scr > .s {
+  inset: 0.033em 0 0.067em; /* exactly cap height to baseline */
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-variation-settings: normal; font-weight: 400;
+  font-size: 0.86em; line-height: 1;
+  color: var(--b-ink);
+}
+.pn-boot-ch.done > .w { visibility: visible; }
+.pn-boot-ch.done > .s { display: none; }
+
+/* halftone shadow: canvas-screened (see drawHalftone), fades in when the letters land */
+.pn-boot-shadow {
+  position: absolute; pointer-events: none;
+  opacity: 0; transition: opacity 420ms cubic-bezier(0.3, 0, 0.1, 1);
+}
+.pn-boot.landed .pn-boot-shadow { opacity: 1; }
+.pn-boot-bl { display: inline-block; width: 0; height: 0; vertical-align: baseline; }
+
+/* the gauge */
+.pn-boot-gauge { width: 280px; display: flex; flex-direction: column; gap: 11px; }
+.pn-boot-tube { position: relative; width: 280px; height: 14px; }
+.pn-boot-tube svg { position: absolute; inset: 0; overflow: visible; }
+.pn-boot-tube .glass { fill: color-mix(in srgb, var(--b-glass) 55%, transparent); }
+.pn-boot-tube .rim { fill: none; stroke: var(--b-ink); stroke-width: 1; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.pn-boot-tube .glint { fill: none; stroke: #fff; stroke-width: 1.2; stroke-linecap: round; opacity: 0.85; }
+.pn-boot[data-night] .pn-boot-tube .glint { opacity: 0.16; }
+.pn-boot[data-night] .pn-boot-tube .glass { fill: color-mix(in srgb, var(--b-glass) 70%, transparent); }
+.pn-boot-tube .cap-r { transition: opacity 90ms linear; }
+
+.pn-boot-cap {
+  position: absolute; left: 2px; top: 2px; width: 28px; height: 10px; border-radius: 5px;
+  background: var(--b-ink);
+  will-change: transform;
+}
+/* cylinder shading: a paper-coloured glint and two seam bands, like an engraved capsule */
+.pn-boot-cap::before {
+  content: ''; position: absolute; left: 4px; right: 4px; top: 2px; height: 1px; border-radius: 1px;
+  background: var(--b-paper); opacity: 0.45;
+}
+.pn-boot-cap::after {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 7px; right: 7px;
+  border-left: 1px solid color-mix(in srgb, var(--b-paper) 22%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--b-paper) 22%, transparent);
+}
+/* air wake behind the capsule, fades with speed */
+.pn-boot-wake {
+  position: absolute; top: 4px; height: 6px; width: 56px; left: -54px; border-radius: 3px;
+  background: linear-gradient(to right, transparent, color-mix(in srgb, var(--b-ink) 22%, transparent));
+  opacity: 0; pointer-events: none;
+}
+
+/* gauge ticks: 0..100 every 10, majors at 0/50/100 */
+.pn-boot-ticks {
+  position: relative; height: 5px; margin: -4px 7px 0;
+  background-image: linear-gradient(to right, var(--b-rule) 1px, transparent 1px);
+  background-size: calc((100% - 1px) / 10) 100%;
+  background-repeat: repeat-x;
+}
+.pn-boot-ticks::after {
+  content: ''; position: absolute; inset: 0 0 -3px;
+  background-image: linear-gradient(to right, var(--b-graphite) 1px, transparent 1px);
+  background-size: calc((100% - 1px) / 2) 100%;
+}
+
+.pn-boot-read {
+  display: flex; align-items: center; gap: 9px;
+  font: 500 12px/1 'IBM Plex Mono', ui-monospace, monospace;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--b-ink);
+  font-variant-numeric: tabular-nums;
+}
+.pn-boot-read .lbl { color: var(--b-graphite); flex: 1; }
+.pn-boot-lamp {
+  width: 9px; height: 9px; border-radius: 50%; flex: none;
+  box-shadow: inset 0 0 0 1px var(--b-ink);
+  background: transparent;
+  transition: background-color 120ms linear, box-shadow 160ms ease-out;
+}
+.pn-boot-lamp.blink { animation: pn-boot-blink 1.1s steps(1, end) infinite; }
+@keyframes pn-boot-blink { 50% { background: color-mix(in srgb, var(--b-ink) 18%, transparent); } }
+.pn-boot.arrived .pn-boot-lamp {
+  animation: none; background: var(--b-brain);
+  box-shadow: inset 0 0 0 1px var(--b-brain), 0 0 0 3px color-mix(in srgb, var(--b-brain) 18%, transparent), 0 0 14px 2px color-mix(in srgb, var(--b-brain) 45%, transparent);
+}
+
+.pn-boot-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (max-width: 767px) {
+  .pn-boot-note { top: 26px; }
+  .pn-boot-note.l { left: 50px; }
+  .pn-boot-note.r { right: 50px; }
+  .pn-boot-note.r { display: none; }
+  .pn-boot-mark.tl, .pn-boot-mark.tr { top: 20px; }
+  .pn-boot-mark.bl, .pn-boot-mark.br { bottom: 20px; }
+  .pn-boot-mark.tl, .pn-boot-mark.bl { left: 20px; }
+  .pn-boot-mark.tr, .pn-boot-mark.br { right: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pn-boot-lamp.blink { animation: none; }
+  .pn-boot-shadow { transition: none; }
+}

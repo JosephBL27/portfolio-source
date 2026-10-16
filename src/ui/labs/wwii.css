@@ -1,0 +1,47 @@
+/* WWII lab: field olive on ink. Scoped under .ww (shared base: lib/model-base.css). Type 12px and up, controls 40px (44px on coarse pointers). */
+.ww { --ml-acc: #c3d558; --ml-acc2: #eaf3a8; --ml-rgb: 195, 213, 88; --ml-neg: #ff9a7a; }
+.ww .ml-p + .ml-p { margin-top: 0; }
+.ww-cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+@container ml (max-width: 700px) { .ww-cols { grid-template-columns: minmax(0, 1fr); } }
+.ww-p .ml-lab { text-transform: none; letter-spacing: 0.01em; font: 600 14px/1.3 var(--ml-sans); color: #fff; margin-bottom: 10px; }
+.ww-cv { position: relative; height: clamp(170px, 30cqw, 230px); border-radius: 10px; background: rgba(0, 0, 0, 0.3); overflow: hidden; }
+.ww-cv canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.ww-ax { position: absolute; font: 500 11.5px/1 var(--ml-mono); color: var(--ml-faint); pointer-events: none; letter-spacing: 0.02em; }
+.ww-ax--x { right: 8px; bottom: 6px; } .ww-ax--y { left: 8px; top: 6px; }
+.ww-unp { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 0 14%; font: 500 13px/1.4 var(--ml-mono); color: var(--ml-dim); pointer-events: none; text-shadow: 0 1px 8px #000; transition: opacity 0.3s; }
+.ww-p.is-placed .ww-unp, .ww.is-revealed .ww-unp { opacity: 0; }
+.ww-track { position: relative; height: 64px; margin: 6px 0 0; padding: 0 14px; touch-action: none; cursor: ew-resize; outline: none; }
+.ww-rail { position: absolute; left: 14px; right: 14px; top: 26px; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.14); }
+.ww-zero { position: absolute; left: 50%; top: 19px; height: 20px; width: 2px; margin-left: -1px; background: rgba(255, 255, 255, 0.5); }
+.ww-band { position: absolute; top: 14px; height: 30px; left: 0; border-radius: 6px; background: rgba(var(--ml-rgb), 0.22); border: 1px dashed rgba(var(--ml-rgb), 0.7); margin-left: 0; transform: translateX(0); }
+.ww-s { position: absolute; top: 46px; font: 500 12px/1 var(--ml-mono); color: var(--ml-faint); }
+.ww-s--l { left: 14px; transform: translateX(-30%); } .ww-s--m { left: 50%; transform: translateX(-50%); } .ww-s--r { right: 14px; transform: translateX(30%); }
+.ww-track:focus-visible .ww-rail { outline: 2px solid var(--ml-acc2); outline-offset: 5px; }
+.ww-mk { position: absolute; top: 14px; width: 28px; height: 30px; margin-left: -14px; display: block; }
+.ww-mk::before { content: ''; position: absolute; left: 50%; top: 6px; width: 20px; height: 20px; margin-left: -10px; border-radius: 50%; background: #fff; border: 4px solid var(--ml-acc); box-shadow: 0 0 14px rgba(var(--ml-rgb), 0.6); }
+.ww-mk em { position: absolute; left: 50%; bottom: 100%; transform: translateX(-50%); padding: 2px 6px; border-radius: 5px; font: 600 12px/1.2 var(--ml-mono); font-style: normal; white-space: nowrap; color: #14160a; background: var(--ml-acc); }
+.ww-mk--paper::before { background: var(--ml-acc); border-color: #fff; border-radius: 4px; transform: rotate(45deg); width: 16px; height: 16px; margin-left: -8px; top: 8px; }
+.ww-mk--paper em { background: #fff; }
+.ww-mk--paper { z-index: 2; }
+.ww.is-revealed .ww-mk--you { opacity: 0.8; } .ww.is-revealed .ww-mk--you em { background: rgba(255, 255, 255, 0.25); color: #fff; bottom: auto; top: 100%; margin-top: 2px; }
+.ww-out { min-height: 3.2em; margin-top: 6px; }
+.ww-out b { color: #fff; font-weight: 650; font-variant-numeric: tabular-nums; }
+.ww-act { margin: 14px 0 16px; }
+.ww-reveal { min-height: 48px; }
+.ww-reveal[disabled] { opacity: 0.45; cursor: default; }
+.ww-ovl { margin-top: 0; }
+.ww-scale { position: relative; height: 104px; margin: 8px 14px 0; }
+.ww-scale::before { content: ''; position: absolute; left: 0; right: 0; top: 50px; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.12); }
+.ww-rg { position: absolute; top: 44px; height: 18px; border-radius: 6px; background: linear-gradient(90deg, rgba(var(--ml-rgb), 0.3), rgba(var(--ml-rgb), 0.7)); border: 1px solid rgba(var(--ml-rgb), 0.8); }
+.ww-pin { position: absolute; top: 48px; width: 4px; height: 10px; margin-left: -2px; }
+.ww-pin::before { content: ''; position: absolute; left: 50%; top: -3px; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; }
+.ww-pin--a::before { display: none; }
+.ww-pin--b::before { background: #fff; border: 3px solid #ff9a7a; box-shadow: 0 0 12px rgba(255, 154, 122, 0.6); }
+.ww-pin em { position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; font: 500 12.5px/1.25 var(--ml-mono); font-style: normal; color: var(--ml-dim); text-align: center; }
+.ww-pin em span { display: block; font: 650 15px/1.2 var(--ml-sans); color: #fff; font-variant-numeric: tabular-nums; }
+.ww-pin--a em { bottom: 26px; } .ww-pin--b em { top: 24px; transform: translateX(-70%); }
+.ww-t { position: absolute; top: 90px; font: 500 12px/1 var(--ml-mono); color: var(--ml-faint); transform: translateX(-50%); }
+.ww-ovn { margin-top: 10px; }
+.ww-fn { margin: 12px 2px 0; color: var(--ml-faint); }
+@container ml (max-width: 460px) { .ww-pin--a em { white-space: normal; width: 9em; } .ww-pin--b em { transform: translateX(-80%); white-space: normal; width: 8em; text-align: right; } }
+@media (pointer: coarse) { .ww .ml-chip, .ww .ml-btn { min-height: 44px; } .ww-track { height: 68px; } }

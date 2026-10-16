@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" data-theme="night">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PNEUMA lab: the world (TVs + glass brain)</title>
+  <style>
+    :root { --paper:#050506; --ink:#ECEAE3; --graphite:#9A978F; --rule:#2C2E31; color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: var(--paper); color: var(--ink); overflow: hidden; }
+    canvas#gl { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+    .mono { font: 500 11px/1.3 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase; }
+    #panel { position: fixed; left: 12px; top: 12px; display: flex; flex-wrap: wrap; gap: 6px; max-width: min(760px, 70vw); z-index: 5; }
+    #panel button { font: 500 11px/1 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); background: rgba(14,15,16,.7);
+      border: 1px solid rgba(236,234,227,.28); border-radius: 999px; padding: 7px 11px; cursor: pointer; }
+    #panel button:hover { border-color: var(--ink); }
+    #panel button.on { background: var(--ink); color: #0E0F10; }
+    #hud { position: fixed; right: 12px; top: 12px; z-index: 5; color: var(--graphite); text-align: right; white-space: pre; }
+    #off { position: fixed; left: 12px; bottom: 12px; z-index: 5; display: flex; gap: 10px; align-items: center; color: var(--graphite); }
+    #tags { position: fixed; inset: 0; pointer-events: none; z-index: 4; }
+    #tags span { position: absolute; transform: translate(-50%, 0); color: #ECEAE3; white-space: nowrap; text-shadow: 0 0 6px #000; }
+  </style>
+</head>
+<body>
+  <canvas id="gl"></canvas>
+  <div id="tags"></div>
+  <div id="panel"></div>
+  <div id="hud" class="mono"></div>
+  <div id="off" class="mono"><label for="offk">power off</label><input id="offk" type="range" min="0" max="1" step="0.005" value="0" /><span id="offv">0.00</span></div>
+  <script type="module" src="./world.ts"></script>
+</body>
+</html>

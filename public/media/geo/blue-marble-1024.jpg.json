@@ -1,0 +1,13 @@
+{
+  "id": "blue-marble",
+  "asset": "blue-marble-1024.jpg",
+  "title": "Blue Marble: Next Generation, topography and bathymetry (December 2004)",
+  "source": "https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-topography-bathymetry/",
+  "file": "https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73909/world.topo.bathy.200412.3x5400x2700.jpg",
+  "licenceUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+  "credit": "NASA Earth Observatory image by Reto Stöckli (Blue Marble: Next Generation, topography and bathymetry, December 2004)",
+  "processing": "Downsampled from 5400x2700 to 1024x512 JPEG; used to colour the land and ocean particles of the Cloudflare globe.",
+  "licenceLine": "NASA content – images, audio, video, and media files used in the rendition of 3-dimensional models, such as texture maps and polygon data in any format – generally are not subject to copyright in the United States. … NASA should be acknowledged as the source of the material.",
+  "retrieved": "2026-10-09",
+  "bytes": 127760
+}

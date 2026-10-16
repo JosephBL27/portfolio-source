@@ -1,0 +1,4 @@
+{
+  "prompt": "ZETA dashboard v189, Stats / Progression tab: operation progression (first-5 vs recent-5 medians) and the strict benchmark-only family leaderboard with evidence-gate statuses (confirmed / watch / insufficient). Origin: ZETA workspace: zetamac_dashboard_latest.html, captured 2026-10-04 by an agent in headless Chromium at 1440x900 and cropped to 1140x498 around the two tables, from a read-only loopback HTTP serve of the file (startup day-selector error bypassed by calling the dashboard's own render(); no data changed). Joseph's own practice data.",
+  "createdAt": "2026-10-04T10:21:05.041Z"
+}

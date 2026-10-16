@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PNEUMA lab: sfx v9 (audition board)</title>
+  <style>
+    :root { --paper:#0E0F10; --ink:#ECEAE3; --dim:#9A978F; --rule:#2C2E31; --raised:#17191B; --acc:#D9A441; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--paper); color: var(--ink); }
+    body { font: 400 13px/1.5 'IBM Plex Mono', ui-monospace, monospace; padding: 24px; max-width: 1180px; }
+    h1 { font: 500 11px/1 inherit; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); margin: 0 0 18px; }
+    h2 { font: 500 11px/1 inherit; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); margin: 22px 0 8px; }
+    .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    button, select { font: inherit; color: var(--ink); background: var(--raised); border: 1px solid var(--rule); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+    button:hover { border-color: var(--dim); }
+    button:active { transform: scale(.97); }
+    button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+    button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+    button.primary { border-color: var(--acc); color: var(--acc); }
+    label { display: inline-flex; align-items: center; gap: 8px; color: var(--dim); }
+    input[type=range] { accent-color: var(--acc); width: 200px; }
+    output { min-width: 4ch; color: var(--ink); }
+    #pad { width: 260px; height: 90px; border: 1px dashed var(--rule); border-radius: 12px; display: grid; place-items: center; color: var(--dim); touch-action: none; user-select: none; }
+    #pad.on { border-color: var(--acc); color: var(--ink); }
+    small { color: var(--dim); }
+  </style>
+</head>
+<body>
+  <h1>PNEUMA lab / sfx v9: audition board (every cue, every gesture)</h1>
+  <div class="row">
+    <button id="enable" class="primary">Enter with sound</button>
+    <button id="music" aria-pressed="true">Music bed on</button>
+    <button id="reduced" aria-pressed="false">Reduced motion</button>
+    <label>music area <select id="area"></select></label>
+    <button id="dwell" aria-pressed="false">Dwell in area (feeds the flight state)</button>
+  </div>
+  <small>Level check without ears: <code>node scripts/sfx-check.mjs</code>. This board is for listening.</small>
+
+  <h2>Gestures</h2>
+  <div class="row">
+    <div id="pad">drag here: pov:drag (speed = pointer speed, dir = direction)</div>
+    <div id="spin" style="width:260px;height:90px;border:1px dashed var(--rule);border-radius:12px;display:grid;place-items:center;color:var(--dim);touch-action:none;user-select:none">drag here: tv:grab / tv:spin / tv:release</div>
+    <label>lab:drag <input id="slider" type="range" min="0" max="1" step="0.001" value="0.5" /><output id="sliderv">0.50</output></label>
+    <button id="odo">count:tick x 24</button>
+    <button id="dial">hub dial across 5 channels</button>
+  </div>
+  <div id="groups"></div>
+  <script type="module" src="./sfx-v9.ts"></script>
+</body>
+</html>

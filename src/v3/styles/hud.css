@@ -1,0 +1,253 @@
+/* v4 HUD: crop marks, identity, toggles, live camera readout, counter, area rail, anchors, cursor ring. */
+#hud { position: fixed; inset: 0; z-index: var(--z-hud); pointer-events: none; color: var(--ink); opacity: 0; transition: opacity 1.2s var(--ease-out) .2s; }
+html.is-ready #hud { opacity: 1; }
+#hud .mono { white-space: nowrap; }
+
+/* over the index the HUD sits on a soft ground, so rows scrolling under the name and the counter never collide with it */
+#hud::before, #hud::after { content: ''; position: absolute; left: 0; right: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .5s var(--ease-out); }
+#hud::before { top: 0; height: 96px; background: linear-gradient(#050506 30%, rgba(5,5,6,0)); }
+#hud::after { bottom: 0; height: 92px; background: linear-gradient(0deg, #050506 34%, rgba(5,5,6,0)); }
+html.in-index #hud::before, html.in-index #hud::after { opacity: .96; }
+/* the camera telemetry is debug output: off unless the URL carries ?hud=full (hud.ts adds .full) */
+#hud .ro { display: none; transition: opacity .6s var(--ease-out); }
+#hud .ro.full { display: grid; }
+#hud .ro.idle { opacity: .35; }
+html.in-index #hud .ro, html.in-index #hud .mm { opacity: 0; pointer-events: none; }
+
+/* crop marks */
+#hud .cm { position: absolute; width: 18px; height: 18px; border: 0 solid var(--hair); }
+#hud .cm.tl { top: 14px; left: 14px; border-top-width: 1px; border-left-width: 1px; }
+#hud .cm.tr { top: 14px; right: 14px; border-top-width: 1px; border-right-width: 1px; }
+#hud .cm.bl { bottom: 14px; left: 14px; border-bottom-width: 1px; border-left-width: 1px; }
+#hud .cm.br { bottom: 14px; right: 14px; border-bottom-width: 1px; border-right-width: 1px; }
+#hud .xm { position: absolute; width: 9px; height: 9px; opacity: .55; }
+#hud .xm::before, #hud .xm::after { content: ''; position: absolute; background: var(--ink); }
+#hud .xm::before { left: 4px; top: 0; width: 1px; height: 9px; }
+#hud .xm::after { top: 4px; left: 0; height: 1px; width: 9px; }
+#hud .xm.t { top: 10px; left: 50%; translate: -50% 0; }
+#hud .xm.b { bottom: 10px; left: 50%; translate: -50% 0; }
+
+/* top row */
+#hud .top { position: absolute; left: calc(var(--pad) + 10px); right: calc(var(--pad) + 10px); top: 26px; display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+#hud .id { pointer-events: auto; text-decoration: none; display: grid; gap: 5px; text-shadow: 0 0 14px rgba(5,5,6,.9); }
+#hud .id b { font: italic 400 clamp(19px, 1.7vw, 26px)/1 var(--serif-i); letter-spacing: 0; }
+#hud .id span { color: var(--dim); }
+#hud .rt { display: flex; align-items: center; gap: 14px; }
+/* Sound and Pause form one cluster on desktop: two halves of one pill, 12 px labels */
+#hud .tg { display: flex; gap: 0; pointer-events: auto; border: 1.5px solid var(--hair); border-radius: 999px; background: color-mix(in srgb, var(--ground) 52%, transparent); backdrop-filter: blur(6px); transition: border-color .25s; }
+#hud .tg:hover, #hud .tg:focus-within { border-color: color-mix(in srgb, var(--ink) 70%, transparent); }
+#hud .tog {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 13px 8px 11px; border: 0; border-radius: 999px; background: none;
+  font: 500 12px/1 var(--mono); letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink); touch-action: manipulation;
+  transition: background .25s, color .25s;
+}
+#hud .tog + .tog { position: relative; }
+#hud .tog + .tog::before { content: ''; position: absolute; left: 0; top: 9px; bottom: 9px; width: 1px; background: var(--hair); }
+#hud .tog:hover, #hud .tog:focus-visible { background: color-mix(in srgb, var(--ink) 12%, transparent); }
+#hud .tog:focus-visible { outline-offset: -3px; }
+#hud .tog .ic { display: grid; place-items: center; width: 18px; height: 18px; flex: none; }
+#hud .tog .gl { display: block; width: 18px; height: 18px; }
+#hud .tog[aria-pressed='true'], #hud .tog.is-paused { color: var(--accent); }
+#hud .tog .tx { min-width: 4.4em; text-align: left; }
+
+/* bottom-left camera readout: real values, fed every frame */
+#hud .ro { position: absolute; left: calc(var(--pad) + 10px); bottom: 30px; gap: 3px; color: var(--dim); font-variant-numeric: tabular-nums; text-shadow: 0 0 12px rgba(5,5,6,.95); }
+#hud .ro .r { display: grid; grid-template-columns: 4.4em auto; column-gap: 8px; }
+#hud .ro .r b { font-weight: 500; color: var(--ink); opacity: .7; }
+#hud .ro .r span { color: var(--ink); min-width: 22ch; }
+#hud .ro .r.hot span { color: var(--accent); }
+#hud .ro .r span[data-v]::after { content: attr(data-v); }
+
+@media (min-width: 761px) { #hud .ro { left: calc(var(--pad) + 10px + 94px); } }
+
+/* a soft ground under the readout and the counter, so they hold over bright bloom */
+#hud .ro, #hud .ct { isolation: isolate; }
+#hud .ro::before, #hud .ct::before { content: ''; position: absolute; z-index: -1; inset: -20px -36px -16px -30px; pointer-events: none; background: radial-gradient(ellipse closest-side, rgba(5,5,6,.6) 0%, rgba(5,5,6,.36) 55%, rgba(5,5,6,0) 100%); }
+
+/* bottom-right counter */
+#hud .ct { position: absolute; right: calc(var(--pad) + 44px); bottom: 26px; text-align: right; display: grid; gap: 7px; justify-items: end; text-shadow: 0 0 14px rgba(5,5,6,.95); }
+#hud .ct .lib { font: 500 clamp(13px, 1.15vw, 17px)/1 var(--mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); }
+#hud .ct .nm { color: var(--ink); max-width: 34ch; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.1em; }
+#hud .ct .pos { color: var(--dim); max-width: 34ch; overflow: hidden; text-overflow: ellipsis; }
+#hud .ct .nm:empty, #hud .ct .pos:empty { display: none; }
+
+/* ---------- the next-stop cue (hud.ts): the one persistent hint that scrolling is how you move ----------
+   Desktop: bottom-centre glass pill, 38 px tall. It fades in 600 ms after a dwell begins (hud.ts times it), drops to .15 while a leg flies,
+   and never animates under reduced motion. The arrow alone bobs (4 px, 2.4 s). A click or tap steps exactly one stop. */
+#hud .next {
+  --bob: 4px;
+  position: absolute; left: 50%; bottom: 26px; translate: -50% 0; z-index: 2; height: 38px; min-height: 38px; box-sizing: border-box;
+  max-width: calc(100vw - 2 * (var(--pad) + 150px)); padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; gap: 0;
+  border: 1.5px solid var(--hair); border-radius: 999px; background: color-mix(in srgb, var(--ground) 62%, transparent);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: var(--ink); font: 500 12.5px/1 var(--mono); letter-spacing: .05em; text-transform: none;
+  white-space: nowrap; touch-action: manipulation; pointer-events: none; opacity: .15; transition: opacity .25s var(--ease-out), border-color .25s, background .25s;
+}
+#hud .next[data-state='dwell'] { opacity: .75; pointer-events: auto; transition-duration: .22s; }
+#hud .next[data-state='dwell']:hover, #hud .next[data-state='dwell']:focus-visible { opacity: 1; border-color: var(--ink); background: color-mix(in srgb, var(--ground) 82%, transparent); }
+#hud .next:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+#hud .next .nx-nm { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+#hud .next .nx-how { flex: none; display: inline-block; white-space: pre; }
+#hud .next .nx-sep { white-space: pre; }
+#hud .next .nx-ar { display: inline-block; font-style: normal; transform: translateY(0); animation: nx-bob 2.4s ease-in-out infinite; will-change: transform; }
+#hud .next.is-end .nx-ar { --bob: -4px; }
+#hud .next[data-state='leg'] .nx-ar, #hud .next.is-hidden .nx-ar { animation-play-state: paused; }
+#hud .next.is-touch .nx-ar { --bob: -3px; }
+#hud .next.is-touch .nx-ar::before { content: ''; display: inline-block; width: 6px; height: 6px; margin-left: 8px; border-top: 1.5px solid currentColor; border-left: 1.5px solid currentColor; rotate: 45deg; translate: 0 -1px; }
+@keyframes nx-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(var(--bob)); } }
+html.rm #hud .next, html.rm #hud .next .nx-ar { transition: none; animation: none; }
+@media (prefers-reduced-motion: reduce) { #hud .next, #hud .next .nx-ar { transition: none; animation: none; } }
+/* over the Index and while the tour speaks, the cue is not shown (the tour panel docks in the same place) */
+html.in-index #hud .next[data-state], html.touring #hud .next { opacity: 0; pointer-events: none; }
+html.touring #hud .next { display: none; }
+/* narrow desktops: the counter on the right would meet a centred pill, so it docks left of the radar's edge instead */
+@media (min-width: 761px) and (max-width: 1100px) { #hud .next { left: calc(var(--pad) + 112px); translate: 0 0; max-width: calc(50vw - var(--pad) - 80px); } }
+
+/* progress rail: one continuous line; stops are the areas */
+#hud .rail { position: absolute; right: calc(var(--pad) * 0.55); top: 50%; height: min(54vh, 520px); translate: 0 -50%; width: 1px; background: var(--hair-2); pointer-events: none; }
+#hud .rail .fill { position: absolute; left: 0; top: 0; width: 1px; height: 100%; background: var(--accent); transform-origin: 0 0; scale: 1 var(--prog, 0); }
+#hud .rail .tk { position: absolute; left: -13.5px; width: 28px; height: 28px; translate: 0 -50%; pointer-events: auto; display: grid; place-items: center; }
+/* hit area: the button itself is 28 x 28 (>= 24), the drawn tick is unchanged; touch widens the tap target a little further without the box growing */
+#hud .rail .tk::after { content: ''; position: absolute; left: 50%; top: 50%; width: 28px; height: 28px; translate: -50% -50%; }
+#hud .rail .tk::before { content: ''; width: 16px; height: 2px; background: var(--ink); opacity: .55; scale: .38 1; transform-origin: 100% 50%; transition: scale .35s var(--ease-out), opacity .3s, background .3s; translate: 4px 0; }
+#hud .rail .tk:focus-visible::before { scale: .95 1; opacity: 1; transition: none; }
+@media (hover: hover) and (pointer: fine) { #hud .rail .tk:hover::before { scale: .95 1; opacity: 1; } }
+#hud .rail .tk.act::before { scale: 1 1; opacity: 1; background: var(--accent); }
+#hud .rail .tk .tl {
+  position: absolute; right: 28.5px; top: 50%; translate: 8px -50%; opacity: 0; white-space: nowrap; color: var(--ink); padding: 4px 8px; background: rgba(5,5,6,.72);
+  transition: opacity .18s, translate .18s var(--ease-out); pointer-events: none;
+}
+#hud .rail .tk .tl b { color: var(--accent); font-weight: 500; margin-right: .8em; }
+#hud .rail .tk:focus-visible .tl { opacity: 1; translate: 0 -50%; transition: none; }
+/* the current stop is always named, by its numeral only (the full name would reach across the copy lane); hover or focus spells it out */
+#hud .rail .tk.act .tl { opacity: 1; translate: 0 -50%; }
+#hud .rail .tk.act:not(:hover):not(:focus-visible) .tl { padding: 4px 6px; }
+#hud .rail .tk.act:not(:hover):not(:focus-visible) .tl .tn { display: none; }
+#hud .rail .tk.act:not(:hover):not(:focus-visible) .tl b { margin-right: 0; }
+@media (hover: hover) and (pointer: fine) { #hud .rail .tk:hover .tl { opacity: 1; translate: 0 -50%; } }
+
+/* ---------- cursor ring: the native cursor is never hidden. Top layer (popover), no blend. ---------- */
+#cursor {
+  position: fixed; inset: auto; left: 0; top: 0; width: 0; height: 0; margin: 0; padding: 0; border: 0; background: none; overflow: visible;
+  color: var(--ink); pointer-events: none; z-index: var(--z-cursor);
+}
+#cursor .ring {
+  position: absolute; left: -15px; top: -15px; width: 30px; height: 30px; border-radius: 50%;
+  border: 2px solid var(--ink); box-shadow: 0 0 0 1.5px rgba(5,5,6,.9), inset 0 0 0 1.5px rgba(5,5,6,.6);
+  scale: var(--cs, 1); opacity: 0; transition: scale .36s var(--ease-out), opacity .3s;
+}
+#cursor.on .ring { opacity: 1; }
+#cursor .ring.press { scale: calc(var(--cs, 1) * 0.8); transition-duration: .14s, .3s; }
+html.tv-hover #cursor .ring { border-color: var(--accent); }
+@media (hover: none), (pointer: coarse) { #cursor { display: none; } }
+html.rm #cursor .ring { transition: none; }
+
+/* ---------- anchors: project tags hanging under the lit TV screens (main supplies the points) ---------- */
+#anchors { position: fixed; inset: 0; z-index: var(--z-anchors); pointer-events: none; overflow: hidden; }
+#anchors .an { position: absolute; left: 0; top: 0; width: 0; height: 0; padding: 0; border: 0; background: none; opacity: 0; transition: opacity .45s var(--ease-out); will-change: transform, opacity; pointer-events: none; --dx: 0px; }
+#anchors .an.vis { opacity: 1; }
+#anchors .an .dt { position: absolute; left: -4px; top: -4px; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--accent); background: color-mix(in srgb, var(--accent) 45%, transparent); }
+#anchors .an .ld { position: absolute; left: 0; top: 4px; width: 1px; height: 18px; background: linear-gradient(var(--accent), var(--hair)); transform-origin: 50% 0; scale: 1 0; transition: scale .6s var(--ease-out) .1s; }
+#anchors .an.vis .ld { scale: 1 1; }
+#anchors .an .lb {
+  position: absolute; left: 0; top: 22px; translate: calc(-50% + var(--dx)) 0; display: inline-flex; align-items: center; gap: 12px; white-space: nowrap; text-align: left;
+  padding: 6px 10px; border: 1px solid var(--hair); background: rgba(5,5,6,.74); backdrop-filter: blur(6px); color: var(--ink);
+  clip-path: inset(0 0 100% 0); transition: clip-path .6s var(--ease-out) .25s, background .25s, color .25s, border-color .25s;
+}
+#anchors .an.vis .lb { clip-path: inset(0 0 0 0); pointer-events: auto; }
+#anchors .an.aside.vis .lb { clip-path: inset(0 0 100% 0); pointer-events: none; transition-delay: 0s; }
+#anchors .an.aside .ld { scale: 1 0; }
+#anchors .an .op { color: var(--accent); transition: color .25s; }
+#anchors .an:hover .lb, #anchors .an:focus-visible .lb { background: var(--ink); color: var(--ground); border-color: var(--ink); }
+#anchors .an:hover .op { color: var(--ground); }
+html.rm #anchors .an, html.rm #anchors .an .ld { transition: opacity .3s linear; }
+html.rm #anchors .an .lb { clip-path: none; transition: none; }
+
+/* ---------- phone ----------
+   CONTRACT (nav.css, overlays): at 760 px or less the HUD owns the bottom 72 px plus the safe area, in ONE row of 44 px controls sitting 14 px + safe-area from the
+   bottom, left to right: readout (area, stop) | next-stop cue | Sound | Pause. The radar gauge is gone from the band (the Index in the top bar does its job);
+   the readout has a fixed width (--ct-w) and the cue is pinned between it and the Sound button, so the four never overlap whatever the text. The top bar owns the top 64 px. */
+@media (max-width: 760px) {
+  #hud { --band: calc(14px + env(safe-area-inset-bottom, 0px)); --ct-w: clamp(96px, 30vw, 132px); }
+  #hud .top { top: 20px; left: calc(var(--pad) + 6px); right: calc(var(--pad) + 6px); }
+  #hud .id > span { display: none; }
+  #hud .id b { font-size: 19px; }
+  #hud .rt { gap: 8px; min-width: 0; }
+  #hud .nb { min-width: 0; flex-wrap: nowrap; }
+  /* sound and pause: two 44 px round buttons, label clipped (still read aloud), at the bottom right */
+  #hud .tg { position: fixed; right: 14px; bottom: var(--band); gap: 8px; border: 0; background: none; backdrop-filter: none; }
+  #hud .tog { padding: 0; width: 44px; height: 44px; min-width: 44px; min-height: 44px; justify-content: center; border: 1.5px solid var(--hair); background: color-mix(in srgb, var(--ground) 62%, transparent); backdrop-filter: blur(6px); }
+  #hud .tog + .tog::before { display: none; }
+  #hud .tog:hover, #hud .tog:focus-visible { border-color: var(--ink); }
+  #hud .tog .tx { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; min-width: 0; }
+  #hud .ro, #hud .ro.full { display: none; }
+  /* the readout: two short lines, the area ("VI \00b7 About") over the stop ("Records"), fixed width, vertically centred on the 44 px controls */
+  #hud .ct { left: calc(var(--pad) + 6px); right: auto; bottom: var(--band); width: var(--ct-w); height: 44px; max-width: none; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 3px; text-align: left; justify-items: start; }
+  #hud .ct::before { inset: -8px -14px -8px -18px; }
+  #hud .ct .lib { font-size: 12px; letter-spacing: .1em; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #hud .ct .nm { display: block; font-size: 11px; letter-spacing: .04em; max-width: 100%; color: var(--dim); }
+  #hud .ct .nm:empty, #hud .ct .pos { display: none; }
+  /* the cue: 44 px tall, pinned between the readout and the Sound button (right: 14 + 44 + 8 + 44 + 8 = 118); two lines, the verb over "Next: <stop>" */
+  #hud .next {
+    left: calc(var(--pad) + 6px + var(--ct-w) + 8px); right: 118px; bottom: var(--band); translate: 0 0; width: auto; max-width: none; height: 44px; min-height: 44px; padding: 0 10px;
+    border-radius: 14px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 3px; font-size: 12px; letter-spacing: .03em; text-align: left;
+  }
+  #hud .next .nx-sep { display: none; }
+  #hud .next .nx-nm { display: block; max-width: 100%; color: var(--dim); }
+  #hud .next.is-end .nx-how { white-space: normal; line-height: 1.15; }
+  #hud .next .nx-how { white-space: normal; }
+  #hud .cm.bl, #hud .cm.br { display: none; }
+  #hud .rail { right: 5px; height: 36vh; }
+  #hud .rail .tk .tl { display: none; }
+  #hud .xm { display: none; }
+  #anchors .an .op { display: none; }
+  #anchors .an .lb { padding: 5px 8px; }
+}
+/* 8C: the top row also holds Overview, Index and Contact: on a narrow phone the name shortens to its initials so nothing overlaps */
+#hud .id .ni { display: none; }
+@media (max-width: 520px) { #hud .id .nf { display: none; } #hud .id .ni { display: inline; letter-spacing: 0.02em; } #hud .id { min-width: 36px; } }
+@media (max-height: 560px) { #hud .ro .r:nth-child(n+3) { display: none; } }
+/* touch: ticks keep their 19 px look but answer a 44 px thumb */
+@media (pointer: coarse) { #hud .rail .tk::after { width: 40px; height: 40px; } #hud .id { min-height: 44px; align-content: center; } }
+#hud button, #hud a { touch-action: manipulation; }
+@media (prefers-reduced-motion: reduce) { #hud { transition: none; } }
+html.rm #anchors .an.aside .lb { visibility: hidden; }
+
+/* ---------- credits (epilogue.ts): a quiet text control in the contact links, and its native modal dialog (top layer, Esc, focus returns to the control) ---------- */
+.contact .cr-open { justify-self: start; display: inline-flex; align-items: center; min-height: 0; padding: 0; border: 0; background: none; color: var(--dim); font: 500 11px/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; text-decoration: underline; text-decoration-color: var(--hair); text-underline-offset: 5px; text-shadow: 0 0 12px rgba(5,5,6,.95); cursor: pointer; transition: color .25s, text-decoration-color .25s; }
+.contact .cr-open:hover, .contact .cr-open:focus-visible { color: var(--ink); text-decoration-color: var(--ink); }
+.contact .cr-open:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 4px; }
+@media (pointer: coarse) { .contact .cr-open { min-height: 44px; } }
+
+/* display is set only while open: an author display value would override the UA rule that hides a closed dialog */
+dialog.cr-dlg:not([open]) { display: none; }
+dialog.cr-dlg[open] { display: flex; flex-direction: column; }
+dialog.cr-dlg { box-sizing: border-box; width: min(680px, calc(100vw - 2 * var(--pad))); max-width: none; max-height: min(82vh, 760px); margin: auto; padding: 0; overflow: hidden; border: 1px solid var(--hair); border-radius: 0; background: color-mix(in srgb, var(--ground) 96%, transparent); color: var(--ink); box-shadow: 0 30px 80px rgba(0, 0, 0, .6); }
+dialog.cr-dlg[open] { animation: cr-in .32s var(--ease-out) both; }
+dialog.cr-dlg::backdrop { background: rgba(5, 5, 6, .72); }
+@keyframes cr-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+html.rm dialog.cr-dlg[open] { animation: none; }
+@media (prefers-reduced-motion: reduce) { dialog.cr-dlg[open] { animation: none; } }
+dialog.cr-dlg .cr-top { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px clamp(20px, 3vw, 36px); border-bottom: 1px solid var(--hair-2); }
+dialog.cr-dlg .cr-kick { margin: 0; color: var(--dim); font: 500 11px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; }
+dialog.cr-dlg .cr-x { display: inline-flex; align-items: center; gap: 10px; min-height: 36px; padding: 6px 12px; border: 1px solid var(--hair); border-radius: 999px; background: none; color: var(--ink); font: 500 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; cursor: pointer; transition: border-color .25s, background .25s; }
+dialog.cr-dlg .cr-x kbd { font: inherit; color: var(--dim); }
+dialog.cr-dlg .cr-x:hover, dialog.cr-dlg .cr-x:focus-visible { border-color: var(--ink); background: color-mix(in srgb, var(--ink) 10%, transparent); }
+dialog.cr-dlg .cr-x:focus-visible, dialog.cr-dlg .cr-a:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 3px; }
+dialog.cr-dlg .cr-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 0 clamp(20px, 3vw, 36px) clamp(20px, 3vw, 36px); scrollbar-width: thin; scrollbar-color: var(--hair) transparent; }
+dialog.cr-dlg .cr-h { margin: 0; padding-top: clamp(20px, 4vh, 32px); font: italic 400 clamp(32px, 4vw, 44px)/1 var(--serif-i); letter-spacing: -0.01em; outline: none; }
+dialog.cr-dlg .cr-intro { margin: 12px 0 0; max-width: 56ch; color: var(--dim); font: 400 14px/1.5 var(--sans); text-wrap: pretty; }
+dialog.cr-dlg .cr-list { list-style: none; margin: 22px 0 0; padding: 0; display: grid; }
+dialog.cr-dlg .cr-it { display: grid; gap: 8px; padding: 16px 0; border-top: 1px solid var(--hair-2); }
+dialog.cr-dlg .cr-it:last-child { border-bottom: 1px solid var(--hair-2); }
+dialog.cr-dlg .cr-nm { margin: 0; font: 500 16px/1.3 var(--sans); font-stretch: 96%; color: var(--ink); text-wrap: balance; }
+dialog.cr-dlg .cr-what { margin: 0; color: var(--dim); font: 400 13px/1.45 var(--sans); text-wrap: pretty; }
+dialog.cr-dlg .cr-meta { margin: 2px 0 0; display: grid; gap: 3px; }
+dialog.cr-dlg .cr-meta > div { display: grid; grid-template-columns: 6.2em minmax(0, 1fr); column-gap: 12px; align-items: baseline; }
+dialog.cr-dlg .cr-meta dt { margin: 0; color: var(--dim); font: 500 10.5px/1.9 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+dialog.cr-dlg .cr-meta dd { margin: 0; color: var(--ink); font: 400 13px/1.5 var(--sans); overflow-wrap: anywhere; }
+dialog.cr-dlg .cr-a { justify-self: start; display: inline-flex; align-items: center; gap: 6px; min-height: 32px; margin-top: 2px; color: var(--ink); font: 500 11px/1.2 var(--mono); letter-spacing: .12em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid var(--hair); transition: border-color .25s; }
+dialog.cr-dlg .cr-a .ar { display: inline-block; transition: transform .35s var(--ease-out); }
+dialog.cr-dlg .cr-a:hover { border-color: var(--ink); }
+dialog.cr-dlg .cr-a:hover .ar { transform: translate(2px, -2px); }
+html.rm dialog.cr-dlg .cr-a .ar { transition: none; }
+@media (pointer: coarse) { dialog.cr-dlg .cr-a { min-height: 44px; } }

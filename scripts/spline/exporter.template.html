@@ -1,0 +1,28 @@
+<!doctype html>
+<html><head><meta charset="utf-8"></head>
+<body>
+<script>
+(async () => {
+  const R = 'http://127.0.0.1:5291';
+  const MESHES = __MESHES__;   // [{ id, key }]
+  const ping = (m) => { try { fetch(R + '/ping?m=' + encodeURIComponent(m), { mode: 'no-cors' }); } catch (e) {} };
+  const post = (name, body) => fetch(R + '/save?name=' + name, { method: 'POST', body });
+  try {
+    await spline.ready;
+    for (const m of MESHES) {
+      const g = await spline.getGeometry(m.id, { space: 'world' });
+      if (!g) { ping('missing ' + m.key); continue; }
+      ping('geom ' + m.key + ' v=' + g.vertexCount + ' t=' + g.triangleCount + ' idx=' + !!g.indices + ' nrm=' + !!g.normals + ' uv=' + !!g.uvs);
+      let idx = g.indices;
+      if (!idx) { idx = new Uint32Array(g.vertexCount); for (let i = 0; i < idx.length; i++) idx[i] = i; }
+      await post(m.key + '_v.bin', g.vertices);
+      await post(m.key + '_i.bin', idx);
+      if (g.normals) await post(m.key + '_n.bin', g.normals);
+      if (g.uvs) await post(m.key + '_uv.bin', g.uvs);
+      ping('done ' + m.key);
+    }
+    ping('all-done');
+  } catch (e) { ping('err ' + e); }
+})();
+</script>
+</body></html>

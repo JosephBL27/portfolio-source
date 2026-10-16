@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" data-theme="night">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PNEUMA lab: the set</title>
+  <style>
+    :root { --paper:#EEECE6; --ink:#121212; --graphite:#5A5853; --rule:#CBC7BD; --brain:#E0442B; color-scheme: light; }
+    :root[data-theme='night'] { --paper:#0E0F10; --ink:#ECEAE3; --graphite:#9A978F; --rule:#2C2E31; --brain:#FF6A4D; color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--paper); color: var(--ink); transition: background-color .5s, color .5s; }
+    body { font-family: 'Archivo Variable', system-ui, sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; overflow-x: hidden; }
+    .mono { font: 500 11px/1 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .bar { position: fixed; inset: 0 0 auto 0; z-index: 10; display: flex; justify-content: space-between; align-items: center; height: 56px; padding: 0 40px; }
+    .bar .t { display: flex; gap: 8px; }
+    button.pill { font: 500 11px/1 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); background: none;
+      border: 1px solid color-mix(in srgb, var(--ink) 40%, transparent); border-radius: 999px; padding: 8px 13px; cursor: pointer; }
+    button.pill:hover { border-color: var(--ink); }
+    button.pill[aria-pressed='true'] { background: var(--ink); color: var(--paper); }
+    main { position: relative; min-height: 100vh; display: grid; place-items: center; overflow: hidden; }
+    .aura { position: absolute; left: 50%; top: 50%; width: min(1180px, 130vw); aspect-ratio: 1; translate: -50% -50%; pointer-events: none;
+      animation: turn 140s linear infinite; opacity: .42; }
+    @keyframes turn { to { rotate: 360deg; } }
+    @media (prefers-reduced-motion: reduce) { .aura { animation: none; } }
+    .stage { position: relative; width: min(900px, 100vw); height: min(700px, 78vw); }
+    .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    .count { position: absolute; left: 40px; bottom: 40px; display: flex; align-items: end; gap: 22px; }
+    .count .n { font: 600 64px/0.8 'IBM Plex Mono', monospace; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+    .count .n small { font-size: 22px; color: var(--graphite); letter-spacing: 0; }
+    .count .meta { display: grid; gap: 8px; max-width: 320px; padding-bottom: 2px; }
+    .count .meta b { font-family: 'Archivo Variable'; font-variation-settings: 'wdth' 112; font-weight: 640; font-size: 22px; letter-spacing: -.02em; text-transform: none; }
+    .count .meta span { color: var(--graphite); }
+    .nav { position: absolute; right: 40px; bottom: 40px; display: flex; gap: 8px; }
+    .nav button { width: 44px; height: 44px; padding: 0; display: grid; place-items: center; font-size: 15px; }
+    .hint { position: fixed; left: 50%; top: 22px; translate: -50% 0; color: var(--graphite); z-index: 11; }
+    .open { position: fixed; right: 40px; top: 72px; color: var(--brain); opacity: 0; transition: opacity .3s; }
+    .open.on { opacity: 1; }
+    @media (max-width: 760px) { .bar { padding: 0 18px; } .count { left: 18px; bottom: 22px; } .count .n { font-size: 44px; } .count .meta { display: none; } .nav { right: 18px; bottom: 22px; } .hint { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="bar"><span class="mono">PNEUMA lab · the set</span>
+    <span class="t"><button class="pill" id="pause" aria-pressed="false">Pause</button><button class="pill" id="night" aria-pressed="true">Night</button></span></div>
+  <main>
+    <canvas class="aura" id="aura" aria-hidden="true"></canvas>
+    <div class="stage"><canvas id="tv" aria-label="A spherical television showing the selected project's reel"></canvas></div>
+    <div class="count"><div class="n" id="n">01<small> / 06</small></div><div class="meta mono"><b id="title"></b><span id="medium"></span></div></div>
+    <div class="hint mono">Drag to turn · turn the dial · click the screen</div>
+    <div class="nav"><button class="pill" id="prev" aria-label="Previous channel">&larr;</button><button class="pill" id="next" aria-label="Next channel">&rarr;</button></div>
+    <div class="open mono" id="open">Open &#8599;</div>
+  </main>
+  <script type="module" src="./tv.ts"></script>
+</body>
+</html>

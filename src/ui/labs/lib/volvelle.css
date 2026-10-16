@@ -1,0 +1,75 @@
+/* The shared ring compass (lib/volvelle.ts). Themes set the --vv-* variables on their own class (.oy, .lz). */
+.vv {
+  --vv-acc: #d9a441; --vv-acc2: #f1cf86; --vv-ink: #efe6cf; --vv-dim: rgba(239, 230, 207, 0.74); --vv-faint: rgba(239, 230, 207, 0.5); --vv-line: rgba(217, 164, 65, 0.3);
+  --vv-hot: #e4825a; --vv-base: rgba(44, 32, 16, 0.92); --vv-ringbase: rgba(70, 52, 26, 0.95); --vv-markbg: rgba(241, 233, 212, 0.92); --vv-markon: #f6d98f; --vv-numfill: #3b2a10;
+  --vv-p0: #3a2c15; --vv-p1: #1b140a; --vv-p2: #0d0905; --vv-bg: linear-gradient(180deg, #15100a 0%, #0c0905 58%, #070503 100%); --vv-glow: rgba(217, 164, 65, 0.22); --vv-title: #fff7e2;
+  --vv-serif: 'Bodoni Moda Variable', 'Bodoni Moda', 'Didot', Georgia, serif; --vv-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace; --vv-sans: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
+  --u: 1;
+  position: relative; isolation: isolate; container-type: inline-size; container-name: vv; box-sizing: border-box; width: 100%; padding: clamp(14px, 2.4cqw, 28px);
+  color: var(--vv-ink); font-family: var(--vv-sans); font-size: 14px; line-height: 1.45; -webkit-font-smoothing: antialiased; overflow: hidden;
+  background: radial-gradient(110% 70% at 10% -12%, var(--vv-glow), transparent 62%), radial-gradient(80% 60% at 100% 112%, rgba(228, 130, 90, 0.1), transparent 60%), var(--vv-bg);
+  border: 1px solid var(--vv-line); border-radius: 22px; box-shadow: 0 40px 90px -40px #000, inset 0 1px 0 rgba(255, 235, 190, 0.1);
+}
+.vv *, .vv *::before, .vv *::after { box-sizing: border-box; }
+.vv button { font: inherit; color: inherit; }
+.vv :focus-visible { outline: 2px solid var(--vv-acc2); outline-offset: 3px; border-radius: 6px; }
+.vv-ring:focus-visible { outline: none; }
+.vv-ring:focus-visible .vv-line { stroke: var(--vv-acc2); stroke-width: 2.4; }
+
+.vv-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 18px; align-items: end; margin-bottom: 14px; }
+.vv-kicker { font: 500 11.5px/1 var(--vv-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--vv-acc); }
+.vv-title { margin: 8px 0 0; font: 600 clamp(22px, 3.4cqw, 34px)/1.05 var(--vv-serif); letter-spacing: -0.01em; color: var(--vv-title); }
+.vv-notep { margin: 0; max-width: 40ch; padding: 8px 12px; font-size: 13px; color: var(--vv-dim); border: 1px solid var(--vv-line); background: linear-gradient(90deg, var(--vv-glow), transparent); border-radius: 8px; }
+@container vv (max-width: 700px) { .vv-head { grid-template-columns: 1fr; } .vv-notep { max-width: none; } }
+
+.vv-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 18px; align-items: center; }
+@container vv (max-width: 660px) { .vv-grid { grid-template-columns: minmax(0, 1fr); } }
+.vv-stage { position: relative; width: min(100%, 560px); aspect-ratio: 1; margin-inline: auto; perspective: 1100px; perspective-origin: 50% 45%; }
+.vv-disc { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform; }
+.vv-layer { position: absolute; inset: 0; pointer-events: none; transform: translateZ(var(--z)); }
+.vv-layer svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.vv-ring { transform-origin: 50% 50%; cursor: grab; touch-action: pan-y; }
+.vv-ring * { pointer-events: none; }
+.vv-ring .vv-hit { pointer-events: all; }
+.vv-ring:active { cursor: grabbing; }
+.vv-spec { position: absolute; inset: 1%; border-radius: 50%; pointer-events: none; opacity: 0; transition: opacity 0.4s; transform: translateZ(60px); mix-blend-mode: soft-light;
+  background: radial-gradient(circle at var(--sx, 50%) var(--sy, 30%), rgba(255, 244, 214, 0.55), rgba(255, 244, 214, 0.1) 32%, transparent 58%); }
+
+.vv-s0 { stop-color: var(--vv-p0); } .vv-s1 { stop-color: var(--vv-p1); } .vv-s2 { stop-color: var(--vv-p2); }
+.vv-line { fill: none; stroke: color-mix(in srgb, var(--vv-acc) 55%, transparent); stroke-width: 1.2; }
+.vv-bez { stroke: color-mix(in srgb, var(--vv-acc) 60%, transparent); stroke-width: 1.5; }
+.vv-tk { stroke: color-mix(in srgb, var(--vv-acc) 40%, transparent); stroke-width: 0.8; } .vv-tk--l { stroke: color-mix(in srgb, var(--vv-acc2) 75%, transparent); stroke-width: 1.3; }
+.vv-base { fill: var(--vv-base); stroke: none; }
+.vv-ring .vv-base { fill: var(--vv-ringbase); }
+.vv-motto { font: 600 calc(11.5px * var(--u)) var(--vv-sans); letter-spacing: 0.02em; fill: color-mix(in srgb, var(--vv-acc2) 82%, transparent); }
+.vv-mark-bg { fill: var(--vv-markbg); stroke: color-mix(in srgb, var(--vv-acc) 40%, #3b2a10); stroke-width: 0.8; transition: fill 0.25s; }
+.vv-mark.is-on .vv-mark-bg { fill: var(--vv-markon); }
+.vv-num { font: 700 calc(14px * var(--u)) var(--vv-serif); fill: var(--vv-numfill); }
+.vv-cell { fill: color-mix(in srgb, var(--vv-hot) 26%, transparent); stroke: color-mix(in srgb, var(--vv-hot) 50%, transparent); stroke-width: 0.6; transition: fill 0.25s; }
+.vv-cell.is-on { fill: color-mix(in srgb, var(--vv-hot) 85%, #fff 5%); }
+.vv-rays { transform-origin: 300px 300px; animation: vv-spin 120s linear infinite; }
+.vv-rays path { fill: rgba(240, 184, 74, 0.8); }
+@keyframes vv-spin { to { transform: rotate(360deg); } }
+.vv-face { fill: none; stroke: #6b3d0b; stroke-width: 2.2; stroke-linecap: round; }
+.vv-seal { fill: var(--vv-hot); } .vv-seal-in { fill: none; stroke: rgba(255, 240, 220, 0.7); stroke-width: 1.6; }
+.vv-sealn { font: 700 calc(22px * var(--u)) var(--vv-serif); fill: #fff3e6; }
+.vv-win { fill: none; stroke: #ffe08a; stroke-width: 2.2; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(255, 210, 110, 0.7)); }
+.vv-ptr { fill: #ffe08a; stroke: #7a4d0f; stroke-width: 1; }
+
+.vv-folio { position: relative; perspective: 900px; min-height: 280px; }
+.vv-page { transform-origin: 0% 50%; padding: 18px 20px 20px; border-radius: 6px 16px 16px 6px; border: 1px solid var(--vv-line); backface-visibility: hidden;
+  background: linear-gradient(100deg, rgba(246, 236, 210, 0.1), rgba(246, 236, 210, 0.035) 40%, rgba(246, 236, 210, 0.06)); box-shadow: 0 24px 50px -30px #000, inset 0 1px 0 rgba(255, 240, 200, 0.12); }
+.vv-eyebrow { margin: 0; font: 500 11.5px/1 var(--vv-mono); letter-spacing: 0.24em; text-transform: uppercase; color: var(--vv-acc); }
+.vv-big { display: block; margin: 4px 0 0; font: 600 clamp(52px, 10cqw, 80px)/1 var(--vv-serif); color: var(--vv-title); letter-spacing: -0.02em; text-shadow: 0 0 40px var(--vv-glow); }
+.vv-name { margin: 4px 0 0; font: 500 clamp(18px, 2.4cqw, 22px)/1.2 var(--vv-serif); font-style: italic; color: var(--vv-acc2); }
+.vv-text { margin: 10px 0 0; max-width: 46ch; font-size: 14px; color: var(--vv-dim); }
+.vv-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; padding: 0; list-style: none; }
+.vv-chips li { display: inline-flex; align-items: center; min-height: 30px; padding: 4px 11px; border-radius: 999px; font: 500 12px/1 var(--vv-mono); color: var(--vv-ink); background: color-mix(in srgb, var(--vv-hot) 14%, transparent); border: 1px solid color-mix(in srgb, var(--vv-hot) 40%, transparent); }
+
+.vv-jump { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin: 14px 0 0; }
+.vv-jump button { min-width: 38px; min-height: 36px; padding: 0 8px; border-radius: 8px; cursor: pointer; border: 1px solid var(--vv-line); background: rgba(255, 240, 200, 0.04); font: 600 12px/1 var(--vv-serif); color: var(--vv-dim); transition: background 0.2s, color 0.2s, border-color 0.2s; touch-action: manipulation; }
+.vv-jump button:hover { color: #fff; border-color: var(--vv-acc); }
+.vv-jump button[aria-current='true'] { color: #2a1a05; background: var(--vv-acc2); border-color: var(--vv-acc2); }
+.vv-foot { margin: 12px 2px 0; max-width: 88ch; font-size: 12.5px; color: var(--vv-faint); }
+@media (pointer: coarse) { .vv-jump button { min-width: 44px; min-height: 44px; } .vv-jump { gap: 6px; } }
+@media (prefers-reduced-motion: reduce) { .vv-rays { animation: none; } .vv-disc { transform: none !important; } .vv * { transition: none !important; } }

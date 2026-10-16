@@ -1,0 +1,13 @@
+{
+  "id": "milky-way",
+  "asset": "milkyway-2048.jpg",
+  "title": "Deep Star Maps 2020 (Milky Way, 4k)",
+  "source": "https://svs.gsfc.nasa.gov/4851/",
+  "file": "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004851/milkyway_2020_4k.exr",
+  "licenceUrl": "https://svs.gsfc.nasa.gov/help/",
+  "credit": "NASA/Goddard Space Flight Center Scientific Visualization Studio. Gaia DR2: ESA/Gaia/DPAC. Animator Ernie Wright (USRA). Gaia terms: \"The Gaia data are open and free to use, provided credit is given to ESA/Gaia/DPAC.\"",
+  "processing": "Deep Star Maps 2020, milkyway_2020_4k.exr (celestial coordinates), scaled to 2048x1024 and tone-mapped to sRGB JPEG.",
+  "licenceLine": "All of our content is in the public domain (unless otherwise noted), meaning that it is free to download, use, and redistribute for whatever purposes you see fit.",
+  "retrieved": "2026-10-09",
+  "bytes": 379086
+}

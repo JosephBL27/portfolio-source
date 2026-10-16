@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" data-theme="day">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PNEUMA lab: halftone cut-outs</title>
+  <style>
+    :root { --paper:#EEECE6; --ink:#121212; --graphite:#5A5853; --rule:#CBC7BD; --glass-tint:#DDE3E6; color-scheme: light; }
+    :root[data-theme='night'] { --paper:#0E0F10; --ink:#ECEAE3; --graphite:#9A978F; --rule:#2C2E31; --glass-tint:#20262A; color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--paper); color: var(--ink); }
+    body { font-family: 'Archivo Variable', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    .bar { position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center;
+      height: 48px; padding: 0 48px; background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule); font: 500 11px/1 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .bar .t { display: flex; gap: 8px; }
+    .bar button { font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--ink); background: none;
+      border: 1px solid var(--ink); border-radius: 999px; padding: 7px 12px; cursor: pointer; }
+    .bar button[aria-pressed='true'] { background: var(--ink); color: var(--paper); }
+    /* hero corner rehearsal */
+    .hero { position: relative; height: 760px; overflow: hidden; border-bottom: 1px solid var(--rule); }
+    .hero canvas { position: absolute; display: block; }
+    .hero .c-endcap { width: 46vmin; height: 46vmin; left: -9vmin; bottom: -10vmin; }
+    .hero .c-elbow { width: 40vmin; height: 40vmin; right: -6vmin; top: 3vmin; }
+    .hero h1 { position: absolute; left: 50%; top: 38%; transform: translate(-50%, -50%); margin: 0; white-space: nowrap;
+      font-variation-settings: 'wdth' 100; font-weight: 700; font-size: clamp(56px, 9vw, 152px); letter-spacing: -.04em; line-height: .9; }
+    .hero h1 .slot { display: inline-block; width: 1.9em; height: .72em; vertical-align: baseline; margin: 0 .12em;
+      border: 2px solid var(--ink); border-radius: 999px; position: relative; overflow: hidden;
+      background: linear-gradient(to right, var(--ink) 0 18%, color-mix(in srgb, var(--glass-tint) 50%, transparent) 18% 82%, var(--ink) 82%); }
+    .hero .kick { position: absolute; left: 48px; top: 28px; font: 500 11px/1 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--graphite); }
+    /* specimen sheet */
+    .sheet { padding: 72px 48px; border-bottom: 1px solid var(--rule); }
+    .sheet h2 { margin: 0 0 32px; font-variation-settings: 'wdth' 112; font-weight: 560; font-size: clamp(28px, 3vw, 44px); letter-spacing: -.025em; }
+    .specimens { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
+    .spec { position: relative; padding: 16px 20px 24px; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+    .spec:nth-child(3n) { border-right: 0; }
+    .spec span { font: 500 11px/1 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--graphite); display: flex; justify-content: space-between; }
+    .spec .art { position: relative; aspect-ratio: 1; }
+    .spec canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    @media (max-width: 760px) { .specimens { grid-template-columns: repeat(2, minmax(0,1fr)); } .spec:nth-child(3n) { border-right: 1px solid var(--rule); } .spec:nth-child(2n) { border-right: 0; } .bar, .sheet { padding-inline: 20px; } }
+  </style>
+</head>
+<body>
+  <div class="bar"><span>PNEUMA lab · halftone cut-outs</span>
+    <span class="t"><button id="pause" aria-pressed="false">Pause the system</button><button id="night" aria-pressed="false">Night shift</button></span></div>
+  <section class="hero" aria-label="Hero corner rehearsal">
+    <span class="kick">Hero corners · end-cap 46vmin / 60 s · elbow 40vmin / −80 s</span>
+    <canvas class="c-endcap"></canvas><canvas class="c-elbow"></canvas>
+    <h1 id="h1"></h1>
+  </section>
+  <section class="sheet">
+    <h2>Specimens</h2>
+    <div class="specimens" id="specimens"></div>
+  </section>
+  <section id="offboard"></section>
+  <script type="module" src="./halftone.ts"></script>
+</body>
+</html>

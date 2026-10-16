@@ -1,0 +1,4 @@
+{
+  "prompt": "Recruiting OS Jobs screen program table: firm and program, lane, status, eligibility, close date, days left. Origin: recruiting-os-data folder, reports/modern/final/jobs-1440x900-full.png (agent capture of Joseph's local instance, 2026-09-27). Pre-existing full-page screenshot, cropped to the first 17 table rows (sidebar, headline and filter counts removed), converted to WebP 2026-10-04. Data: real public internship program names and dates, not synthetic; no third-party personal data. App UI by Joseph Blumberg (agent-built under his direction); firm names belong to their owners.",
+  "createdAt": "2026-10-04T10:18:27.952Z"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "natural-earth-land",
+  "asset": "land-110m-1024x512.png",
+  "title": "Natural Earth 110m land",
+  "source": "https://www.naturalearthdata.com/about/terms-of-use/",
+  "file": "https://www.naturalearthdata.com/downloads/110m-physical-vectors/110m-land/",
+  "licenceUrl": "https://www.naturalearthdata.com/about/terms-of-use/",
+  "credit": "Natural Earth (Tom Patterson, Nathaniel Vaughn Kelso and contributors)",
+  "processing": "Natural Earth 110m land rasterised to a 1024x512 equirectangular mask (white = land).",
+  "licenceLine": "All versions of Natural Earth raster + vector map data found on this website are in the public domain. You may use the maps in any manner, including modifying the content and design, electronic dissemination, and offset printing.",
+  "retrieved": "2026-10-09",
+  "bytes": 12180
+}

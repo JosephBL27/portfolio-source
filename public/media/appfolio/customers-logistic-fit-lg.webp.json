@@ -1,0 +1,4 @@
+{
+  "prompt": "Line chart of AppFolio property-management customer counts 2015-2024 with a logistic fit and 2025-2030 forecast points, from Joseph Blumberg's AppFolio (APPF) equity pitch. Origin: STATS folder: MII_year_to_Customers_Logistic.png, made by Joseph in R from AppFolio 10-K filings. Pre-existing chart converted to WebP 2026-10-04. Actuals are public company filings; the fit and forecasts are Joseph's own model output, not company guidance. AppFolio is a third-party company; no endorsement implied.",
+  "createdAt": "2026-10-04T10:20:24.462Z"
+}

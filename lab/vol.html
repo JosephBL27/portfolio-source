@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" data-theme="night">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PNEUMA lab: QVR volatility lab</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #050409; color: #EDE6FA; }
+    body { min-height: 100vh; padding: clamp(8px, 2vw, 28px); font: 13px/1.4 'IBM Plex Mono', monospace; }
+    #host { max-width: 1280px; margin: 0 auto; }
+    #log { position: fixed; right: 8px; bottom: 8px; max-width: 46vw; max-height: 28vh; overflow: hidden; padding: 6px 8px; font: 500 10px/1.35 'IBM Plex Mono', monospace; color: #b9a8e8; background: #000a; border: 1px solid #ffffff22; border-radius: 6px; pointer-events: none; z-index: 9; white-space: pre-wrap; }
+    body.bare #log { display: none; }
+  </style>
+</head>
+<body>
+  <div id="host"></div>
+  <div id="log"></div>
+  <script type="module" src="./vol.ts"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+/* The Movement (watchdog stop). Colours per DESIGN.md: ivory ink chrome on near-black, Systems vermilion only for active states; brass, blued
+   steel and ruby are the object's own materials. Every animated property here is transform or opacity. */
+.mv { position: fixed; left: 0; top: 0; width: var(--S, 600px); height: var(--S, 600px); z-index: 35; opacity: 0; visibility: hidden; pointer-events: none; will-change: transform, opacity; }
+.mv-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+/* behind the stage: with the loupe on, empty parts of the movement still steer it (wheels above keep their own hover and drag) */
+.mv-catch { position: absolute; inset: 0; border-radius: 50%; pointer-events: none; }
+.mv.is-held.is-loupe .mv-catch { pointer-events: auto; cursor: zoom-in; }
+.mv-scrim { position: absolute; inset: -24%; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(5, 5, 6, 0.94) 52%, rgba(5, 5, 6, 0.7) 66%, rgba(5, 5, 6, 0.28) 82%, rgba(5, 5, 6, 0) 100%); }
+.mv-stage { position: absolute; inset: 0; perspective: calc(var(--S, 600px) * 3.4); perspective-origin: 50% 40%; }
+.mv-tilt, .mv-stack { position: absolute; inset: 0; transform-style: preserve-3d; }
+.mv-tilt { will-change: transform; }
+/* each layer is its own compositor layer: the filtered static art rasterises once and only moves with the tilt and the explode */
+.mv-layer { position: absolute; inset: 0; pointer-events: none; will-change: transform; }
+.mv-anchor { position: absolute; width: 1px; height: 1px; pointer-events: none; }
+.mv-cage-rot { position: absolute; inset: 0; transform-origin: 50% 50%; will-change: transform; }
+.mv-cage-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; pointer-events: none; }
+.mv-eng { font-family: "Archivo Variable", Archivo, system-ui, sans-serif; font-weight: 640; font-variation-settings: "wdth" 112; }
+.mv-eng-s { font: 600 7px/1 "IBM Plex Mono", ui-monospace, monospace; fill: #d9c38a; }
+.mv-full { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; pointer-events: none; }
+.mv-part { position: absolute; pointer-events: none; }
+.mv-rot { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; pointer-events: none; transform-origin: 50% 50%; will-change: transform; }
+.mv-rot * { pointer-events: none; }
+.mv.is-held .mv-hit { pointer-events: visiblePainted; cursor: grab; }
+/* a finger on a wheel turns it and does not scroll the page; with the loupe on the whole movement follows the finger. touch-action is read from the touched
+   element's ancestors, so it is set on the HTML boxes as well as on the SVG hit shapes */
+.mv.is-held .mv-part.mv-drag, .mv.is-held .mv-part.mv-drag .mv-hit, .mv.is-held .mv-crown-proxy { touch-action: none; }
+.mv.is-held.is-loupe .mv-layer, .mv.is-held.is-loupe .mv-part, .mv.is-held.is-loupe .mv-hit, .mv.is-held.is-loupe .mv-catch { touch-action: none; }
+.mv.is-held.is-grabbing, .mv.is-held.is-grabbing .mv-hit { cursor: grabbing; }
+.mv-shadow { position: absolute; inset: 2%; border-radius: 50%; pointer-events: none; transform: translate(calc(var(--S, 600px) * 0.007), calc(var(--S, 600px) * 0.013));
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0) 58%, rgba(0, 0, 0, 0.5) 84%, rgba(0, 0, 0, 0.18) 94%, rgba(0, 0, 0, 0) 100%); }
+.mv-sheen { position: absolute; inset: 4%; border-radius: 50%; pointer-events: none; mix-blend-mode: soft-light;
+  background: conic-gradient(from 205deg, rgba(255, 246, 222, 0) 0deg, rgba(255, 246, 222, 0.75) 32deg, rgba(255, 246, 222, 0) 74deg, rgba(255, 246, 222, 0) 180deg, rgba(255, 246, 222, 0.6) 212deg, rgba(255, 246, 222, 0) 254deg);
+  -webkit-mask: radial-gradient(closest-side, transparent 74%, #000 80%, #000 97%, transparent 100%); mask: radial-gradient(closest-side, transparent 74%, #000 80%, #000 97%, transparent 100%); }
+.mv-blur { position: absolute; inset: 6%; border-radius: 50%; pointer-events: none; opacity: 0;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0) 52%, rgba(214, 178, 104, 0.42) 74%, rgba(214, 178, 104, 0.2) 92%, rgba(0, 0, 0, 0) 100%); }
+.mv-hi { position: absolute; inset: 3%; border-radius: 50%; pointer-events: none; opacity: 0; border: 1.5px solid #FF4A2B; box-shadow: 0 0 0 1px rgba(5, 5, 6, 0.55), inset 0 0 0 1px rgba(5, 5, 6, 0.4); transition: opacity 0.16s ease-out; }
+.mv-part.is-hi .mv-hi { opacity: 1; }
+
+/* the crown at 12 o'clock: a knurled steel cylinder seen side-on; the knurl slides as it turns; a transparent proxy takes the drag */
+.mv-crown { position: absolute; left: 50%; top: calc(var(--S, 600px) * -0.085); width: calc(var(--S, 600px) * 0.12); height: calc(var(--S, 600px) * 0.06); transform: translateX(-50%); }
+.mv-crown-body { position: absolute; inset: 0; border-radius: 22% / 45%; overflow: hidden;
+  background: linear-gradient(180deg, #f4f6f9 0%, #8d949e 38%, #e4e8ec 56%, #3f454d 100%); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.55), 0 6px 14px rgba(0, 0, 0, 0.5); }
+.mv-crown-knurl { position: absolute; top: 0; bottom: 0; left: -12px; right: -12px; will-change: transform;
+  background: repeating-linear-gradient(90deg, rgba(10, 11, 13, 0.55) 0 2px, rgba(255, 255, 255, 0.32) 2px 4px, rgba(0, 0, 0, 0) 4px 12px); }
+.mv-crown-proxy { position: absolute; inset: -60% -40%; border-radius: 999px; outline: none; touch-action: none; }
+.mv.is-held .mv-crown-proxy { pointer-events: auto; cursor: grab; }
+.mv.is-winding .mv-crown-proxy { cursor: grabbing; }
+.mv-crown-key { position: absolute; left: 0; top: 0; width: 1px; height: 1px; margin: -1px; opacity: 0; overflow: hidden; clip-path: inset(50%); }
+.mv-crown:focus-within .mv-crown-body { box-shadow: 0 0 0 1.5px var(--ink), 0 6px 14px rgba(0, 0, 0, 0.5); }
+.mv-crown::after { content: ''; position: absolute; inset: -40%; border-radius: 50%; border: 1px solid rgba(255, 74, 43, 0.75); opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .mv.is-held:not(.was-wound) .mv-crown::after { animation: mv-pulse 2.2s ease-out 0.6s 3; }
+  .mv.is-held.is-low .mv-crown::after { animation: mv-pulse 2.2s ease-out 0s infinite; }
+}
+@media (prefers-reduced-motion: reduce) { .mv.is-held.is-low .mv-crown::after { opacity: 0.8; } }
+/* the loupe is the pointer's lens: the site's decorative cursor ring would sit on its centre (the native cursor stays) */
+html.mv-loupe-on #cursor { visibility: hidden; }
+@keyframes mv-pulse { 0% { opacity: 0.9; transform: scale(0.7); } 100% { opacity: 0; transform: scale(1.35); } }
+
+/* the controls and the note live in .mv-dock: a fixed layer with the movement's own box, above the copy's scrim (overlays z 40), below the blueprint tags and the HUD.
+   movement.ts keeps it clear of the scope's status strip and of the copy (see fit()) */
+.mv-dock { position: fixed; left: 0; top: 0; width: var(--S, 600px); height: var(--S, 600px); z-index: 41; opacity: 0; visibility: hidden; pointer-events: none; --ctlh: 33px; }
+.mv-ctl { position: absolute; left: 50%; top: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: max-content; max-width: calc(100vw - 24px); transform: translate(-50%, 10px); }
+.mv-btn { pointer-events: none; font: 500 11px/1 "IBM Plex Mono", ui-monospace, monospace; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink);
+  padding: 10px 15px 9px; border-radius: 999px; border: 1px solid var(--hair); background: rgba(5, 5, 6, 0.78); cursor: pointer;
+  transition: border-color 0.15s ease-out, color 0.15s ease-out, transform 0.1s ease-out; touch-action: manipulation; }
+.mv-dock.is-held .mv-btn { pointer-events: auto; }
+@media (hover: hover) and (pointer: fine) { .mv-btn:hover { border-color: #FF4A2B; } }
+.mv-btn:active { transform: scale(0.97); }
+.mv-btn[aria-pressed='true'] { color: #FF4A2B; border-color: #FF4A2B; }
+.mv-btn:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 2px; }
+/* the spring has run down: the Wind button takes the accent, and the crown's ring pulses again */
+.mv-dock.is-low .mv-wind { color: #FF4A2B; border-color: #FF4A2B; }
+@media (pointer: coarse) { .mv-btn { min-height: 44px; padding: 15px 18px 14px; } }
+.mv-note { position: absolute; left: 50%; top: calc(100% + 10px + var(--ctlh) + 8px); margin: 0; white-space: nowrap; transform: translateX(-50%);
+  font: 500 11px/1.35 "IBM Plex Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); pointer-events: none; }
+
+.mv-tip { position: fixed; left: 0; top: 0; z-index: 70; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity 0.14s ease-out, visibility 0s linear 0.14s;
+  padding: 8px 11px 8px 13px; border-radius: 4px; background: rgba(5, 5, 6, 0.8); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border: 1px solid var(--hair-2); color: var(--ink); font: 500 11px/1.45 "IBM Plex Mono", ui-monospace, monospace; letter-spacing: 0.1em;
+  text-transform: uppercase; white-space: nowrap; box-shadow: inset 2px 0 0 #FF4A2B, 0 8px 24px rgba(0, 0, 0, 0.4); }
+.mv-tip.on { opacity: 1; visibility: visible; transition: opacity 0.14s ease-out; }
+.mv-tip b { display: block; font-weight: 600; letter-spacing: 0.12em; }
+.mv-tip span { display: block; color: var(--dim); }
+.mv-tip i { font-style: normal; color: #FF4A2B; }
+@media (prefers-reduced-motion: reduce) { .mv-tip, .mv-tip.on, .mv-hi, .mv-btn { transition: none; } }
+@media (max-width: 760px) {
+  /* phones: movement.ts fits the case, crown and this row into the band between the title and the copy; the note hangs in the case's top-left corner */
+  .mv-ctl { gap: 6px; }
+  .mv-btn { letter-spacing: 0.1em; padding: 12px 10px 11px; background: rgba(5, 5, 6, 0.92); border-color: color-mix(in srgb, var(--ink) 46%, transparent); }
+  .mv-dock.is-stacked .mv-note { transform: none; padding: 3px 8px; border-radius: 4px; background: rgba(5, 5, 6, 0.9); }
+  .mv-note-more { display: none; }
+}
+
+/* the crown pulled to the setting position */
+.mv-crown-body { transition: transform 0.18s cubic-bezier(.2, .7, .2, 1); }
+.mv.is-pulled .mv-crown::before { content: ''; position: absolute; left: 50%; top: 100%; width: 9%; height: calc(var(--S, 600px) * 0.03); transform: translateX(-50%);
+  background: linear-gradient(90deg, #3e444c, #f4f6f9 40%, #8d949e 70%, #3e444c); pointer-events: none; }
+
+/* the loupe: a 3x SVG clone in a clipPath circle, with a steel rim and a little glass */
+.mv-loupe { position: absolute; left: 0; top: 0; width: 200px; height: 200px; border-radius: 50%; pointer-events: none; opacity: 0; visibility: hidden; z-index: 3;
+  will-change: transform, opacity; transition: opacity 0.16s ease-out, visibility 0s linear 0.16s;
+  box-shadow: 0 0 0 1.5px #0b0c0e, 0 0 0 5px #8d949e, 0 0 0 6.5px #f4f6f9, 0 0 0 8px #3e444c, 0 18px 40px rgba(0, 0, 0, 0.6); }
+.mv.is-loupe .mv-loupe.on { opacity: 1; visibility: visible; transition: opacity 0.16s ease-out; }
+.mv-loupe::after { content: ''; position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 32%), radial-gradient(closest-side, rgba(0, 0, 0, 0) 78%, rgba(0, 0, 0, 0.45) 100%); }
+.mv-loupe-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.mv.is-loupe.is-held .mv-hit { cursor: zoom-in; }
+
+/* explode labels: hairline leaders drawn on, Plex Mono labels */
+.mv-labels { position: absolute; inset: 0; pointer-events: none; opacity: 0; visibility: hidden; z-index: 2; }
+.mv-labels.on { opacity: 1; visibility: visible; }
+.mv-leaders { position: absolute; left: 0; top: 0; overflow: visible; }
+.mv-leaders path { fill: none; stroke: color-mix(in srgb, var(--ink) 62%, transparent); stroke-width: 1; }
+.mv-leaders circle { fill: var(--ink); }
+.mv-label { position: absolute; top: 0; white-space: nowrap; opacity: 0; font: 500 11px/16px "IBM Plex Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink);
+  text-shadow: 0 0 14px rgba(5, 5, 6, 0.95), 0 1px 3px rgba(5, 5, 6, 0.8); }
+.mv-label.is-in { padding: 0 6px; border-radius: 4px; background: rgba(5, 5, 6, 0.78); }

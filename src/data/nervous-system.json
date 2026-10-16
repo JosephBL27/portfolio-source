@@ -1,0 +1,893 @@
+{
+  "nodes": [
+    {
+      "id": "gmail",
+      "label": "Gmail",
+      "kind": "source",
+      "project": null,
+      "schedule": "every 2 min",
+      "times": [],
+      "detail": "Main inbox; read by Secretary, the study loop and the recruiting engine"
+    },
+    {
+      "id": "outlook",
+      "label": "UChicago Outlook",
+      "kind": "source",
+      "project": null,
+      "schedule": "every 5 min",
+      "times": [],
+      "detail": "School inbox, read through the signed-in browser session"
+    },
+    {
+      "id": "chats",
+      "label": "iMessage & WhatsApp",
+      "kind": "source",
+      "project": null,
+      "schedule": "4x daily",
+      "times": [
+        "07:00",
+        "12:00",
+        "15:00",
+        "20:00"
+      ],
+      "detail": "Texts decoded straight from the local Messages and WhatsApp databases"
+    },
+    {
+      "id": "gcal",
+      "label": "Google Calendar",
+      "kind": "source",
+      "project": null,
+      "schedule": "4x daily",
+      "times": [
+        "07:00",
+        "12:00",
+        "15:00",
+        "20:00"
+      ],
+      "detail": "Classes and existing events, checked before any new hold is made"
+    },
+    {
+      "id": "canvas",
+      "label": "Canvas courses",
+      "kind": "source",
+      "project": null,
+      "schedule": "daily 16:00",
+      "times": [
+        "16:00"
+      ],
+      "detail": "Course pages, assignments and modules"
+    },
+    {
+      "id": "zetamac",
+      "label": "Zetamac drills",
+      "kind": "source",
+      "project": "zeta",
+      "schedule": "every drill run",
+      "times": [],
+      "detail": "ZETA extension times every keystroke of each mental-math drill"
+    },
+    {
+      "id": "iphone",
+      "label": "SELFORGE iPhone app",
+      "kind": "source",
+      "project": "selforge",
+      "schedule": "hourly",
+      "times": [],
+      "detail": "Pushup alarm that counts reps with the camera; backed up to the Mac hourly"
+    },
+    {
+      "id": "programs",
+      "label": "Recruiting programs",
+      "kind": "source",
+      "project": "recruiting-os",
+      "schedule": "every 15 min, 07:00-23:00",
+      "times": [],
+      "detail": "447 recruiting programs, polled from career-site and ATS feeds"
+    },
+    {
+      "id": "files",
+      "label": "Loose Mac files",
+      "kind": "source",
+      "project": "finder-organizer",
+      "schedule": "Sundays 11:00",
+      "times": [
+        "11:00"
+      ],
+      "detail": "Loose files sitting in Downloads and Desktop"
+    },
+    {
+      "id": "secretary",
+      "label": "Secretary intake",
+      "kind": "agent",
+      "project": "secretary",
+      "schedule": "4x daily",
+      "times": [
+        "07:00",
+        "12:00",
+        "15:00",
+        "20:00"
+      ],
+      "detail": "Reads four inboxes and lists everything that needs action"
+    },
+    {
+      "id": "canvas-intake",
+      "label": "Canvas intake",
+      "kind": "agent",
+      "project": null,
+      "schedule": "daily 16:00",
+      "times": [
+        "16:00"
+      ],
+      "detail": "Turns new assignments into course notes and calendar work blocks"
+    },
+    {
+      "id": "snapshot",
+      "label": "Vault snapshot",
+      "kind": "agent",
+      "project": "second-brain",
+      "schedule": "every 5 min",
+      "times": [],
+      "detail": "Commits every vault change to git within five minutes"
+    },
+    {
+      "id": "audit",
+      "label": "Brain audit",
+      "kind": "agent",
+      "project": "second-brain",
+      "schedule": "daily 05:00",
+      "times": [
+        "05:00"
+      ],
+      "detail": "Checks every note's links, orphans and frontmatter; posts Brain Health"
+    },
+    {
+      "id": "steward",
+      "label": "Repair agent",
+      "kind": "agent",
+      "project": "second-brain",
+      "schedule": "Sundays 09:00",
+      "times": [
+        "09:00"
+      ],
+      "detail": "Fixes what it can prove safe, proposes the rest, re-runs the audit"
+    },
+    {
+      "id": "carta",
+      "label": "Carta redraw",
+      "kind": "agent",
+      "project": "carta",
+      "schedule": "Sundays 08:45",
+      "times": [
+        "08:45"
+      ],
+      "detail": "Redraws the vault as a sea chart from its link graph and git history"
+    },
+    {
+      "id": "watchdog",
+      "label": "Watchdog sweep",
+      "kind": "agent",
+      "project": "watchdog",
+      "schedule": "hourly",
+      "times": [],
+      "detail": "Checks that every scheduled job produced its output, and how fresh it is"
+    },
+    {
+      "id": "organizer",
+      "label": "Finder organizer",
+      "kind": "agent",
+      "project": "finder-organizer",
+      "schedule": "Sundays 11:00",
+      "times": [
+        "11:00"
+      ],
+      "detail": "Proposes where each loose file goes; a script checks, logs and moves it"
+    },
+    {
+      "id": "study-pack",
+      "label": "Study pack",
+      "kind": "agent",
+      "project": "notebooklm-study-loop",
+      "schedule": "daily 10:00",
+      "times": [
+        "10:00"
+      ],
+      "detail": "Builds audio lessons and a quiz in NotebookLM from new finance material"
+    },
+    {
+      "id": "weekly-exam",
+      "label": "Weekly exam",
+      "kind": "agent",
+      "project": "notebooklm-study-loop",
+      "schedule": "Wednesdays 18:00",
+      "times": [
+        "18:00"
+      ],
+      "detail": "Generates a 90-minute exam from the week's study sources"
+    },
+    {
+      "id": "recruiting",
+      "label": "Recruiting engine",
+      "kind": "agent",
+      "project": "recruiting-os",
+      "schedule": "daily 06:30 + 21:30",
+      "times": [
+        "06:30",
+        "21:30"
+      ],
+      "detail": "Runs nonstop: plans at 06:30, drafts at 21:30, syncs calendars every 5 min"
+    },
+    {
+      "id": "advisor",
+      "label": "SELFORGE advisor",
+      "kind": "agent",
+      "project": "selforge",
+      "schedule": "Mondays 09:30",
+      "times": [
+        "09:30"
+      ],
+      "detail": "Reads the app and its vault note, then adds up to 3 recommendations"
+    },
+    {
+      "id": "backup",
+      "label": "SELFORGE backup",
+      "kind": "agent",
+      "project": "selforge",
+      "schedule": "hourly",
+      "times": [],
+      "detail": "Backs up on-device data and checks the phone runs the newest build"
+    },
+    {
+      "id": "recalibrator",
+      "label": "Study recalibrator",
+      "kind": "agent",
+      "project": null,
+      "schedule": "every 3 days 03:00",
+      "times": [
+        "03:00"
+      ],
+      "detail": "Reconciles classes, drills and calendar into the next best action"
+    },
+    {
+      "id": "keeper",
+      "label": "MCP keeper",
+      "kind": "agent",
+      "project": "second-brain",
+      "schedule": "every 60 s",
+      "times": [],
+      "detail": "Keeps the vault's local API and MCP endpoint answering for every agent"
+    },
+    {
+      "id": "claude-code",
+      "label": "Claude Code",
+      "kind": "agent",
+      "project": null,
+      "schedule": "every session",
+      "times": [],
+      "detail": "Boots from the vault, saves each session, logs changes to the day's note"
+    },
+    {
+      "id": "codex",
+      "label": "Codex",
+      "kind": "agent",
+      "project": null,
+      "schedule": "every session",
+      "times": [],
+      "detail": "Hosts Secretary, Canvas and recalibration runs; boots from the same files"
+    },
+    {
+      "id": "antigravity",
+      "label": "Antigravity",
+      "kind": "agent",
+      "project": null,
+      "schedule": "every session",
+      "times": [],
+      "detail": "Runs the study loop; boots from the same vault files"
+    },
+    {
+      "id": "skills",
+      "label": "Skills router",
+      "kind": "agent",
+      "project": "skills",
+      "schedule": "every session",
+      "times": [],
+      "detail": "Splits work into tested units and routes each one to a single skill"
+    },
+    {
+      "id": "vault",
+      "label": "Obsidian vault",
+      "kind": "brain",
+      "project": "second-brain",
+      "schedule": "always on",
+      "times": [],
+      "detail": "464 notes and 3,607 links that every agent reads from and writes to"
+    },
+    {
+      "id": "boot",
+      "label": "Boot files",
+      "kind": "brain",
+      "project": "second-brain",
+      "schedule": "every session",
+      "times": [],
+      "detail": "Who I am, the agent contract, memory protocol, automation registry"
+    },
+    {
+      "id": "projects",
+      "label": "10 Projects",
+      "kind": "brain",
+      "project": "second-brain",
+      "schedule": "written all day",
+      "times": [],
+      "detail": "One note per project; jobs commit decisions and outcomes here"
+    },
+    {
+      "id": "daily",
+      "label": "50 Daily",
+      "kind": "brain",
+      "project": "second-brain",
+      "schedule": "written all day",
+      "times": [],
+      "detail": "Each agent logs what it changed today; the next agent reads it first"
+    },
+    {
+      "id": "sessions",
+      "label": "Session logs",
+      "kind": "brain",
+      "project": "second-brain",
+      "schedule": "every session",
+      "times": [],
+      "detail": "Saved sessions in 20 Areas that the next session resumes from"
+    },
+    {
+      "id": "health",
+      "label": "Brain Health",
+      "kind": "brain",
+      "project": "second-brain",
+      "schedule": "daily 05:00",
+      "times": [
+        "05:00"
+      ],
+      "detail": "Dashboard of dangling links, orphans and frontmatter gaps"
+    },
+    {
+      "id": "courses",
+      "label": "Course notes",
+      "kind": "brain",
+      "project": null,
+      "schedule": "daily 16:00",
+      "times": [
+        "16:00"
+      ],
+      "detail": "Layered notes for each course in 20 Areas, linked to one course hub"
+    },
+    {
+      "id": "axe",
+      "label": "AXE_OS rules",
+      "kind": "brain",
+      "project": "axe-os",
+      "schedule": "every session",
+      "times": [],
+      "detail": "Agent rules written as checked CUE code, each paired with a reasoning note"
+    },
+    {
+      "id": "claims",
+      "label": "Evidence claims",
+      "kind": "brain",
+      "project": "recruiting-os",
+      "schedule": "when seeded",
+      "times": [],
+      "detail": "Facts about me with evidence; the only claims a draft is allowed to use"
+    },
+    {
+      "id": "register",
+      "label": "Secretary register",
+      "kind": "output",
+      "project": "secretary",
+      "schedule": "4x daily",
+      "times": [
+        "07:00",
+        "12:00",
+        "15:00",
+        "20:00"
+      ],
+      "detail": "20-column Google Sheet of every item that needs action"
+    },
+    {
+      "id": "holds",
+      "label": "Calendar holds",
+      "kind": "output",
+      "project": null,
+      "schedule": "every 5 min",
+      "times": [],
+      "detail": "Maybe: holds, deadlines, prep and work blocks on Google Calendar"
+    },
+    {
+      "id": "packs",
+      "label": "Study packs",
+      "kind": "output",
+      "project": "notebooklm-study-loop",
+      "schedule": "daily 10:00",
+      "times": [
+        "10:00"
+      ],
+      "detail": "Audio lessons, quizzes and the weekly exam"
+    },
+    {
+      "id": "drafts",
+      "label": "Email drafts",
+      "kind": "output",
+      "project": "recruiting-os",
+      "schedule": "daily 21:30",
+      "times": [
+        "21:30"
+      ],
+      "detail": "Evidence-checked emails waiting in Gmail or Outlook Drafts"
+    },
+    {
+      "id": "chart",
+      "label": "Carta sea chart",
+      "kind": "output",
+      "project": "carta",
+      "schedule": "Sundays 08:45",
+      "times": [
+        "08:45"
+      ],
+      "detail": "Single-file HTML chart of the vault, saved in 90 Meta/Charts"
+    },
+    {
+      "id": "status",
+      "label": "Watchdog status",
+      "kind": "output",
+      "project": "watchdog",
+      "schedule": "hourly",
+      "times": [],
+      "detail": "Hourly status of every job, plus a desktop alert when one goes stale"
+    },
+    {
+      "id": "recs",
+      "label": "Advisor recs doc",
+      "kind": "output",
+      "project": "selforge",
+      "schedule": "Mondays 09:30",
+      "times": [
+        "09:30"
+      ],
+      "detail": "Google Doc of weekly app ideas; its Schedule: lines get calendared"
+    }
+  ],
+  "edges": [
+    {
+      "from": "gmail",
+      "to": "secretary",
+      "label": "new mail",
+      "cadence": "4x daily"
+    },
+    {
+      "from": "outlook",
+      "to": "secretary",
+      "label": "school mail",
+      "cadence": "4x daily"
+    },
+    {
+      "from": "chats",
+      "to": "secretary",
+      "label": "decoded texts",
+      "cadence": "4x daily"
+    },
+    {
+      "from": "gcal",
+      "to": "secretary",
+      "label": "existing events",
+      "cadence": "4x daily"
+    },
+    {
+      "from": "recs",
+      "to": "secretary",
+      "label": "Schedule: lines",
+      "cadence": "4x daily"
+    },
+    {
+      "from": "codex",
+      "to": "secretary",
+      "label": "runs intake",
+      "cadence": "4x daily"
+    },
+    {
+      "from": "secretary",
+      "to": "projects",
+      "label": "commits what matters",
+      "cadence": "4x daily"
+    },
+    {
+      "from": "secretary",
+      "to": "register",
+      "label": "action rows",
+      "cadence": "4x daily"
+    },
+    {
+      "from": "secretary",
+      "to": "holds",
+      "label": "Maybe: holds",
+      "cadence": "4x daily"
+    },
+    {
+      "from": "canvas",
+      "to": "canvas-intake",
+      "label": "changed assignments",
+      "cadence": "daily 16:00"
+    },
+    {
+      "from": "boot",
+      "to": "canvas-intake",
+      "label": "boot order",
+      "cadence": "daily 16:00"
+    },
+    {
+      "from": "codex",
+      "to": "canvas-intake",
+      "label": "runs intake",
+      "cadence": "daily 16:00"
+    },
+    {
+      "from": "canvas-intake",
+      "to": "courses",
+      "label": "course notes",
+      "cadence": "daily 16:00"
+    },
+    {
+      "from": "canvas-intake",
+      "to": "holds",
+      "label": "work blocks",
+      "cadence": "daily 16:00"
+    },
+    {
+      "from": "canvas-intake",
+      "to": "daily",
+      "label": "logs the run",
+      "cadence": "daily 16:00"
+    },
+    {
+      "from": "gmail",
+      "to": "study-pack",
+      "label": "new attachments",
+      "cadence": "daily 10:00"
+    },
+    {
+      "from": "antigravity",
+      "to": "study-pack",
+      "label": "owns the job",
+      "cadence": "daily 10:00"
+    },
+    {
+      "from": "antigravity",
+      "to": "weekly-exam",
+      "label": "owns the job",
+      "cadence": "Wednesdays 18:00"
+    },
+    {
+      "from": "study-pack",
+      "to": "packs",
+      "label": "audio lessons + quiz",
+      "cadence": "daily 10:00"
+    },
+    {
+      "from": "weekly-exam",
+      "to": "packs",
+      "label": "90-minute exam",
+      "cadence": "Wednesdays 18:00"
+    },
+    {
+      "from": "zetamac",
+      "to": "recalibrator",
+      "label": "drill state",
+      "cadence": "every 3 days"
+    },
+    {
+      "from": "gcal",
+      "to": "recalibrator",
+      "label": "classes + deadlines",
+      "cadence": "every 3 days"
+    },
+    {
+      "from": "codex",
+      "to": "recalibrator",
+      "label": "runs the pass",
+      "cadence": "every 3 days"
+    },
+    {
+      "from": "recalibrator",
+      "to": "projects",
+      "label": "verified iteration",
+      "cadence": "every 3 days"
+    },
+    {
+      "from": "iphone",
+      "to": "backup",
+      "label": "on-device data",
+      "cadence": "hourly"
+    },
+    {
+      "from": "backup",
+      "to": "watchdog",
+      "label": "delivery check",
+      "cadence": "hourly"
+    },
+    {
+      "from": "iphone",
+      "to": "advisor",
+      "label": "app code + spec",
+      "cadence": "Mondays 09:30"
+    },
+    {
+      "from": "projects",
+      "to": "advisor",
+      "label": "app note + roadmap",
+      "cadence": "Mondays 09:30"
+    },
+    {
+      "from": "claude-code",
+      "to": "advisor",
+      "label": "runs headless",
+      "cadence": "Mondays 09:30"
+    },
+    {
+      "from": "advisor",
+      "to": "recs",
+      "label": "up to 3 recommendations",
+      "cadence": "Mondays 09:30"
+    },
+    {
+      "from": "files",
+      "to": "organizer",
+      "label": "file fingerprints",
+      "cadence": "Sundays 11:00"
+    },
+    {
+      "from": "zetamac",
+      "to": "organizer",
+      "label": "keeps newest drill DB",
+      "cadence": "Sundays 11:00"
+    },
+    {
+      "from": "codex",
+      "to": "organizer",
+      "label": "classifies files",
+      "cadence": "Sundays 11:00"
+    },
+    {
+      "from": "organizer",
+      "to": "files",
+      "label": "logged, undoable moves",
+      "cadence": "Sundays 11:00"
+    },
+    {
+      "from": "organizer",
+      "to": "daily",
+      "label": "run beacon + audit",
+      "cadence": "Sundays 11:00"
+    },
+    {
+      "from": "programs",
+      "to": "recruiting",
+      "label": "new postings",
+      "cadence": "every 15 min"
+    },
+    {
+      "from": "gmail",
+      "to": "recruiting",
+      "label": "replies",
+      "cadence": "every 2 min"
+    },
+    {
+      "from": "outlook",
+      "to": "recruiting",
+      "label": "replies",
+      "cadence": "every 5 min"
+    },
+    {
+      "from": "claims",
+      "to": "recruiting",
+      "label": "evidence-backed claims",
+      "cadence": "when seeded"
+    },
+    {
+      "from": "recruiting",
+      "to": "drafts",
+      "label": "verified drafts",
+      "cadence": "daily 21:30"
+    },
+    {
+      "from": "recruiting",
+      "to": "holds",
+      "label": "deadlines + prep blocks",
+      "cadence": "every 5 min"
+    },
+    {
+      "from": "boot",
+      "to": "claude-code",
+      "label": "reads context",
+      "cadence": "every session"
+    },
+    {
+      "from": "boot",
+      "to": "codex",
+      "label": "reads context",
+      "cadence": "every session"
+    },
+    {
+      "from": "boot",
+      "to": "antigravity",
+      "label": "reads context",
+      "cadence": "every session"
+    },
+    {
+      "from": "daily",
+      "to": "claude-code",
+      "label": "other agents' trails",
+      "cadence": "every session"
+    },
+    {
+      "from": "claude-code",
+      "to": "daily",
+      "label": "changes logged",
+      "cadence": "every session"
+    },
+    {
+      "from": "codex",
+      "to": "daily",
+      "label": "changes logged",
+      "cadence": "every session"
+    },
+    {
+      "from": "antigravity",
+      "to": "daily",
+      "label": "changes logged",
+      "cadence": "every session"
+    },
+    {
+      "from": "sessions",
+      "to": "claude-code",
+      "label": "resumes context",
+      "cadence": "session start"
+    },
+    {
+      "from": "claude-code",
+      "to": "sessions",
+      "label": "saves the session",
+      "cadence": "session end"
+    },
+    {
+      "from": "claude-code",
+      "to": "skills",
+      "label": "routes each unit",
+      "cadence": "every session"
+    },
+    {
+      "from": "axe",
+      "to": "skills",
+      "label": "discovery + gates",
+      "cadence": "every session"
+    },
+    {
+      "from": "skills",
+      "to": "projects",
+      "label": "strategy findings",
+      "cadence": "as they land"
+    },
+    {
+      "from": "claude-code",
+      "to": "steward",
+      "label": "runs headless",
+      "cadence": "Sundays 09:00"
+    },
+    {
+      "from": "keeper",
+      "to": "vault",
+      "label": "keeps endpoint up",
+      "cadence": "every 60 s"
+    },
+    {
+      "from": "snapshot",
+      "to": "vault",
+      "label": "commits each change",
+      "cadence": "every 5 min"
+    },
+    {
+      "from": "vault",
+      "to": "audit",
+      "label": "notes, links, frontmatter",
+      "cadence": "daily 05:00"
+    },
+    {
+      "from": "audit",
+      "to": "health",
+      "label": "posts dashboard",
+      "cadence": "daily 05:00"
+    },
+    {
+      "from": "vault",
+      "to": "carta",
+      "label": "link graph + git ages",
+      "cadence": "Sundays 08:45"
+    },
+    {
+      "from": "carta",
+      "to": "chart",
+      "label": "redrawn chart",
+      "cadence": "Sundays 08:45"
+    },
+    {
+      "from": "health",
+      "to": "steward",
+      "label": "flagged drift",
+      "cadence": "Sundays 09:00"
+    },
+    {
+      "from": "chart",
+      "to": "steward",
+      "label": "fresh chart",
+      "cadence": "Sundays 09:00"
+    },
+    {
+      "from": "steward",
+      "to": "vault",
+      "label": "verified safe fixes",
+      "cadence": "Sundays 09:00"
+    },
+    {
+      "from": "steward",
+      "to": "daily",
+      "label": "logs its pass",
+      "cadence": "Sundays 09:00"
+    },
+    {
+      "from": "health",
+      "to": "watchdog",
+      "label": "freshness check",
+      "cadence": "hourly"
+    },
+    {
+      "from": "chart",
+      "to": "watchdog",
+      "label": "freshness check",
+      "cadence": "hourly"
+    },
+    {
+      "from": "packs",
+      "to": "watchdog",
+      "label": "freshness check",
+      "cadence": "hourly"
+    },
+    {
+      "from": "secretary",
+      "to": "watchdog",
+      "label": "run record",
+      "cadence": "hourly"
+    },
+    {
+      "from": "vault",
+      "to": "watchdog",
+      "label": "uncommitted age",
+      "cadence": "hourly"
+    },
+    {
+      "from": "watchdog",
+      "to": "status",
+      "label": "status + alerts",
+      "cadence": "hourly"
+    },
+    {
+      "from": "status",
+      "to": "claude-code",
+      "label": "one line at start",
+      "cadence": "every session"
+    }
+  ],
+  "story": [
+    "At 05:00 the brain audits every note and link it holds.",
+    "At 07:00 Secretary reads my four inboxes and commits what matters to the brain, with a register row and a Maybe: hold on my calendar.",
+    "At 10:00 a study pack is waiting, and at 16:00 new Canvas assignments turn into course notes and work blocks.",
+    "Whichever agent I open, Claude Code, Codex or Antigravity, boots from the same vault and leaves its changes in the day's note.",
+    "Every hour the watchdog checks each job's output, and at 21:30 the recruiting engine leaves evidence-checked emails in my Drafts.",
+    "On Sundays the vault redraws its own map, then a repair agent fixes what the audit flagged."
+  ]
+}

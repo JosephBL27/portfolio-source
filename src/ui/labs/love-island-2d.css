@@ -1,0 +1,22 @@
+/* Love Island lab: coral on charcoal. Scoped under .li (shared base: lib/model-base.css). */
+.li { --ml-acc: #ff6a4d; --ml-acc2: #ffc2b5; --ml-rgb: 255, 106, 77; --ml-neg: #9ec5ff; }
+.li-plane { padding: 10px; }
+.li-cv { position: relative; width: 100%; aspect-ratio: 1; max-height: 520px; margin-inline: auto; }
+.li-phase { position: absolute; inset: 0; width: 100%; height: 100%; display: block; border-radius: 10px; background: rgba(0, 0, 0, 0.28); cursor: crosshair; touch-action: pan-y; }
+.li-handle { position: absolute; left: 0; top: 0; width: 44px; height: 44px; margin: -22px 0 0 -22px; padding: 0; border: 0; background: transparent; border-radius: 50%; touch-action: none; cursor: grab; z-index: 2; }
+.li-handle::after { content: ''; position: absolute; inset: 13px; border-radius: 50%; border: 2px dashed #fff; background: rgba(255, 255, 255, 0.12); transition: inset 0.15s; }
+.li-handle.is-drag { cursor: grabbing; } .li-handle.is-drag::after, .li-handle:hover::after { inset: 9px; }
+.li-ax { position: absolute; font: 500 11.5px/1 var(--ml-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ml-faint); pointer-events: none; }
+.li-ax--x { right: 8px; bottom: 6px; } .li-ax--y { left: 8px; top: 6px; }
+.li-ts { display: block; width: 100%; height: 110px; border-radius: 8px; background: rgba(0, 0, 0, 0.28); }
+.li-lg { font: 600 11.5px/1 var(--ml-mono); letter-spacing: 0; margin-left: 6px; padding: 2px 6px; border-radius: 4px; }
+.li-lg--a { background: var(--ml-acc); color: #1a0a06; } .li-lg--b { background: #f1ede2; color: #1a1a1a; }
+.li-verdict { font: 650 clamp(24px, 4.4cqw, 34px)/1 var(--ml-sans); font-stretch: 108%; letter-spacing: -0.02em; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+.li-verdict::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: currentColor; }
+.li-verdict.is-good { color: #fff; } .li-verdict.is-good::before { background: #8fe0a5; }
+.li-verdict.is-warn { color: #fff; } .li-verdict.is-warn::before { background: #ffcf6b; }
+.li-verdict.is-bad { color: #fff; } .li-verdict.is-bad::before { background: var(--ml-acc); }
+.li .ml-sl { margin-bottom: 6px; }
+
+.li .ml-chip { min-height: 40px; }
+@media (pointer: coarse) { .li .ml-chip { min-height: 44px; } }

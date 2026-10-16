@@ -1,0 +1,46 @@
+{
+ "bio": {
+  "name": "Joseph Blumberg",
+  "claim": "I build systems that run themselves.",
+  "intro": "I study economics and computational and applied math at the University of Chicago, class of 2029. Everything I build runs through one Obsidian brain: my agents read it first and commit what they learn back to it.",
+  "email": "josephblumberg325@gmail.com",
+  "emailUchicago": "joeblum@uchicago.edu",
+  "linkedin": "https://www.linkedin.com/in/joseph-blumberg1",
+  "offBoard": "Off the board: guitar (16 years), bouldering (V8 at my peak), 80+ board games, 400+ records and CDs, 1750 on Chess.com.",
+  "hint": "Open any widget to see how it works",
+  "colophon": "The wallpaper is 52 weeks of my work: one ridge of weekly commits for each of seven projects and one for my skill use, newest week on the left.",
+  "colophonPointer": "Move your pointer and the ridges lean toward it.",
+  "github": "https://github.com/JosephBL27",
+  "guitar": {
+   "value": "16",
+   "label": "years playing guitar"
+  }
+ },
+ "education": [
+  {
+   "school": "University of Chicago",
+   "program": "Economics (BA) and Computational and Applied Mathematics (BS)",
+   "years": "2026 - 2029",
+   "notes": "Class of 2029: economics and computational and applied math."
+  },
+  {
+   "school": "University of Michigan",
+   "program": "Ross School of Business (BBA) and LSA Honors Mathematics (BS)",
+   "years": "Aug 2025 - Apr 2026",
+   "notes": "In TAMID at Michigan I co-managed a $25K student-run portfolio and led the 12-member Tech Desk's Cloudflare pitch in February 2026. I also wrote a 21-slide AppFolio pitch on my own in September 2025."
+  },
+  {
+   "school": "Laney College",
+   "program": "Calculus III, dual enrollment",
+   "years": "Spring 2025",
+   "notes": "Taken while still in high school."
+  },
+  {
+   "school": "Piedmont High School",
+   "program": "High school diploma",
+   "years": "2021 - 2025",
+   "notes": "I founded a weekend mentorship group for neurodiverse younger students, built from my own experience of ADHD, and managed a $54K budget for a 250-member community-service crew."
+  }
+ ],
+ "honors": []
+}

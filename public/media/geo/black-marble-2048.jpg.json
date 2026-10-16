@@ -1,0 +1,13 @@
+{
+  "id": "black-marble",
+  "asset": "black-marble-2048.jpg",
+  "title": "Black Marble 2016, color maps (Earth at Night)",
+  "source": "https://science.nasa.gov/earth/earth-observatory/earth-at-night/maps/",
+  "file": "https://eoimages.gsfc.nasa.gov/images/imagerecords/144000/144898/BlackMarble_2016_01deg.jpg",
+  "licenceUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+  "credit": "NASA Earth Observatory image by Joshua Stevens, using Suomi NPP VIIRS data from Miguel Román, NASA GSFC (Black Marble 2016)",
+  "processing": "Downsampled from 3600x1800 to 2048x1024 JPEG; luminance drives the sampling of the night-light particles on the Cloudflare globe.",
+  "licenceLine": "NASA content – images, audio, video, and media files used in the rendition of 3-dimensional models, such as texture maps and polygon data in any format – generally are not subject to copyright in the United States. … NASA should be acknowledged as the source of the material.",
+  "retrieved": "2026-10-09",
+  "bytes": 230250
+}

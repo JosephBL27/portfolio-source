@@ -1,0 +1,60 @@
+/* Table Model lab: felt green, ivory cards. Scoped under .tm (shared base: lib/model-base.css). */
+.tm { --ml-acc: #3fbf8a; --ml-acc2: #b9f0d7; --ml-rgb: 63, 191, 138; }
+.tm-felt { background: radial-gradient(120% 120% at 50% 0%, rgba(30, 110, 78, 0.5), rgba(8, 40, 28, 0.55) 70%); }
+.tm-slots { display: flex; gap: 8px; flex-wrap: nowrap; }
+.tm-slot { position: relative; flex: 1 1 0; min-width: 0; max-width: 58px; aspect-ratio: 5 / 7; border-radius: 8px; border: 1px dashed rgba(255, 255, 255, 0.28); background: rgba(0, 0, 0, 0.22); color: #1a1d1b; display: grid; place-items: center; padding: 0; transition: border-color 0.2s, transform 0.2s; touch-action: manipulation; }
+.tm-slot.is-card { background: #f4efe2; border: 1px solid #fff8e6; box-shadow: 0 6px 14px -6px #000; color: #15181a; }
+.tm .tm-slot.is-red, .tm .tm-pc.is-red { color: #c43c2e; }
+.tm-slot.is-idle { opacity: 0.45; }
+.tm-slot.is-active { border-color: var(--ml-acc2); border-style: solid; box-shadow: 0 0 0 3px rgba(var(--ml-rgb), 0.35); transform: translateY(-2px); }
+.tm-ph { font: 500 13px/1 var(--ml-mono); color: rgba(255, 255, 255, 0.4); }
+.tm-r { display: block; font: 700 clamp(18px, 3.4cqw, 24px)/1 var(--ml-sans); letter-spacing: -0.02em; }
+.tm-s { display: block; font: normal 700 clamp(16px, 3cqw, 22px)/1 var(--ml-sans); margin-top: 2px; }
+.tm-slot.is-card > .tm-r, .tm-slot.is-card > .tm-s { text-align: center; }
+.tm-street { color: var(--ml-acc2); text-transform: none; letter-spacing: 0.04em; }
+.tm-pick { display: grid; grid-template-columns: repeat(13, minmax(0, 1fr)); gap: 3px; }
+.tm .tm-pc { color: #15181a; padding: 3px 0; min-height: 36px; border-radius: 5px; border: 1px solid rgba(255, 255, 255, 0.14); background: #efe9d9; color: #15181a; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; transition: transform 0.12s, opacity 0.2s; touch-action: manipulation; }
+.tm-pc .tm-r { font-size: 12px; } .tm-pc .tm-s { font-size: 11.5px; margin: 0; }
+.tm-pc:hover:not(:disabled) { transform: translateY(-2px); }
+.tm-pc.is-used, .tm-pc:disabled { opacity: 0.22; cursor: default; }
+@container ml (max-width: 420px) { .tm-pick { gap: 2px; } .tm-pc { min-height: 36px; padding: 2px 0; } .tm-pc .tm-r { font-size: 11.5px; } .tm-pc .tm-s { font-size: 11.5px; } }
+.tm-eqtop { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; }
+.tm-eqmeta { font-size: 11.5px; line-height: 1.5; text-align: right; color: var(--ml-faint); }
+.tm-bar { position: relative; height: 14px; margin: 14px 0 28px; border-radius: 7px; background: rgba(255, 255, 255, 0.08); }
+.tm-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; transform: scaleX(0); transform-origin: left; border-radius: 7px; background: linear-gradient(90deg, rgba(var(--ml-rgb), 0.55), var(--ml-acc)); transition: transform 0.25s ease-out; }
+/* the band is full width, offset and scaled by transform (translateX in % of its own width) so nothing animates layout */
+.tm-ci { position: absolute; left: 0; top: -3px; bottom: -3px; width: 100%; transform: translateX(0) scaleX(0); transform-origin: left; border-radius: 4px; background: rgba(255, 255, 255, 0.18); transition: transform 0.25s; }
+.tm-need { position: absolute; top: -6px; bottom: -6px; width: 2px; margin-left: -1px; background: #fff; transition: left 0.25s; }
+.tm-need em { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 4px; font: 500 11.5px/1 var(--ml-mono); font-style: normal; white-space: nowrap; color: #fff; }
+.tm-odds b { color: #fff; font-weight: 650; }
+.tm-ev { display: grid; gap: 10px; }
+.tm-evr { display: grid; grid-template-columns: 7.2em minmax(0, 1fr) 3.4em; gap: 10px; align-items: center; font-size: 13px; transition: opacity 0.2s; opacity: 0.8; }
+.tm-evr.is-best { opacity: 1; }
+.tm-evr.is-best .tm-evn { color: #fff; font-weight: 650; }
+.tm-evn { color: var(--ml-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tm-evt { position: relative; height: 16px; border-radius: 4px; background: rgba(255, 255, 255, 0.05); }
+.tm-evt::after { content: ''; position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: rgba(255, 255, 255, 0.5); }
+.tm-evb { position: absolute; left: 0; top: 2px; bottom: 2px; width: 100%; transform: translateX(50%) scaleX(0); transform-origin: left; border-radius: 3px; background: var(--ml-acc); transition: transform 0.25s ease-out; }
+.tm-evb.is-neg { background: var(--ml-neg); }
+.tm-evv { text-align: right; font-size: 12.5px; color: #fff; }
+.tm-place { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-top: 14px; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(var(--ml-rgb), 0.6); background: rgba(var(--ml-rgb), 0.12); }
+.tm-best { font: 650 15px/1.2 var(--ml-sans); color: #fff; display: inline-block; white-space: pre; }
+
+
+/* the two-step picker is for touch: a suit row, then a rank row, then Random. Fine pointers keep the grid. */
+.tm-two { display: none; gap: 8px; }
+.tm-su-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.tm-rk-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(44px, 1fr)); gap: 6px; }
+.tm .tm-su, .tm .tm-rk { min-height: 48px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.16); background: #efe9d9; color: #15181a; font: 700 22px/1 var(--ml-sans); touch-action: manipulation; transition: transform 0.12s, opacity 0.2s, box-shadow 0.2s; }
+.tm .tm-su.is-red, .tm .tm-rk.is-red { color: #c43c2e; }
+.tm .tm-su[aria-pressed='true'] { box-shadow: 0 0 0 3px var(--ml-acc); transform: translateY(-2px); }
+.tm .tm-rk { font-size: 19px; }
+.tm .tm-rk:disabled { opacity: 0.22; cursor: default; }
+.tm .tm-rk-row.is-wait .tm-rk { opacity: 0.35; }
+.tm-rand { justify-self: start; min-height: 48px; }
+@media (pointer: coarse) {
+  .tm-pick { display: none; }
+  .tm-two { display: grid; }
+  .tm .ml-chip, .tm .ml-btn { min-height: 44px; }
+  .tm-slot { max-width: 62px; min-height: 44px; }
+}

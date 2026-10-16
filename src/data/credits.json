@@ -1,0 +1,553 @@
+[
+  {
+    "id": "natural-earth-land",
+    "what": "Continent outlines on the Cloudflare globe (land mask)",
+    "title": "Natural Earth 110m land",
+    "source": "Natural Earth",
+    "author": "Tom Patterson, Nathaniel Vaughn Kelso and contributors",
+    "licence": "Public domain",
+    "url": "https://www.naturalearthdata.com/about/terms-of-use/",
+    "retrieved": "2026-10-09"
+  },
+  {
+    "id": "blue-marble",
+    "what": "Land and ocean colour on the Cloudflare globe",
+    "title": "Blue Marble: Next Generation, topography and bathymetry (December 2004)",
+    "source": "NASA Earth Observatory",
+    "author": "Reto Stöckli, NASA Earth Observatory",
+    "licence": "NASA media usage guidelines: generally not subject to copyright in the United States; NASA acknowledged as the source",
+    "url": "https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-topography-bathymetry/",
+    "retrieved": "2026-10-09"
+  },
+  {
+    "id": "black-marble",
+    "what": "City lights on the night side of the Cloudflare globe",
+    "title": "Black Marble 2016, color maps (Earth at Night)",
+    "source": "NASA Earth Observatory",
+    "author": "Joshua Stevens; Suomi NPP VIIRS data from Miguel Román, NASA GSFC",
+    "licence": "NASA media usage guidelines: generally not subject to copyright in the United States; NASA acknowledged as the source",
+    "url": "https://science.nasa.gov/earth/earth-observatory/earth-at-night/maps/",
+    "retrieved": "2026-10-09"
+  },
+  {
+    "id": "wwii-archive-map",
+    "what": "The faint archival plate under the county bars on the WWII stop",
+    "title": "United States population density map by minor civil divisions: 1940",
+    "source": "Library of Congress, Geography and Map Division",
+    "author": "U.S. Department of Commerce, Bureau of the Census (U.S. Government Printing Office, 1942)",
+    "licence": "Free to use and reuse (Library of Congress; no Rights Advisory statement)",
+    "url": "https://www.loc.gov/item/2011593047/",
+    "retrieved": "2026-10-09"
+  },
+  {
+    "id": "milky-way",
+    "what": "The Milky Way behind the whole flight and the contact finale (tone-mapped 4096 px and 2048 px copies)",
+    "title": "Deep Star Maps 2020 (Milky Way, 4k)",
+    "source": "NASA Scientific Visualization Studio",
+    "author": "NASA/GSFC Scientific Visualization Studio; Gaia DR2: ESA/Gaia/DPAC",
+    "licence": "Public domain (NASA SVS); Gaia data credit ESA/Gaia/DPAC",
+    "url": "https://svs.gsfc.nasa.gov/4851/",
+    "retrieved": "2026-10-10"
+  },
+  {
+    "id": "terrain-dem",
+    "what": "The mountains behind the climbing wall (Yosemite Valley elevation)",
+    "title": "Terrain Tiles (Terrarium)",
+    "source": "AWS Open Data",
+    "author": "Mapzen; sources include USGS 3DEP",
+    "licence": "Open data, attribution required",
+    "url": "https://registry.opendata.aws/terrain-tiles/",
+    "retrieved": "2026-10-09"
+  },
+  {
+    "id": "terrain-imagery",
+    "what": "Aerial imagery on the Yosemite backdrop",
+    "title": "USGS The National Map orthoimagery",
+    "source": "The National Map",
+    "author": "U.S. Geological Survey",
+    "licence": "Public domain (U.S. Government work)",
+    "url": "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer",
+    "retrieved": "2026-10-09"
+  },
+  {
+    "id": "polyhaven-namaqualand-boulder-03",
+    "what": "The boulder at the Bouldering stop (decimated to 30k triangles, 1k WebP textures)",
+    "title": "Namaqualand Boulder 03",
+    "source": "Poly Haven",
+    "author": "Jenelle van Heerden (model), Dario Barresi (photography)",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/namaqualand_boulder_03",
+    "retrieved": "2026-10-10"
+  },
+  {
+    "id": "polyhaven-kiara-9-dusk",
+    "what": "Mountain backdrop and light at the Bouldering stop (cropped, tonemapped, WebP)",
+    "title": "Kiara 9 Dusk (HDRI)",
+    "source": "Poly Haven",
+    "author": "Greg Zaal",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/kiara_9_dusk",
+    "retrieved": "2026-10-10"
+  },
+  {
+    "id": "vengeanceui-morph-text",
+    "what": "The Ovid line on the first screen melting into its English and back (ported to vanilla TypeScript and CSS; threshold and blur re-tuned for Instrument Serif)",
+    "title": "Morph Text (VengeanceUI)",
+    "source": "VengeanceUI, GitHub, commit 87f5a77",
+    "author": "Ashutoshx7 and the VengeanceUI contributors",
+    "licence": "MIT",
+    "url": "https://github.com/Ashutoshx7/VengeanceUI/blob/87f5a77651ce4de28eec0566ec0f81967dcd69d5/src/components/ui/morph-text.tsx",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "vengeanceui-gooey-text-reveal",
+    "what": "Gooey blur-to-sharp line reveal on case-view body text (src/ui/gooey.ts: ported from React + GSAP to vanilla TS + anime.js; the SVG threshold, timings and re-split pattern are the upstream ones)",
+    "title": "gooey-text-reveal (VengeanceUI, pinned commit 87f5a77)",
+    "source": "VengeanceUI (github.com/Ashutoshx7/VengeanceUI)",
+    "author": "Ashutoshx7 (VengeanceUI, MIT, copyright 2025-2026 Ashutoshx7)",
+    "licence": "MIT",
+    "url": "https://github.com/Ashutoshx7/VengeanceUI",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-large-floor-tiles-02",
+    "what": "Floor tiles of the gothic hall (diffuse 1k, WebP)",
+    "title": "Large Floor Tiles 02",
+    "source": "Poly Haven",
+    "author": "Rob Tuytel",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/large_floor_tiles_02",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-white-plaster-02",
+    "what": "Vault plaster of the gothic hall (diffuse, 512 px WebP)",
+    "title": "White Plaster 02",
+    "source": "Poly Haven",
+    "author": "Rob Tuytel",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/white_plaster_02",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-medieval-blocks-03",
+    "what": "Wall blocks of the gothic hall (diffuse 1k, WebP)",
+    "title": "Medieval Blocks 03",
+    "source": "Poly Haven",
+    "author": "Rob Tuytel",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/medieval_blocks_03",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-sandstone-blocks-08",
+    "what": "Dressed stone, window surrounds, ribs and shafts of the gothic hall (diffuse 1k, WebP)",
+    "title": "Sandstone Blocks 08",
+    "source": "Poly Haven",
+    "author": "Rob Tuytel",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/sandstone_blocks_08",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-dark-paneled-wood",
+    "what": "Oak wainscot of the gothic hall (diffuse, 512 px WebP)",
+    "title": "Dark Paneled Wood",
+    "source": "Poly Haven",
+    "author": "Dimitrios Savva",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/dark_paneled_wood",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-dark-wood",
+    "what": "Oak tables, benches and rails of the gothic hall (diffuse, 512 px WebP)",
+    "title": "Dark Wood",
+    "source": "Poly Haven",
+    "author": "Dario Barresi, Dimitrios Savva, Rico Cilliers",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/dark_wood",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-chandelier-03",
+    "what": "Three chandeliers hung from the hall vault (decimated to 7k triangles, 512 px WebP, light baked into vertex colour)",
+    "title": "Chandelier 03",
+    "source": "Poly Haven",
+    "author": "Kirill Sannikov",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/chandelier_03",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-woodenchair-01",
+    "what": "Carved chairs at the table ends in the hall (decimated to 1.8k triangles, 512 px WebP)",
+    "title": "Wooden Chair 01",
+    "source": "Poly Haven",
+    "author": "Jake Mobley",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/woodenchair_01",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-brass-candleholders",
+    "what": "Candle stands on the hall tables (decimated to 6k triangles, 512 px WebP)",
+    "title": "Brass Candleholders",
+    "source": "Poly Haven",
+    "author": "Tina",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/brass_candleholders",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-book-encyclopedia-set-01",
+    "what": "Book sets on the hall tables (decimated to 2.5k triangles, 512 px WebP)",
+    "title": "Book Encyclopedia Set 01",
+    "source": "Poly Haven",
+    "author": "John Malcolm",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/book_encyclopedia_set_01",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-gothic-statue",
+    "what": "Two statues flanking the far doors of the hall (decimated to 12k triangles, 512 px WebP)",
+    "title": "Gothic Statue",
+    "source": "Poly Haven",
+    "author": "Benny Weimer",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/gothic_statue",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-marble-bust-01",
+    "what": "Twelve marble busts on plinths down the nave of the hall (decimated to 4.5k triangles, 512 px WebP)",
+    "title": "Marble Bust 01",
+    "source": "Poly Haven",
+    "author": "Rico Cilliers",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/marble_bust_01",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "hall-photoreal-bake",
+    "what": "The photoreal gothic hall: architecture modelled in Blender from the assets above, lit by the five windows, baked in Cycles into one lightmap and vertex light (scripts/blender/hall_photoreal.py)",
+    "title": "Gothic hall (photoreal bake)",
+    "source": "This site, Blender 5.2 Cycles",
+    "author": "Joseph Blumberg",
+    "licence": "Own work; the Poly Haven inputs are CC0",
+    "url": "https://polyhaven.com/",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-old-hall-capture",
+    "what": "Photographic 360 hall architecture, rendered with AgX in Cycles Metal; 8k desktop, 4k phone, 2k fallback. Fixed capture viewpoint.",
+    "title": "Old Hall",
+    "source": "Poly Haven",
+    "author": "Sergej Majboroda",
+    "licence": "CC0",
+    "url": "https://polyhaven.com/a/old_hall",
+    "retrieved": "2026-10-12",
+    "changes": "Cycles AgX exposure -1; Medium High Contrast; display WebP encoding. No generated architectural geometry."
+  },
+  {
+    "id": "threejs-hall-panorama",
+    "what": "Panorama sphere and spherical look equations adapted to the existing renderer",
+    "title": "webgl_panorama_equirectangular, r186",
+    "source": "three.js",
+    "author": "mrdoob and contributors",
+    "licence": "MIT",
+    "url": "https://github.com/mrdoob/three.js/blob/r186/examples/webgl_panorama_equirectangular.html",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "magicui-hall-entrance",
+    "what": "Hall title entrance, BlurFade structure and 400ms/6px values ported to Anime.js; blur omitted for photo sharpness",
+    "title": "BlurFade",
+    "source": "Magic UI",
+    "author": "Dillion Verma and Magic UI contributors",
+    "licence": "MIT",
+    "url": "https://github.com/magicuidesign/magicui",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "vengeanceui-hall-portal-reveal",
+    "what": "Hall portal inner-span stagger reveal: 600ms, 50ms stagger, cubicBezier(.22,1,.36,1), ported to Anime.js",
+    "title": "stagger-text",
+    "source": "VengeanceUI",
+    "author": "Ashutoshx7",
+    "licence": "MIT",
+    "url": "https://github.com/Ashutoshx7/VengeanceUI/tree/87f5a77651ce4de28eec0566ec0f81967dcd69d5",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "generated-stained-glass-v2",
+    "what": "Photorealistic artisan stained-glass atlas for the original five interactive windows, their reflections and projected light",
+    "title": "Five hobby windows — material reinterpretation of the original atlas",
+    "source": "OpenAI image generation, built-in image_gen tool",
+    "author": "Generated for this project from its original procedural glass atlas",
+    "licence": "AI-generated asset; retain applicable OpenAI service terms",
+    "retrieved": "2026-10-12",
+    "changes": "Original layout, color order, hobby motifs and Gothic footprints preserved; glass/lead surface details generated; WebP delivery resized to 1600x1200. Prompt in docs/review/hall-rebuild/glass-prompt.txt."
+  },
+  {
+    "id": "polyhaven-namaqualand-cliff-02",
+    "what": "The sandstone wall behind the boulder at the Bouldering stop, and a second copy to the side (decimated, light baked in Blender Cycles)",
+    "title": "Namaqualand Cliff 02",
+    "source": "Poly Haven",
+    "author": "Dario Barresi (photography), Rico Cilliers (modeling)",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/namaqualand_cliff_02",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-namaqualand-cliff-01",
+    "what": "Boulder piles in the crag ring around the Bouldering stop (decimated, light baked in Blender Cycles)",
+    "title": "Namaqualand Cliff 01",
+    "source": "Poly Haven",
+    "author": "Jenelle van Heerden (photography), Rico Cilliers (modeling)",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/namaqualand_cliff_01",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-mountainside",
+    "what": "The two massifs at the edge of the crag ring at the Bouldering stop (decimated, light baked in Blender Cycles)",
+    "title": "Mountainside",
+    "source": "Poly Haven",
+    "author": "Dario Barresi (photography), Rico Cilliers (processing)",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/mountainside",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-namaqualand-boulder-02",
+    "what": "Low boulders scattered around the Bouldering stop (decimated, light baked in Blender Cycles)",
+    "title": "Namaqualand Boulder 02",
+    "source": "Poly Haven",
+    "author": "Greg Zaal (photography), Rico Cilliers (modeling)",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/namaqualand_boulder_02",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-namaqualand-boulder-04",
+    "what": "Mid-size boulders scattered around the Bouldering stop (decimated, light baked in Blender Cycles)",
+    "title": "Namaqualand Boulder 04",
+    "source": "Poly Haven",
+    "author": "Jenelle van Heerden",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/namaqualand_boulder_04",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "polyhaven-namaqualand-boulder-05",
+    "what": "Small rocks scattered around the Bouldering stop (decimated, light baked in Blender Cycles)",
+    "title": "Namaqualand Boulder 05",
+    "source": "Poly Haven",
+    "author": "Jenelle van Heerden (modeling), Dario Barresi (photography)",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/namaqualand_boulder_05",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "ambientcg-ground111",
+    "what": "The ground around the Bouldering stop (colour map, tiled; lighting baked over it)",
+    "title": "Ground 111",
+    "source": "ambientCG",
+    "author": "ambientCG (the asset record names no individual author)",
+    "licence": "CC0 1.0",
+    "url": "https://ambientcg.com/a/Ground111",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "threejs-hall-walking",
+    "what": "Hall movement uses PointerLockControls translation without requesting pointer lock",
+    "title": "PointerLockControls",
+    "source": "three.js",
+    "author": "three.js contributors",
+    "licence": "MIT",
+    "url": "https://github.com/mrdoob/three.js/blob/r186/examples/jsm/controls/PointerLockControls.js",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "lucide-hall-walk-arrows",
+    "what": "Four directional walking buttons in the hall",
+    "title": "Arrow Up",
+    "source": "Lucide",
+    "author": "Lucide contributors",
+    "licence": "ISC + Feather-derived MIT",
+    "url": "https://lucide.dev/icons/arrow-up",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "polyhaven-studio-small-09",
+    "what": "The studio light and reflections on the Volatility Instrument at the QVR stop and on the Education chalkboard (downsampled to 512 x 256 .hdr)",
+    "title": "Studio Small 09 (HDRI)",
+    "source": "Poly Haven",
+    "author": "Sergej Majboroda",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/studio_small_09",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "magicui-ripple-button",
+    "what": "The press ripple on the Market shock button at the QVR stop (ported to vanilla TypeScript and one anime.js tween; violet disc, 600 ms)",
+    "title": "Ripple Button (Magic UI)",
+    "source": "Magic UI, GitHub, commit cdb348c",
+    "author": "Dillion Verma and the Magic UI contributors",
+    "licence": "MIT",
+    "url": "https://github.com/magicuidesign/magicui/blob/cdb348cb4c72a9b54b554d8617801e479fbc8714/apps/www/registry/magicui/ripple-button.tsx",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "ambientcg-metal009",
+    "what": "Brushed aluminium deck, rails, vol post and fascia of the Volatility Instrument (512 px maps, WebP, in qvr-instrument.glb)",
+    "title": "Metal 009",
+    "source": "ambientCG",
+    "author": "Lennart Demes (ambientCG)",
+    "licence": "CC0 (public domain)",
+    "url": "https://ambientcg.com/view?id=Metal009",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "ambientcg-metal051a",
+    "what": "Circular-brushed dial faces of the Volatility Instrument (512 px maps, WebP, in qvr-instrument.glb)",
+    "title": "Metal 051 A",
+    "source": "ambientCG",
+    "author": "Lennart Demes (ambientCG)",
+    "licence": "CC0 (public domain)",
+    "url": "https://ambientcg.com/view?id=Metal051A",
+    "retrieved": "2026-10-11"
+  },
+  {
+    "id": "jscad-involute-gear",
+    "what": "Involute tooth flanks of every wheel and pinion in The Movement at the watchdog stop (src/v3/world/extras/stages/movement3d/gears.ts: the flank maths ported to 3D extruded outlines; and the fallback src/v3/world/extras/stages/movement/geom.ts: the same maths ported to a closed 2D SVG outline)",
+    "title": "Parametric Involute Gear (OpenJSCAD example)",
+    "source": "jscad/OpenJSCAD.org, packages/examples/parameters/gear.js",
+    "author": "Joost Nieuwenhuijse and Simon Clark",
+    "licence": "MIT",
+    "url": "https://github.com/jscad/OpenJSCAD.org/blob/master/packages/examples/parameters/gear.js",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "polyhaven-forest-slope",
+    "what": "The bouldering forest at the Bouldering stop: backdrop (8k crop), full sphere, lighting environment and the Cycles bake of the field (tonemapped to display values)",
+    "title": "Forest Slope",
+    "source": "Poly Haven",
+    "author": "Andreas Mischok",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/forest_slope",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "polyhaven-rock-moss-set-01",
+    "what": "Mossy rocks scattered round the Bouldering stop (decimated, light baked into vertex colour, 1k WebP)",
+    "title": "Rock Moss Set 01",
+    "source": "Poly Haven",
+    "author": "Kless Gyzen",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/rock_moss_set_01",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "polyhaven-fern-02",
+    "what": "Ferns scattered round the Bouldering stop (light baked into vertex colour, 1k WebP with alpha)",
+    "title": "Fern 02",
+    "source": "Poly Haven",
+    "author": "Rob Tuytel (scanning), Rico Cilliers (modeling)",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/fern_02",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "polyhaven-forest-ground-04",
+    "what": "The trodden soil of the landing zone at the Bouldering stop (1k WebP, tiled)",
+    "title": "Forest Ground 04",
+    "source": "Poly Haven",
+    "author": "Rob Tuytel (photography, processing), Rico Cilliers (adjustment)",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/forest_ground_04",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "quaternius-woman-tank-top",
+    "what": "The climber in the Bouldering stop's climbing game (rigged; posed by IK in code; the pack's Clapping clip on the send)",
+    "title": "Woman in Tank Top (Ultimate Animated Character Pack)",
+    "source": "Quaternius via Poly Pizza",
+    "author": "Quaternius",
+    "licence": "CC0 (public domain)",
+    "url": "https://poly.pizza/m/XqzeZGB7iU",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "magicui-lens",
+    "what": "The loupe in The Movement at the watchdog stop (src/v3/world/extras/stages/movement/movement.ts): Magic UI Lens's idea of a magnified copy of the content clipped to a circle at the pointer, ported to vanilla TS as an SVG <use> clone of every part inside a clipPath circle at 3x (no React or Motion code taken)",
+    "title": "Lens",
+    "source": "magicuidesign/magicui, apps/www/registry/magicui/lens.tsx (read through the Magic UI MCP)",
+    "author": "Magic UI (Dillion Verma and contributors)",
+    "licence": "MIT",
+    "url": "https://magicui.design/docs/components/lens",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "21st-product-tour-popover",
+    "what": "The walkthrough card at the QVR stop: the step popover pattern (sliding, fading step body, progress marks, Skip and Next), re-built in vanilla TypeScript, CSS and anime.js",
+    "title": "Product Tour Popover (21st.dev)",
+    "source": "21st.dev, component id 29891 (@shadcnspace/product-tour-popover); React, Radix and Tailwind dropped, none of its source kept",
+    "author": "shadcnspace",
+    "licence": "Published on 21st.dev without a licence file; used as a pattern reference only",
+    "url": "https://21st.dev/@shadcnspace/components/product-tour-popover",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "ems-tech",
+    "what": "Single-stroke handwriting for the Education chalkboard: the chalk strokes of the characters in src/data/coursework.json, flattened to polylines in src/data/handwriting-tech.json (scripts/gen-handwriting.mjs); the capital I (with serifs, for the roman numerals) and the en dash are redrawn by hand in the same style, in scripts/gen-handwriting.mjs",
+    "title": "EMS Tech (Hershey Text set)",
+    "source": "Evil Mad Scientist, via github.com/techninja/hersheytextjs (MIT)",
+    "author": "Sheldon B. Michaels and Windell H. Oskay; a derivative of Architects Daughter by Kimberly Geswein",
+    "licence": "SIL Open Font License 1.1 (the font's own metadata)",
+    "url": "https://github.com/techninja/hersheytextjs/blob/master/svg_fonts/EMSTech.svg",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "polyhaven-oak-veneer-01",
+    "what": "The oak frame and chalk ledge of the Education chalkboard (1K maps resized to 1024 / 512 px, WebP, in chalkboard.glb; scripts/blender/chalkboard.py)",
+    "title": "Oak Veneer 01",
+    "source": "Poly Haven",
+    "author": "Jenelle van Heerden",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/oak_veneer_01",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "polyhaven-standing-chalkboard-01",
+    "what": "The cloudy residue of old erasures on the Education chalkboard's slate: the wipe streaks of this model's board roughness map, cropped to one face, grey, WebP (public/media/chalk/slate-wipes.webp)",
+    "title": "Standing Chalkboard 01 (board roughness map)",
+    "source": "Poly Haven",
+    "author": "ParzivalCG",
+    "licence": "CC0 (public domain)",
+    "url": "https://polyhaven.com/a/standing_chalkboard_01",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "0xmmo-chalkboard",
+    "what": "The broken grain of the chalk strokes on the Education chalkboard: small specks cleared along each stroke, ported to src/v3/world/extras/stages/chalkboard/chalk.ts (seeded, per pressure piece)",
+    "title": "chalkboard (realistic chalk effect)",
+    "source": "github.com/0xmmo/chalkboard, js/chalk.js at c7bee58",
+    "author": "Mohamed Moustafa",
+    "licence": "MIT",
+    "url": "https://github.com/0xmmo/chalkboard",
+    "retrieved": "2026-10-12"
+  },
+  {
+    "id": "love-island-dynamics-demo",
+    "what": "The interactive Love Island Dynamics demo, embedded in the Love Island case view and published at demos/love-island/: a 3D villa and phase space, charts and controls over the paper's coupled equations (all figures simulated; 25 invented islanders). Its build bundles three.js and anime.js, and four fonts (Bodoni Moda, Instrument Serif, Archivo, IBM Plex Mono)",
+    "title": "Love Island Dynamics (interactive demo)",
+    "source": "This site, built from the standalone project love-island-dynamics; three.js 0.186.1 and anime.js 4.5.0 (both MIT); fonts via Fontsource",
+    "author": "Joseph Blumberg",
+    "licence": "Own work; three.js and anime.js are MIT; the four fonts are SIL Open Font License 1.1",
+    "url": "https://github.com/mrdoob/three.js",
+    "retrieved": "2026-10-14"
+  }
+]

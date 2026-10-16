@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Zetamac Trial Logger",
+  "version": "1.0.0",
+  "description": "Logs per-question timing from the original arithmetic.zetamac.com without altering problem generation.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://arithmetic.zetamac.com/*",
+        "http://arithmetic.zetamac.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

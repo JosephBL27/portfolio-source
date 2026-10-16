@@ -1,0 +1,29 @@
+/* Blueprint annotations (unit 14V, src/v3/ui/annotate.ts): ivory hairlines that draw on from a dot on the subject to a short label. Sits above the copy
+   (z 44, under the Index at 45), never takes the pointer, never hides the native cursor. */
+#annot { position: fixed; inset: 0; z-index: 44; pointer-events: none; overflow: hidden; }
+.ann { position: absolute; left: 0; top: 0; will-change: transform; }
+.ann-svg { position: absolute; left: 0; top: 0; overflow: visible; }
+.ann-pb { fill: none; stroke: rgba(5, 5, 6, .62); stroke-width: 3.6; stroke-linecap: round; opacity: 0; transition: opacity .6s .2s; vector-effect: non-scaling-stroke; }
+.ann.on .ann-pb { opacity: 1; }
+.ann-p { fill: none; stroke: color-mix(in srgb, var(--ink, #EDE6D6) 92%, transparent); stroke-width: 1.2; stroke-dasharray: 1; stroke-dashoffset: 1; vector-effect: non-scaling-stroke; transition: stroke-dashoffset .9s cubic-bezier(.65, 0, .2, 1), opacity .3s; }
+.ann-d { fill: var(--ink, #EDE6D6); stroke: rgba(5, 5, 6, .7); stroke-width: 1.6; opacity: 0; transform: scale(.2); transform-box: fill-box; transform-origin: center; transition: opacity .3s, transform .45s cubic-bezier(.16, 1, .3, 1); }
+.ann-r { fill: rgba(5, 5, 6, .18); stroke: color-mix(in srgb, var(--ink, #EDE6D6) 85%, transparent); stroke-width: 1; opacity: 0; transform: scale(.4); transform-box: fill-box; transform-origin: center; transition: opacity .4s, transform .6s cubic-bezier(.2, .9, .3, 1); }
+.ann-l {
+  position: absolute; left: 0; top: 0; width: max-content; max-width: min(240px, 46vw); padding: 3px 7px; border-radius: 3px; background: rgba(5, 5, 6, .74); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); display: flex; flex-direction: column; gap: 2px; opacity: 0; color: var(--ink, #EDE6D6);
+  transform: translate(var(--lx, 0), var(--ly, 0)); transition: opacity .35s ease-out;
+  text-shadow: 0 0 10px rgba(5, 5, 6, .9), 0 0 3px rgba(5, 5, 6, .9);
+}
+.ann-l[data-al='r'] { margin-left: 8px; }
+.ann-l[data-al='l'] { margin-left: -8px; align-items: flex-end; text-align: right; transform: translate(calc(var(--lx, 0px) - 100%), var(--ly, 0)); }
+.ann-l[data-al='c'] { align-items: center; text-align: center; transform: translate(calc(var(--lx, 0px) - 50%), var(--ly, 0)); }
+.ann-l[data-v='u'] { margin-top: -4px; translate: 0 -100%; }
+.ann-l[data-v='d'] { margin-top: 4px; }
+.ann-h { font: 500 12px/1.25 var(--mono, 'IBM Plex Mono', monospace); letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+.ann-s { font: 400 10.5px/1.3 var(--mono, 'IBM Plex Mono', monospace); letter-spacing: .08em; text-transform: uppercase; color: color-mix(in srgb, var(--ink, #EDE6D6) 84%, transparent); }
+.ann.on .ann-p { stroke-dashoffset: 0; }
+.ann.on .ann-d { opacity: 1; transform: scale(1); }
+.ann.on .ann-r { opacity: .8; transform: scale(1); }
+.ann.on .ann-l { opacity: 1; transition-delay: .45s; }
+@media (max-width: 700px) { .ann-h { font-size: 11px; } .ann-s { display: none; } }
+html.rm .ann-p, html.rm .ann-d, html.rm .ann-r, html.rm .ann-l { transition-duration: .01s; transition-delay: 0s; }
+@media (prefers-reduced-motion: reduce) { .ann-p, .ann-d, .ann-r, .ann-l { transition-duration: .01s; transition-delay: 0s; } }

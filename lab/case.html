@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" data-theme="night">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PNEUMA lab: the case view</title>
+  <style>
+    :root { --paper:#EEECE6; --paper-raised:#F7F5F0; --ink:#121212; --graphite:#5A5853; --rule:#CBC7BD; --brain:#E0442B; --running:#1E7A47; --delivered:#E9B321; color-scheme: light; }
+    :root[data-theme='night'] { --paper:#0E0F10; --paper-raised:#17191B; --ink:#ECEAE3; --graphite:#9A978F; --rule:#2C2E31; --brain:#FF6A4D; --running:#4CC38A; --delivered:#F2C14E; color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--paper); color: var(--ink); }
+    body { font-family: 'Archivo Variable', system-ui, sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+    .mono { font: 500 11px/1 'IBM Plex Mono', monospace; letter-spacing: .12em; text-transform: uppercase; }
+    .bar { display: flex; justify-content: space-between; align-items: center; height: 56px; padding: 0 48px; border-bottom: 1px solid var(--rule); }
+    .bar button { font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--ink); background: none; border: 1px solid var(--rule); border-radius: 999px; padding: 8px 12px; cursor: pointer; }
+    .bar button[aria-pressed='true'] { background: var(--ink); color: var(--paper); }
+    .set { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; padding: 56px 48px; align-items: center; min-height: calc(100vh - 56px); }
+    .tv { position: relative; border-radius: 34px; padding: 26px 26px 64px; background: linear-gradient(160deg, #2a2c2f, #121314); box-shadow: 0 40px 90px -40px #000, inset 0 1px 0 #ffffff22; }
+    .tv-screen { position: relative; display: block; width: 100%; aspect-ratio: 16 / 10; border-radius: 18px; overflow: hidden; background: #000; border: 0; padding: 0; cursor: pointer; }
+    .tv-screen canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    .tv-screen::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(to bottom, #0005 0 1px, transparent 1px 3px), radial-gradient(120% 100% at 50% 50%, transparent 60%, #000a); pointer-events: none; }
+    .tv-label { position: absolute; left: 30px; right: 30px; bottom: 22px; display: flex; justify-content: space-between; color: #9A978F; }
+    .tv-label b { color: #ECEAE3; font-weight: 600; }
+    h1 { margin: 0 0 22px; font-weight: 800; font-stretch: 112%; font-size: 44px; letter-spacing: -.03em; line-height: 1; }
+    .rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+    .rows button { width: 100%; display: grid; grid-template-columns: 44px 1fr auto; gap: 14px; align-items: baseline; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--rule); color: var(--ink); padding: 16px 4px; cursor: pointer; font: inherit; }
+    .rows button:hover { background: var(--paper-raised); }
+    .rows .nm { font-weight: 650; font-size: 19px; }
+    .rows .ln { display: block; color: var(--graphite); font-size: 13.5px; margin-top: 3px; }
+    @media (max-width: 899px) { .set { grid-template-columns: 1fr; padding: 24px 20px; } .bar { padding: 0 20px; } }
+  </style>
+</head>
+<body>
+  <div class="bar"><span class="mono">PNEUMA lab · case view</span>
+    <span><button id="pause" class="mono" aria-pressed="false">Pause</button> <button id="night" class="mono" aria-pressed="true">Night</button></span></div>
+  <main class="set">
+    <div class="tv">
+      <button class="tv-screen" id="tv" aria-label="Open the work on this channel"><canvas></canvas></button>
+      <div class="tv-label mono"><span><b id="tv-n">01</b> / 06 · <span id="tv-t"></span></span><span>Click the screen</span></div>
+    </div>
+    <div>
+      <h1>The set</h1>
+      <ul class="rows" id="rows"></ul>
+    </div>
+  </main>
+  <script type="module" src="./case.ts"></script>
+</body>
+</html>

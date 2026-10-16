@@ -1,0 +1,41 @@
+/* The ending: the last stop IS the overview, shown inline (world/extras/finale/panel.ts builds the same page the O key opens, ui/overview.ts buildOverviewBody).
+   The 3D world stays behind a quiet scrim (no backdrop blur: a full-screen blur over a live canvas is the expensive kind). The scroller is its own scroll
+   container with overscroll-behavior: contain, so a wheel, a swipe or an arrow key inside it scrolls the page of facts and never the flight (stepper.ts stands
+   down over a scrollable element). The HUD stays on top (z 60): --fin-hud keeps the content clear of its top row, the bottom padding of its bottom band.
+   The page's own classes (.ovw-*, .contact) are styled in overview.css. */
+.fin { position: fixed; inset: 0; z-index: var(--z-overlay); pointer-events: none; display: none; opacity: var(--v, 0); --fin-hud: 80px; }
+.fin.live { display: block; }
+.fin.out { transition: opacity .24s var(--ease-out); }
+.fin .mono { white-space: normal; }
+.fin-scrim { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 90% 70% at 50% 30%, color-mix(in srgb, var(--ground) 84%, transparent), color-mix(in srgb, var(--ground) 94%, transparent) 80%); }
+.fin-scroll {
+  position: absolute; inset: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--hair) transparent;
+  pointer-events: none; color: var(--ink); contain: layout paint;
+}
+.fin.on .fin-scroll { pointer-events: auto; }
+.fin-scroll:focus { outline: none; }
+.fin-scroll::-webkit-scrollbar { width: 8px; }
+.fin-scroll::-webkit-scrollbar-thumb { background: var(--hair); border-radius: 4px; }
+/* the section anchors: pinned under the HUD's top row */
+.fin-bar { position: sticky; top: var(--fin-hud); z-index: 6; margin-top: var(--fin-hud); background: linear-gradient(color-mix(in srgb, var(--ground) 88%, transparent) 72%, transparent); }
+.fin .fin-in { padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }
+/* the ending's head is taller than the dialog's (the contact card leads): top-aligned, so the name and the card start on one line */
+.fin .fin-in .ovw-head { align-items: start; padding-top: clamp(8px, 2vh, 24px); }
+.fin :is(a, button):not(.ovw-main):focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+/* a group chip or a station entry scrolls its group to just under the sticky Projects bar (panel.ts measures the bar into --fin-pj) */
+.fin .ovw-g { scroll-margin-top: calc(var(--ovw-bar, 120px) + var(--fin-pj, 64px) - 24px); }
+
+/* the HUD sits on a soft ground at both edges over the ending, so rows scrolling under its name, its buttons and its counter never collide with them
+   (the same treatment as html.in-index had over the old Index); the radar and the camera readout step aside */
+html.fin-on #hud::before, html.fin-on #hud::after { opacity: .96; }
+html.fin-on #hud::before { height: 104px; background: linear-gradient(#050506 48%, rgba(5,5,6,0)); }
+html.fin-on #hud::after { height: 128px; background: linear-gradient(0deg, #050506 70%, rgba(5,5,6,0)); }
+html.fin-on #hud .ro, html.fin-on #hud .mm { opacity: 0; pointer-events: none; }
+
+@media (max-width: 760px), (max-aspect-ratio: 1/1) {
+  .fin { --fin-hud: 72px; }
+  html.fin-on #hud::before { height: 80px; background: linear-gradient(#050506 56%, rgba(5,5,6,0)); }
+  html.fin-on #hud::after { height: 104px; background: linear-gradient(0deg, #050506 62%, rgba(5,5,6,0)); }
+  .fin .fin-in { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+}
+html.rm .fin.out { transition: none; }

@@ -1,0 +1,50 @@
+/* ChomChom lab: soft violet road map. Scoped under .pl-cc (shared shell in lib/prod.css). */
+.pl-cc .cc-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.pl-cc .cc-map { position: relative; width: 100%; aspect-ratio: 2.1 / 1; min-height: 190px; overflow: hidden; background: radial-gradient(80% 90% at 30% 20%, rgba(127, 227, 196, 0.12), transparent 70%), linear-gradient(160deg, #15122a, #0c0a1a); }
+@container pl (max-width: 520px) { .pl-cc .cc-map { aspect-ratio: 1.45 / 1; } }
+/* the home card sits on the map, in the open corner above the road's first bend; once a stop is picked the card moves below the map to make room for the exercise */
+.pl-cc.is-home .cc-card { position: absolute; left: 14px; top: 14px; width: min(260px, 38%); min-height: 0; padding: 14px; background: rgba(12, 10, 26, 0.82); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: 0 18px 40px -18px #000, inset 0 1px 0 rgba(255, 255, 255, 0.07); z-index: 2; }
+@container pl (max-width: 520px) { .pl-cc.is-home .cc-card { position: static; width: auto; } }
+.pl-cc .cc-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pl-cc .cc-verge { fill: none; stroke: rgba(127, 227, 196, 0.18); stroke-width: 46; stroke-linecap: round; }
+.pl-cc .cc-road { fill: none; stroke: #2a2740; stroke-width: 34; stroke-linecap: round; }
+.pl-cc .cc-lane { fill: none; stroke: rgba(220, 207, 255, 0.5); stroke-width: 2.5; stroke-dasharray: 9 11; stroke-linecap: round; }
+.pl-cc .cc-car rect { fill: var(--pl-acc); } .pl-cc .cc-car .win { fill: #1a1330; } .pl-cc .cc-car circle { fill: #0c0a1a; stroke: #fff; stroke-width: 1.2; }
+.pl-cc .cc-car { filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6)); }
+.pl-cc .cc-stop { position: absolute; transform: translate(-50%, -50%); display: grid; justify-items: center; gap: 4px; min-width: 44px; min-height: 44px; padding: 0; border: 0; background: none; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.pl-cc .cc-stop i { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; font: normal 18px/1 var(--pl-sans); color: #fff; background: #2b2150; border: 2px solid var(--pl-acc); box-shadow: 0 0 0 0 rgba(var(--pl-glow), 0.5); transition: transform 0.25s var(--pl-ease), background 0.2s, box-shadow 0.3s; }
+.pl-cc .cc-stop span { position: absolute; top: 44px; white-space: nowrap; padding: 2px 7px; border-radius: 6px; font: 500 11.5px/1.2 var(--pl-mono); letter-spacing: 0.04em; color: var(--pl-ink); background: rgba(12, 10, 26, 0.82); }
+.pl-cc .cc-stop:nth-of-type(2) span, .pl-cc .cc-stop:nth-of-type(4) span { top: auto; bottom: 44px; }
+.pl-cc .cc-stop:hover i { transform: scale(1.12); background: #3d2f74; } .pl-cc .cc-stop:active i { transform: scale(0.94); }
+.pl-cc .cc-stop.is-here i { background: var(--pl-acc); color: #1a1330; box-shadow: 0 0 0 8px rgba(var(--pl-glow), 0.2); }
+.pl-cc.is-driving .cc-stop i { transform: none; }
+@container pl (max-width: 520px) { .pl-cc .cc-stop span { display: none; } .pl-cc .cc-stop.is-here span { display: block; } }
+.pl-cc .cc-card { display: grid; align-content: start; gap: 10px; padding: 16px; min-height: 210px; }
+.pl-cc .cc-card h4 { margin: 0; font: 640 20px/1.1 var(--pl-sans); color: #fff; }
+.pl-cc .cc-sub { margin: 0; font-size: 13.5px; color: var(--pl-dim); }
+.pl-cc .cc-say { margin: 0; min-height: 20px; font: 500 12px/1.4 var(--pl-mono); color: var(--pl-acc2); }
+.pl-cc .cc-moods, .pl-cc .cc-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.pl-cc .pl-btn.is-on { background: var(--pl-acc); color: #1a1330; border-color: var(--pl-acc2); }
+.pl-cc .cc-ta { width: 100%; resize: none; padding: 10px 12px; font: 14px/1.4 var(--pl-sans); color: var(--pl-ink); background: rgba(255, 255, 255, 0.05); border: 1px solid var(--pl-line); border-radius: 10px; }
+.pl-cc .cc-air { position: relative; height: 170px; display: grid; place-items: center; }
+.pl-cc .cc-guide { position: absolute; width: 150px; height: 150px; border-radius: 50%; border: 1.5px dashed rgba(220, 207, 255, 0.4); }
+.pl-cc .cc-orb { --b: 0; position: relative; width: 150px; height: 150px; border-radius: 50%; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.3); color: #1a1330; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent;
+  transform: scale(calc(0.4 + var(--b) * 0.6)); background: radial-gradient(circle at 35% 30%, #fff, var(--pl-acc2) 40%, var(--pl-acc)); box-shadow: 0 0 calc(10px + var(--b) * 50px) rgba(var(--pl-glow), calc(0.3 + var(--b) * 0.5)); }
+.pl-cc .cc-orb-t { font: 700 13px/1 var(--pl-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+.pl-cc .cc-stars { display: flex; gap: 8px; }
+.pl-cc .cc-stars i { width: 20px; height: 20px; clip-path: polygon(50% 0, 62% 36%, 100% 38%, 70% 60%, 80% 100%, 50% 76%, 20% 100%, 30% 60%, 0 38%, 38% 36%); background: rgba(255, 255, 255, 0.16); transition: background 0.3s, transform 0.4s var(--pl-ease); }
+.pl-cc .cc-stars i.on { background: #ffd66b; transform: scale(1.3) rotate(18deg); }
+.pl-cc .cc-card.win { box-shadow: 0 0 40px -6px rgba(255, 214, 107, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.07); }
+.pl-cc .cc-card.stamp .cc-save { animation: cc-stamp 0.4s var(--pl-ease); }
+@keyframes cc-stamp { 0% { transform: scale(1.3) rotate(-6deg); } 100% { transform: none; } }
+
+/* solace breathing vessel: two translucent halos trail the orb (slower than the hold, so the vessel seems to exhale after you), the idle guide ring drifts, and copy changes fade quietly */
+.pl-cc .cc-air { --b: 0; }
+.pl-cc .cc-halo { position: absolute; width: 150px; height: 150px; border-radius: 50%; pointer-events: none; border: 1px solid rgba(220, 207, 255, 0.28); background: radial-gradient(circle, rgba(var(--pl-glow), 0.14), transparent 68%);
+  transition: transform 1.6s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 1.6s ease; transform: scale(calc(0.5 + var(--b) * 0.62)); opacity: calc(0.25 + var(--b) * 0.6); }
+.pl-cc .cc-halo-b { transition-duration: 2.6s; transform: scale(calc(0.58 + var(--b) * 0.9)); opacity: calc(0.12 + var(--b) * 0.4); }
+.pl-cc .cc-guide { animation: cc-drift 7s ease-in-out infinite; }
+@keyframes cc-drift { 0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.04); opacity: 1; } }
+.pl-cc .cc-instr, .pl-cc .cc-orb-t { transition: opacity 0.5s ease; }
+.pl-cc .cc-orb:focus-visible { outline: 2px solid var(--pl-acc2); outline-offset: 6px; }
+@media (prefers-reduced-motion: reduce) { .pl-cc .cc-guide { animation: none; } .pl-cc .cc-halo { transition: none; } }

@@ -1,0 +1,21 @@
+/* Entry gate additions (loader.ts): the name under the Latin line, a brighter caption, and the stack that lifts as one when the gate rises.
+   The base loader and gate rules live in tokens.css. */
+#loader .ld-stack { display: grid; justify-items: center; gap: clamp(14px, 2.4vh, 24px); transition: translate .8s var(--ease-out); }
+#loader.is-gate .ld-stack { translate: 0 -8vh; }
+#loader .ld-stack .ld-line, #loader.is-gate .ld-stack .ld-line { transform: none; transition: none; }
+#loader .ld-id { display: grid; justify-items: center; gap: 7px; text-align: center; }
+#loader .ld-nm { margin: 0; font: 400 22px/1.1 var(--serif-d); font-variation-settings: 'opsz' 22; letter-spacing: 0.005em; color: var(--ink); }
+/* at the gate the name and the how line move into the gate block, above the two buttons */
+#loader.is-gate .ld-id { display: none; }
+.gate-who { display: grid; justify-items: center; gap: 10px; text-align: center; }
+.gate-nm { margin: 0; font: 400 clamp(26px, 2.6vw, 38px)/1.05 var(--serif-d); font-variation-settings: 'opsz' 36; letter-spacing: 0.005em; color: var(--ink); }
+.gate-what { margin: 0; max-width: 54ch; font: 400 clamp(15px, 1.2vw, 17px)/1.45 var(--sans); color: var(--dim); text-wrap: balance; }
+#loader .ld-sc { margin: 0; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+/* the caption keeps the --dim token at the gate (the base rule fades the whole meta row to .45; only the big counter stays faded) */
+#loader.is-gate .ld-meta { opacity: 1; }
+#loader.is-gate .ld-pct { opacity: .45; transition: opacity .6s var(--ease-out); }
+#loader .ld-cap { color: var(--dim); }
+.gate-n { text-wrap: balance; }
+@media (max-width: 760px) { #loader .ld-nm { font-size: 20px; } #loader.is-gate .ld-stack { translate: 0 -9vh; } }
+@media (prefers-reduced-motion: reduce) { #loader .ld-stack, #loader.is-gate .ld-pct { transition: none; } }
+html.rm #loader .ld-stack, html.rm #loader.is-gate .ld-pct { transition: none; }

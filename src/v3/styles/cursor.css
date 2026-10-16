@@ -1,0 +1,19 @@
+/* Serra "Custom cursor and small interactions", translated. The native cursor is never hidden: an 8px ivory dot
+   (direct) and the ring (smoothed) are additions. Controls stay restrained (200-250ms), press = 0.97, focus is visible. */
+#cursor .dot {
+  position: absolute; left: -4px; top: -4px; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent, #EDE6D6); box-shadow: 0 0 0 1px rgba(5,5,6,.85); opacity: 0; transition: opacity .22s var(--ease-out);
+}
+#cursor.on .dot { opacity: 1; }
+#cursor .ring { transition: scale .24s var(--ease-out), opacity .24s, background-color .22s, border-color .22s; }
+#cursor .ring.hot { background-color: rgba(237, 230, 214, .1); }
+#cursor .lbl {
+  position: absolute; left: 0; top: 30px; translate: -50% 0; font: 500 10px/1 var(--mono, ui-monospace, monospace);
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ink); text-shadow: 0 0 4px rgba(5,5,6,.95), 0 0 2px rgba(5,5,6,.95);
+  opacity: 0; transition: opacity .2s var(--ease-out); white-space: nowrap;
+}
+#cursor .lbl.on { opacity: 1; }
+html.rm #cursor .dot, html.rm #cursor .lbl, html.rm #cursor .ring { transition: none; }
+
+button:active:not(:disabled), .gate-btn:active { scale: .97; }
+a:focus-visible, button:focus-visible, [role="button"]:focus-visible, summary:focus-visible { outline: 2px solid var(--accent, #EDE6D6); outline-offset: 3px; }
